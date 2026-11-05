@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>R01 银色模型 · 细节检查</title>
+  <script src="ring-renderer.js?v=17" defer></script>
+  <script src="model-review.js?v=17" defer></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #20201e; color: #eee; font-family: -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
+    header { padding: 24px 32px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    header img { width: 200px; filter: invert(1); }
+    a { color: inherit; font-size: 12px; }
+    main { display: grid; grid-template-columns: minmax(0,1fr) 290px; min-height: calc(100svh - 90px); }
+    .viewer { min-width: 0; min-height: 650px; background: radial-gradient(ellipse at center,#343430,#171717); position: relative; }
+    canvas { width: 100%; height: 100%; position: absolute; inset: 0; touch-action: none; cursor: grab; }
+    canvas:active { cursor: grabbing; }
+    aside { border-left: 1px solid #ffffff26; padding: 32px 24px; }
+    h1 { font-size: 24px; font-weight: 500; line-height: 1.5; margin: 0 0 12px; }
+    p { color: #aaa; font-size: 13px; line-height: 1.8; margin: 10px 0 26px; }
+    .views { display: grid; gap: 10px; }
+    button { border: 1px solid #ffffff40; background: transparent; color: #eee; min-height: 44px; padding: 10px; cursor: pointer; font: inherit; font-size: 12px; text-align: left; }
+    button:hover { background: #ffffff10; }
+    button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid white; outline-offset: 4px; }
+    label { display: block; font-size: 12px; margin-top: 24px; }
+    input[type=range] { display: block; width: 100%; margin: 16px 0; accent-color: #bbb; }
+    input[type=checkbox] { accent-color: #999; }
+    .note { margin-top: 30px; font-size: 11px; }
+    @media(max-width:767px) {
+      header { padding: 20px; }
+      header img { width: 160px; }
+      main { grid-template-columns: 1fr; }
+      .viewer { min-height: 65svh; }
+      aside { padding: 24px; border-left: none; border-top: 1px solid #ffffff26; }
+      .views { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header><img src="assets/wordmark.svg" alt="乎零 HULING"><a href="./?v=17">返回官网原型 ↗</a></header>
+  <main>
+    <div class="viewer"><canvas id="review-ring" aria-label="R01 银色戒指三维检查，可拖动旋转" tabindex="0"></canvas></div>
+    <aside>
+      <h1>R01 银色模型<br>实拍参考首版</h1>
+      <p>拖动旋转，查看部件与内圈。<br>键盘方向键也可调整视角。</p>
+      <div class="views">
+        <button data-view="silhouette">立式轮廓</button>
+        <button data-view="controls">按键 / 麦克风 / 灯</button>
+        <button data-view="sensors">内圈传感器</button>
+        <button data-view="profile">内圈折角</button>
+      </div>
+      <label>放大细节<input id="zoom" type="range" min="20" max="55" value="31"></label>
+      <label><input id="led" type="checkbox" checked> 白色指示灯</label>
+      <p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。当前仅展示银色。</p>
+    </aside>
+  </main>
+</body>
+</html>

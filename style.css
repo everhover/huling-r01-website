@@ -302,3 +302,5 @@ canvas.haptic { animation: tactile .22s linear; }
   .wear-details p { font-size: 16px; }
   .wear-notes { font-size: 12px; }
 }
+
+.ring-fallback { position: absolute; object-fit: contain; pointer-events: none; }
