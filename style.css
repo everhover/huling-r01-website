@@ -291,14 +291,14 @@ canvas.haptic { animation: tactile .22s linear; }
   .health-tech p { font-size: 16px; }
 }
 
-.wear-details { display: grid; gap: 22px; margin-top: 36px; }
-.wear-details p { font-size: clamp(16px, 1.45vw, 21px); line-height: 1.8; color: #ccc; }
+.wear-details { display: grid; gap: 10px; margin-top: 30px; }
+.wear-details p { font-size: clamp(16px, 1.45vw, 21px); line-height: 1.6; color: #ccc; }
 .wear-details sup { font-size: 10px; margin-left: 3px; }
 .wear-notes { margin: 32px 0 0; padding-left: 18px; color: #969692; font-size: 12px; line-height: 1.9; }
 .wear-notes li + li { margin-top: 8px; }
 .finishes .color-picker { margin-top: 36px; }
 @media (max-width: 767px) {
-  .wear-details { gap: 20px; margin-top: 26px; }
+  .wear-details { gap: 10px; margin-top: 26px; }
   .wear-details p { font-size: 16px; }
   .wear-notes { font-size: 12px; }
 }
