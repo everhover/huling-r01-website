@@ -93,7 +93,7 @@ function createRingRenderer(canvas, options = {}) {
         vec2 mic = vec2(angularDistance(theta,-.87)*1.126,vLocal.z);
         vec2 led = vec2(angularDistance(theta,-1.06)*1.126,vLocal.z);
         bool microphoneOpening = refined
-          ? roundedBox(mic,vec2(.079*1.35,.079),.079*.70)<0.0
+          ? roundedBox(mic,vec2(.079*1.35,.079),.079*.94)<0.0
           : length(mic)<.079;
         if (microphoneOpening || length(led)<.026) discard;
       }
@@ -119,13 +119,13 @@ function createRingRenderer(canvas, options = {}) {
       vec3 light=base*(.23+.53*diffuse+.13*fill)+environment(reflected,roughness)*(.32+.18*fresnel);
       if (refined) {
         roughness=.62;
-        if (material>.5 && material<1.5) roughness=.24;
+        if (material>.5 && material<1.5) roughness=.19;
         if (material>1.5 && material<2.5) roughness=.30;
         if (material>3.5 && material<4.5) roughness=.28;
         vec3 metalReflection=environment(reflected,roughness)*vec3(.91,.925,.94);
         light=metalReflection+vec3(.015*diffuse+.008*fill);
         if (material<.5) light=metalReflection*.62+vec3(.13+.08*diffuse+.02*fill);
-        if (material>.5 && material<1.5) light=metalReflection*.50+vec3(.10+.07*diffuse);
+        if (material>.5 && material<1.5) light=metalReflection*.60+vec3(.085+.06*diffuse);
         if (material>1.5 && material<2.5) light=metalReflection*.48+vec3(.12+.08*diffuse);
         if (material>2.5 && material<3.5) light=vec3(.012);
       }
@@ -134,6 +134,7 @@ function createRingRenderer(canvas, options = {}) {
       if (material>1.5 && material<2.5) {
         float brushed=sin(vLocal.z*1800.0+sin(theta*500.0))*.003;
         light+=brushed;
+        if (refined) light+=(noise(vec3(theta*160.0,vLocal.z*1900.0,0.0))-.5)*.012;
       }
       if (material>4.5 && material<5.5) {
         // Woven microphone mesh, a dark recessed opening with thin crossing wires.
@@ -214,15 +215,23 @@ function createRingRenderer(canvas, options = {}) {
   lathe([[1.105,-.379],[1.12,-.37],[1.126,-.351],[1.126,.351],[1.12,.37],[1.105,.379]],0);
   lathe([[1.105,.379],[1.092,.381],[1.083,.379]],3);
   lathe([[1.105,-.379],[1.092,-.381],[1.083,-.379]],3);
-  lathe([[1.083,.379],[1.064,.386],[1.025,.386],[.974,.367],[.934,.334],[.898,.284],[.881,.252]],1);
-  lathe([[.881,-.252],[.898,-.284],[.934,-.334],[.974,-.367],[1.025,-.386],[1.064,-.386],[1.083,-.379]],1);
-  lathe([[.881,.252],[.875,.23],[.874,-.23],[.881,-.252]],2);
+  if (refined) {
+    // Photo detail: a narrow rolled lip, one broad machined chamfer, then a small inward fold.
+    const frontLip=[[1.083,.379],[1.069,.386],[1.045,.386],[1.039,.381],[.903,.283],[.887,.258],[.881,.248]];
+    lathe(frontLip,1);
+    lathe(frontLip.map(([r,z])=>[r,-z]).reverse(),1);
+    lathe([[.881,.248],[.875,.23],[.874,-.23],[.881,-.248]],2);
+  } else {
+    lathe([[1.083,.379],[1.064,.386],[1.025,.386],[.974,.367],[.934,.334],[.898,.284],[.881,.252]],1);
+    lathe([[.881,-.252],[.898,-.284],[.934,-.334],[.974,-.367],[1.025,-.386],[1.064,-.386],[1.083,-.379]],1);
+    lathe([[.881,.252],[.875,.23],[.874,-.23],[.881,-.252]],2);
+  }
 
   // Feature contours are tangent to the band; the microphone has real straight sides.
   function contour(angle,radius,aspect,rounded) {
     const cosine=Math.cos(angle),sine=Math.sin(angle);
     if (!rounded) return [cosine*radius*aspect,sine*radius];
-    const corner=radius*.70;
+    const corner=radius*.94;
     return [Math.sign(cosine)*(radius*aspect-corner)+corner*cosine,
       Math.sign(sine)*(radius-corner)+corner*sine];
   }
