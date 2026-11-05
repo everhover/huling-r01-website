@@ -78,7 +78,7 @@ function render() {
   }
   const next = Math.min(index + 1, chapters.length - 1);
   const distance = chapterTops[next] - chapterTops[index];
-  const fraction = distance > 0 ? Math.min(1, (localScroll - chapterTops[index]) / distance) : 0;
+  const fraction = distance > 0 ? Math.max(0, Math.min(1, (localScroll - chapterTops[index]) / distance)) : 0;
   const eased = reducedMotion.matches ? 0 : fraction * fraction * (3 - 2 * fraction);
   const views = mobileQuery.matches ? mobileViews : desktopViews;
   const view = {};
