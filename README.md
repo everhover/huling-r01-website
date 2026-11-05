@@ -75,3 +75,14 @@ Playwright 复核模型页 1440、1024、768、390、320px 四个视角、灯光
 用户认可影黑并提供四张金色实拍，要求继续制作金色，页面名称沿用已有“杏金”。新增暖玫瑰金细磨砂外圈、同色按键及麦克风凹边，麦克风网层采用金色；内圈与传感器、结构比例与现有两版共用。支持 `?finish=gold`，有独立杏金静态回退图。色温按实拍估计，仍待用户实物对照确认。
 
 Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放、三种回退图通过。新增前后雾银和影黑的同视角 Canvas 截图分别 SHA256 一致，原有两版完整保留。
+
+## 2026-11-06 · Three VI design studies
+
+- Comparison: `designs.html`; full pages: `design-a.html`, `design-b.html`, `design-c.html`.
+- A: warm-white editorial; B: charcoal precision; C: white/warm-gray planes following the existing ring transition.
+- Based on HULING VI 1.1.0 neutral colors (#171717, #FFFFFF, #F5F4F0, #E8E5DF, #595959, #D8D5CF); teal used only for small emphasis/actions. No new copy, section order or information hierarchy.
+- Exact body DOM parity with original `index.html` checked. Original website, model review, renderer and three model fallback assets preserved without modification.
+- `design-variants.js` uses the existing refined renderer and finish options; desktop/mobile view arrays are identical to `app.js`. No geometry, material or model lighting edits. C moves only a background plane alongside those coordinates.
+- Playwright: 108 chapter/viewport checks (three pages × six sections × 1440/1024/820/768/390/320 widths), screenshots reviewed, finish selection, FAQ and reduced-motion checked. Screenshots were reviewed on the authoring Mac; end-user previews are the GitHub Pages URLs above.
+- Known inherited text: the color caption still says this round displays silver, and FAQ mentions phone screenshot placeholders. These were deliberately left verbatim under the text-freeze instruction; model switching itself supports all three finishes.
+- Brand package limitation: `tokens/` and `fonts/` contain no usable parameter/font files, and the marks manifest is missing on this Mac. Colors were taken from the readable current `BRAND_RULES.md` and `DECISIONS.md`; existing official wordmark and existing system font stack retained. Full brand-package machine certification is not claimed.

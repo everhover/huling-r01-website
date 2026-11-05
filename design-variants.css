@@ -1,0 +1,149 @@
+/* HULING VI 1.1: neutral grounds, restrained teal, unchanged content hierarchy.
+   The three studies share markup, motion coordinates and the approved renderer. */
+:root {
+  --ground: #F5F4F0;
+  --foreground: #171717;
+  --secondary: #595959;
+  --hairline: #D8D5CF;
+  --action: #075A55;
+  --gutter: 7vw;
+  color-scheme: light;
+}
+body { background: var(--ground); color: var(--foreground); }
+header { padding-inline: var(--gutter); min-height: 112px; }
+header img { filter: none; }
+nav { gap: clamp(20px,2.6vw,40px); font-size: 13px; }
+nav a { position: relative; }
+nav a::after { content: ''; position: absolute; height: 1px; bottom: 7px; left: 0; right: 0; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 200ms; }
+nav a:hover::after { transform: scaleX(1); }
+nav a:nth-child(3) { border: 0; }
+.app-download, .app-download small { color: var(--secondary); }
+.stage { background: var(--ground); }
+.grain { display: none; }
+.chapter { padding-inline: var(--gutter); }
+.eyebrow { color: var(--secondary); font-size: 11px; letter-spacing: .14em; margin-bottom: 32px; }
+h1,h2 { letter-spacing: -.055em; }
+.description,.health-tech p,.wear-details p { color: var(--secondary); }
+.manifesto { color: var(--foreground); }
+.period { color: var(--secondary); }
+.hero-line { letter-spacing: .015em; }
+.hero-tagline { line-height: 1.6; }
+.explore { border-color: var(--action); color: var(--action); gap: 64px; font-size: 13px; padding-block: 16px; }
+.explore span,.closing a span { transition: transform 200ms; }
+.explore:hover span { transform: translateY(3px); }
+.hero-footer { color: var(--secondary); left: var(--gutter); right: var(--gutter); bottom: 32px; padding-top: 24px; border-top: 1px solid var(--hairline); }
+.hero-footer span:last-child { margin-right: 0; }
+.stage-caption { color: var(--secondary); font-size: 10px; right: var(--gutter); bottom: 72px; }
+.chapter-index { right: 2.5vw; color: var(--secondary); }
+.chapter-index i { background: var(--hairline); height: 80px; }
+#chapter { color: var(--foreground); }
+.question .description { color: var(--secondary); }
+.noise { color: var(--secondary); opacity: .42; }
+.health-tech { border-color: var(--hairline); }
+.health-tech h3 { color: var(--foreground); }
+.wear-notes,.color-caption { color: var(--secondary); }
+.color-picker { gap: 12px; }
+.color-picker button { min-height: 48px; min-width: 112px; justify-content: center; font-size: 13px; color: var(--secondary); border-color: var(--hairline); transition: background 140ms,transform 140ms,border-color 140ms; }
+.color-picker button[aria-pressed=true] { color: var(--foreground); border-color: var(--foreground); }
+.color-picker button:hover { background: var(--hover-ground,#E8E5DF); transform: translateY(-1px); }
+.color-picker button:active { transform: translateY(1px) scale(.985); }
+.color-caption { font-size: 11px; line-height: 1.7; }
+a:focus-visible,button:focus-visible,summary:focus-visible { outline-color: #0F766E; }
+.closing { background: #E8E5DF; color: #171717; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.closing a { align-self: center; color: #075A55; border-color: #075A55; font-size: 14px; }
+.closing a:hover span { transform: translateY(-3px); }
+.faq { background: #F5F4F0; padding-block: 112px; }
+.faq summary { font-size: 16px; }
+.faq details p { font-size: 16px; color: #595959; }
+.faq details { border-color: #D8D5CF; }
+footer { background: #F5F4F0; border-color: #D8D5CF; color: #595959; padding-inline: var(--gutter); }
+footer p,footer a { font-size: 12px; }
+/* A / quiet, bright product editorial. */
+html[data-design=a] .stage { background: linear-gradient(120deg,#FFFFFF 0%,#F5F4F0 62%,#E8E5DF 100%); }
+html[data-design=a] .eyebrow { display: flex; align-items: center; gap: 12px; }
+html[data-design=a] .eyebrow::before { content: ''; width: 24px; height: 1px; background: #0F766E; flex-shrink: 0; }
+html[data-design=a] .question .eyebrow { justify-content: center; }
+html[data-design=a] .color-picker button { border-radius: 24px; }
+html[data-design=a] .closing .eyebrow { justify-content: center; }
+/* B / instrument-like charcoal; warm white rules, one teal action. */
+html[data-design=b] { --ground:#171717; --foreground:#FFFFFF; --secondary:#D8D5CF; --hairline:#595959; --action:#FFFFFF; --hover-ground:#595959; color-scheme:dark; }
+html[data-design=b] header img { filter: invert(1); }
+html[data-design=b] header { border-bottom: 1px solid #595959; }
+html[data-design=b] .stage { background: radial-gradient(ellipse at 74% 48%,#595959 0%,#171717 62%); }
+html[data-design=b] .stage::before { content: ''; position: absolute; top: 144px; bottom: 112px; left: var(--gutter); right: var(--gutter); border-left: 1px solid #595959; border-right: 1px solid #595959; pointer-events:none; opacity:.4; }
+html[data-design=b] .copy { padding-left: 24px; }
+html[data-design=b] .question .copy { padding-left:0; }
+html[data-design=b] .eyebrow { font-family: ui-monospace,"PingFang SC",sans-serif; letter-spacing:.1em; }
+html[data-design=b] .explore { background:#0F766E; color:#FFFFFF; border:0; padding:16px 24px; gap:48px; }
+html[data-design=b] .hero-footer { border-color:#595959; }
+html[data-design=b] .color-picker button[aria-pressed=true] { background:#FFFFFF; color:#171717; }
+html[data-design=b] .closing { background:#F5F4F0; }
+html[data-design=b] .closing .eyebrow { color:#595959; }
+html[data-design=b] .closing > p:not(.eyebrow) { color:#595959; }
+html[data-design=b] .faq { background:#171717; color:#FFFFFF; }
+html[data-design=b] .faq .eyebrow,html[data-design=b] .faq details p { color:#D8D5CF; }
+html[data-design=b] .faq details { border-color:#595959; }
+html[data-design=b] footer { background:#171717; color:#D8D5CF; border-color:#595959; }
+html[data-design=b] footer img { filter:invert(1); }
+/* C / warm architectural planes, precise cuts and contrasting close. */
+html[data-design=c] { --ground:#FFFFFF; }
+html[data-design=c] .stage { background:#FFFFFF; }
+html[data-design=c] .stage canvas { position:relative; z-index:1; }
+html[data-design=c] .stage-caption,html[data-design=c] .chapter-index { z-index:2; }
+html[data-design=c] .stage::after { content:''; position:absolute; left:0; top:0; bottom:0; width:43%; background:#E8E5DF; transform:translateX(var(--plane-shift,132.558%)); pointer-events:none; }
+html[data-design=c] .eyebrow { border-top:1px solid #D8D5CF; padding-top:16px; width:fit-content; min-width:160px; }
+html[data-design=c] .question .eyebrow { margin-inline:auto; }
+html[data-design=c] .hero-footer { border:0; }
+html[data-design=c] .explore { border:1px solid #171717; color:#171717; padding:16px 24px; }
+html[data-design=c] .question .copy { width:100%; }
+html[data-design=c] .body-chapter .copy { padding:0; }
+html[data-design=c] .color-picker { gap:0; }
+html[data-design=c] .color-picker button + button { border-left:0; }
+html[data-design=c] .color-picker button[aria-pressed=true] { box-shadow:inset 0 -3px #0F766E; }
+html[data-design=c] .closing { background:#171717; color:#FFFFFF; }
+html[data-design=c] .closing .eyebrow { align-self:center; color:#D8D5CF; border-color:#595959; }
+html[data-design=c] .closing > p:not(.eyebrow) { color:#D8D5CF; }
+html[data-design=c] .closing a { color:#FFFFFF; border-color:#FFFFFF; }
+@media (min-width:768px) and (max-width:1100px) {
+  nav { gap:16px; font-size:11px; }
+  header img { width:240px; }
+  .hero-line { font-size:clamp(23px,2.3vw,34px); }
+  .body-chapter h2 { font-size:clamp(40px,5.1vw,84px); }
+}
+@media (max-width:767px) {
+  :root { --gutter:24px; }
+  header { background:var(--ground); padding:24px; min-height:160px; gap:16px; }
+  header img { width:160px; }
+  nav { gap:8px; font-size:11px; }
+  .stage-caption { right:24px; bottom:24px; font-size:9px; }
+  .chapter-index { right:12px; }
+  .chapter-index i { height:40px; }
+  .eyebrow { font-size:11px; margin-bottom:24px; }
+  .chapter,.hero,.idea { padding-top:48px; padding-bottom:360px; }
+  .hero-line { font-size:24px; }
+  .description { font-size:16px; line-height:1.7; }
+  .manifesto { font-size:20px; line-height:1.6; }
+  .question .description { font-size:19px; }
+  .health-tech h3 { font-size:20px; }
+  .health-tech p { font-size:16px; }
+  .color-picker button { min-width:0; flex:1; padding:12px; }
+  .wear-notes { font-size:12px; }
+  .faq { padding:72px 24px; }
+  .faq h2 { font-size:32px; }
+  .closing { min-height:100svh; padding:72px 24px; }
+  footer { padding:40px 24px; }
+  html[data-design=b] header { border:0; }
+  html[data-design=b] .stage::before { inset:24px 12px 56px; }
+  html[data-design=b] .copy { padding-left:0; }
+  html[data-design=c] .stage { background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 57%,#E8E5DF 57%,#E8E5DF 100%); }
+  html[data-design=c] .stage::after { display:none; }
+  html[data-design=c] .stage canvas { position:absolute; }
+  html[data-design=c] .body-chapter .copy { background:transparent; padding:0; }
+  html[data-design=c] .question .copy { padding:0; background:transparent; }
+  html[data-design=c] .eyebrow { padding-top:12px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  *,*::before,*::after { transition:none!important; }
+}
+
+html[data-design=c] .ring-fallback { z-index:1; }
