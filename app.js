@@ -73,7 +73,7 @@ function render() {
   const localScroll = Math.max(0, scrollY);
   let index = 0;
   for (let i = 1; i < chapterTops.length; i++) {
-    if (localScroll >= chapterTops[i]) index = i;
+    if (localScroll >= chapterTops[i] - 1) index = i;
   }
   const next = Math.min(index + 1, chapters.length - 1);
   const distance = chapterTops[next] - chapterTops[index];
@@ -85,6 +85,16 @@ function render() {
     view[key] = views[index][key] + (views[next][key] - views[index][key]) * eased;
   }
   document.querySelector('#chapter').textContent = String(Math.min(5, index + 1)).padStart(2, '0');
+  // On short phones the product follows the health copy instead of covering it.
+  let mobileOffset = 0;
+  if (mobileQuery.matches && index === 3) {
+    const copyBottom = chapters[3].querySelector('.copy').getBoundingClientRect().bottom;
+    const stage = document.querySelector('.stage').getBoundingClientRect();
+    const canvasTop = stage.bottom - 45 - height;
+    mobileOffset = Math.max(0, copyBottom + 12 - canvasTop);
+  }
+  canvas.style.transform = mobileOffset ? `translateY(${mobileOffset}px)` : '';
+
   context.clearRect(0, 0, width, height);
   const scale = Math.min(width, height) * view.size;
   const centerX = width * view.x;

@@ -282,3 +282,11 @@ canvas.haptic { animation: tactile .22s linear; }
   .idea h2 { font-size: clamp(30px, 8vw, 48px); }
   .idea-title-line { white-space: normal; }
 }
+
+.health-tech { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 24px; }
+.health-tech h3 { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.5; }
+.health-tech p { margin-top: 12px; color: #b9b9b2; font-size: 16px; line-height: 1.8; }
+@media (max-width: 767px) {
+  .health-tech h3 { font-size: 20px; }
+  .health-tech p { font-size: 16px; }
+}
