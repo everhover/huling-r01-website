@@ -8,7 +8,6 @@ let width = 0;
 let height = 0;
 let pendingFrame = false;
 let chapterTops = [];
-let recordingState = 0;
 let selectedColor = 'silver';
 const finishes = {
   silver: { name: '雾银', rgb: [1, 1.004, 1.012] },
@@ -153,15 +152,15 @@ function render() {
     const ix = centerX + indicator[0] * scale * perspective;
     const iy = centerY + indicator[1] * scale * perspective;
     context.save();
-    context.fillStyle = recordingState === 1 ? '#ffffff' : '#343436';
+    context.fillStyle = index === 2 ? '#ffffff' : '#343436';
     context.shadowColor = '#ffffff';
-    context.shadowBlur = recordingState === 1 ? 8 : 0;
+    context.shadowBlur = index === 2 ? 8 : 0;
     context.beginPath();
     context.arc(ix, iy, Math.max(1.6, scale * .012), 0, Math.PI * 2);
     context.fill();
     context.restore();
   }
-  document.querySelector('#hardware-status').classList.toggle('visible', index === 2);
+  document.querySelector('#hardware-status').classList.toggle('visible', false);
   context.globalAlpha = 1;
 }
 
@@ -176,38 +175,6 @@ addEventListener('resize', resize);
 reducedMotion.addEventListener('change', queueFrame);
 resize();
 document.fonts.ready.then(resize);
-
-const record = document.querySelector('#record');
-record.addEventListener('click', () => {
-  recordingState = (recordingState + 1) % 3;
-  const recording = recordingState === 1;
-  const organized = recordingState === 2;
-  record.setAttribute('aria-pressed', String(recording));
-  document.querySelector('#record-label').textContent = [
-    '演示双击，开始录音', '再双击，结束并自动整理', '重新体验双击记录'
-  ][recordingState];
-  document.querySelector('.capture-label').textContent = [
-    '交互演示 / 试着交代两件事', '录音中 / 已轻震 · 白色指示灯亮起', '录音结束 / 待办与日程已自动整理'
-  ][recordingState];
-  document.querySelector('#capture-text').textContent = organized
-    ? '两件事，已各归其位。无需二次整理。'
-    : '“记得发出设计稿，明天下午三点和设计师开会。”';
-  document.querySelector('#organized-results').hidden = !organized;
-  document.querySelector('#hardware-status').classList.toggle('recording', recording);
-  document.querySelector('#hardware-label').textContent = recording
-    ? '白灯亮起 · 录音中' : '双击戒指，开始记录';
-  document.querySelector('#flow-start').classList.toggle('active', recording);
-  document.querySelector('#flow-speak').classList.toggle('active', recording);
-  document.querySelector('#flow-organize').classList.toggle('active', organized);
-  if (recording && !reducedMotion.matches) {
-    canvas.classList.remove('haptic');
-    void canvas.offsetWidth;
-    canvas.classList.add('haptic');
-  }
-  queueFrame();
-  resize();
-});
-canvas.addEventListener('animationend', () => canvas.classList.remove('haptic'));
 
 const colorButtons = [...document.querySelectorAll('[data-color]')];
 colorButtons.forEach(button => {

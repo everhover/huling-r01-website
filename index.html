@@ -44,20 +44,32 @@
       <section class="chapter idea" id="idea" data-scene="2" aria-labelledby="idea-title">
         <div class="copy">
           <p class="eyebrow">01 / 掌控想法</p>
-          <h2 id="idea-title">别让好想法，<br>只存在过。</h2>
+          <h2 id="idea-title">闪念不忘，<br>让大脑更多用来思考</h2>
           <p class="manifesto">双击，轻震，白灯亮起。<br>开口，把事情交给乎零。</p>
-          <p class="description">灵感随口说，事情一次交代。<br>录音内容自动整理成待办和日程，<br>说完就交给乎零，无需二次整理。</p>
-          <ol class="record-flow" aria-label="记录流程">
-            <li id="flow-start"><span>01</span><div>双击戒指<small>轻震反馈 · 白色指示灯亮起</small></div></li>
-            <li id="flow-speak"><span>02</span><div>说出要做的事<small>再双击，结束录音</small></div></li>
-            <li id="flow-organize"><span>03</span><div>待办、日程自动整理<small>无需你再分类、再整理</small></div></li>
-          </ol>
-          <button class="record" id="record" aria-pressed="false"><span class="record-dot"></span><span id="record-label">演示双击，开始录音</span><span>↗</span></button>
-          <div class="capture" id="capture" aria-live="polite"><span class="capture-label">交互演示 / 试着交代两件事</span><p id="capture-text">“记得发出设计稿，明天下午三点和设计师开会。”</p></div>
-          <div class="organized-results" id="organized-results" hidden>
-            <article><span>自动整理 / 待办</span><h3>发出设计稿</h3><p>从录音中提取要做的事</p></article>
-            <article><span>自动整理 / 日程</span><h3>与设计师开会</h3><p>明天 · 15:00</p></article>
-          </div>
+          <p class="description">录音内容自动整理成笔记、待办和日程，<br>未来还有无限可能</p>
+        </div>
+        <div class="capture-journey" aria-label="从戒指到录音与自动整理的视觉演示">
+          <figure class="journey-step">
+            <div class="journey-visual gesture-placeholder" role="img" aria-label="戒指双击动作素材占位，轻震并亮起白色指示灯">
+              <div class="gesture-ring"><i></i></div><div class="tap-mark">× 2</div>
+              <span class="placeholder-label">双击动作素材占位</span>
+            </div>
+            <figcaption><span>01 / 戒指</span><h3>双击，开始。</h3><p>轻震反馈，白色指示灯亮起。</p></figcaption>
+          </figure>
+          <figure class="journey-step">
+            <div class="journey-visual">
+              <!-- Replace this .phone-screen with the recording screenshot. -->
+              <div class="phone-placeholder"><div class="phone-screen"><span class="phone-brand">乎零</span><p class="phone-heading">正在录音</p><div class="wave-placeholder" aria-hidden="true">▂ ▅ ▃ ▇ ▄ ▆ ▂ ▅ ▃</div><p class="phone-hint">想到什么，说出来。</p><div class="phone-mic" aria-hidden="true">●</div><span class="phone-bottom">录音界面截图占位</span></div></div>
+            </div>
+            <figcaption><span>02 / 录音</span><h3>开口，留下。</h3><p>再双击戒指，结束录音。</p></figcaption>
+          </figure>
+          <figure class="journey-step">
+            <div class="journey-visual">
+              <!-- Replace this .phone-screen with the organized results screenshot. -->
+              <div class="phone-placeholder"><div class="phone-screen"><span class="phone-brand">乎零</span><p class="phone-heading">已为你整理</p><div class="phone-result">笔记<i></i></div><div class="phone-result">待办<i></i></div><div class="phone-result">日程<i></i></div><span class="phone-bottom">整理结果截图占位</span></div></div>
+            </div>
+            <figcaption><span>03 / 自动整理</span><h3>说完，各归其位。</h3><p>笔记、待办和日程，无需二次整理。</p></figcaption>
+          </figure>
         </div>
       </section>
       <section class="chapter body-chapter" id="body" data-scene="3" aria-labelledby="body-title">
@@ -97,7 +109,7 @@
       <div><p class="eyebrow">关于 R01</p><h2>再了解一点。</h2></div>
       <div class="faq-list">
         <details><summary>R01 和健康监测戒指有什么不同？</summary><p>R01 围绕“掌控想法、掌控身体”设计，将主动语音记录和身体状态体验放在同一枚戒指上。双击说出灵感和事情，录音内容自动整理成待办与日程，无需二次整理，通过 App 查看结果，同时了解自己的身体状态。</p></details>
-        <details><summary>怎样开始记录？会一直录音吗？</summary><p>双击戒指，轻震反馈、白色指示灯亮起，开始录音。再双击结束录音，内容自动整理成待办与日程，无需手动分类。记录由你主动触发，你决定开始与结束。本页按钮用于演示记录和整理过程。</p></details>
+        <details><summary>怎样开始记录？会一直录音吗？</summary><p>双击戒指，轻震反馈、白色指示灯亮起，开始录音。再双击结束录音，内容自动整理成待办与日程，无需手动分类。记录由你主动触发，你决定开始与结束。本页手机界面为截图占位示意。</p></details>
         <details><summary>R01 防水吗？</summary><p>R01 已通过 IPX8 测试，支持洗手佩戴。具体测试条件、其他涉水场景和保养要求，以产品说明为准。</p></details>
         <details><summary>有几种颜色？佩戴重吗？</summary><p>R01 提供雾银、影黑、杏金三种颜色。当前产品资料重量约为 4.6 g，具体重量以对应尺码规格为准。</p></details>
         <details><summary>在哪里查看价格、尺码和兼容性？</summary><p>本页为产品官网原型。价格、尺码、续航、兼容性及获取渠道将在产品信息确认后补充。</p></details>
