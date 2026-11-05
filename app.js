@@ -58,7 +58,8 @@ const desktopViews = [
   { x: .5, y: .52, size: .37, rx: 1.1, ry: .4, rz: .5, opacity: .12 },
   { x: .79, y: .5, size: .43, rx: .3, ry: -.95, rz: -.6, opacity: 1 },
   { x: .24, y: .52, size: .28, rx: -.4, ry: .5, rz: -.8, opacity: 1 },
-  { x: .76, y: .53, size: .26, rx: 1, ry: -.3, rz: .4, opacity: 1 }
+  { x: .76, y: .53, size: .26, rx: 1, ry: -.3, rz: .4, opacity: 1 },
+  { x: .74, y: .5, size: .28, rx: .36, ry: -.55, rz: -.5, opacity: 1 }
 ];
 const mobileViews = desktopViews.map(view => ({
   ...view,
@@ -84,11 +85,11 @@ function render() {
   for (const key of Object.keys(views[index])) {
     view[key] = views[index][key] + (views[next][key] - views[index][key]) * eased;
   }
-  document.querySelector('#chapter').textContent = String(Math.min(5, index + 1)).padStart(2, '0');
+  document.querySelector('#chapter').textContent = String(Math.min(chapters.length, index + 1)).padStart(2, '0');
   // On short phones the product follows the health copy instead of covering it.
   let mobileOffset = 0;
-  if (mobileQuery.matches && index === 3) {
-    const copyBottom = chapters[3].querySelector('.copy').getBoundingClientRect().bottom;
+  if (mobileQuery.matches && (index === 3 || index === 4)) {
+    const copyBottom = chapters[index].querySelector('.copy').getBoundingClientRect().bottom;
     const stage = document.querySelector('.stage').getBoundingClientRect();
     const canvasTop = stage.bottom - 45 - height;
     mobileOffset = Math.max(0, copyBottom + 12 - canvasTop);
