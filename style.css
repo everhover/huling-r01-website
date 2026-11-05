@@ -160,3 +160,52 @@ footer p, footer a { font-size: 10px; line-height: 1.8; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Recording ties the physical feedback to the organized software result. */
+.hardware-status {
+  position: absolute;
+  left: 65%;
+  top: 77%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: #aaa;
+  opacity: 0;
+  pointer-events: none;
+}
+.hardware-status.visible { opacity: 1; }
+.status-light { width: 5px; height: 5px; background: #666; border-radius: 50%; }
+.hardware-status.recording .status-light { background: white; box-shadow: 0 0 8px #ffffff80; }
+.record-flow { list-style: none; padding: 0; margin: 22px 0; display: flex; gap: 22px; }
+.record-flow li { display: flex; gap: 9px; font-size: 11px; line-height: 1.6; color: #999; }
+.record-flow li > span { font-size: 9px; color: #777; padding-top: 2px; }
+.record-flow small { display: block; max-width: 130px; font-size: 9px; color: #777; margin-top: 5px; }
+.record-flow .active, .record-flow .active small { color: white; }
+.organized-results { margin-top: 18px; max-width: 470px; gap: 12px; }
+.organized-results:not([hidden]) { display: grid; grid-template-columns: 1fr 1fr; }
+.organized-results article { padding: 16px; border: 1px solid #ffffff30; background: #171717cc; }
+.organized-results span { color: #999; font-size: 9px; }
+.organized-results h3 { font-size: 15px; font-weight: 500; margin: 10px 0; }
+.organized-results p { font-size: 10px; color: #aaa; line-height: 1.7; }
+canvas.haptic { animation: tactile .22s linear; }
+@keyframes tactile {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+}
+.idea { min-height: 135vh; min-height: 135svh; }
+.proof { gap: 36px; }
+@media (max-width: 767px) {
+  .record-flow { gap: 12px; }
+  .record-flow li { gap: 5px; font-size: 10px; }
+  .record-flow small { font-size: 8px; max-width: 90px; }
+  .hardware-status { left: auto; right: 32px; top: 91%; font-size: 9px; }
+  .idea { min-height: 150svh; }
+  .proof { gap: 24px; }
+  .proof strong { font-size: 30px; }
+  .proof p { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  canvas.haptic { animation: none; }
+}
