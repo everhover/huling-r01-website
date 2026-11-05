@@ -8,7 +8,9 @@ const reviewViews={
   profile:{rx:.1,ry:-1.15,rz:-.5}
 };
 let reviewView={...reviewViews.silhouette};
-let reviewFinish=new URLSearchParams(location.search).get('finish') === 'black' ? 'black' : 'silver';
+const reviewFinishNames={silver:'雾银',black:'影黑',gold:'杏金'};
+const requestedFinish=new URLSearchParams(location.search).get('finish');
+let reviewFinish=Object.hasOwn(reviewFinishNames,requestedFinish) ? requestedFinish : 'silver';
 let pointer=null;
 let framePending=false;
 function drawReview() {
@@ -58,9 +60,9 @@ queueReview();
 function selectReviewFinish(finish) {
   reviewFinish=finish;
   document.querySelectorAll('button[data-finish]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.finish===finish)));
-  document.querySelector('#finish-name').textContent=finish==='black' ? '影黑' : '雾银';
+  document.querySelector('#finish-name').textContent=reviewFinishNames[finish];
   reviewCanvas.dataset.finish=finish;
-  reviewCanvas.setAttribute('aria-label',`R01 ${finish==='black'?'影黑':'雾银'}戒指三维检查，可拖动旋转`);
+  reviewCanvas.setAttribute('aria-label',`R01 ${reviewFinishNames[finish]}戒指三维检查，可拖动旋转`);
   queueReview();
 }
 document.querySelectorAll('button[data-finish]').forEach(button=>button.addEventListener('click',()=>selectReviewFinish(button.dataset.finish)));
