@@ -1,0 +1,77 @@
+/* Dedicated motion studies: original design pages and renderer remain untouched. */
+html { scroll-behavior:smooth; }
+.stage { isolation:isolate; }
+.stage #ring { position:absolute!important; inset:0; width:100%; height:100%; z-index:2!important; transform:none!important; }
+.stage .scene-layer { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+#scene-back { z-index:1; }
+#scene-front { z-index:3; }
+.stage .stage-caption,.stage .chapter-index { z-index:4; }
+.stage .grain { display:none; }
+.chapter,.hero,.idea { display:block; padding:0; min-height:200svh; height:200svh; }
+.chapter.hero { height:180svh; min-height:180svh; }
+.scene-pin { position:sticky; top:0; height:100svh; display:flex; align-items:center; padding:120px 7vw 100px; }
+.copy,.idea .copy,.body-chapter .copy { width:47%; padding:0!important; }
+.question .copy { width:100%; }
+.hero .scene-pin { padding-top:150px; }
+.hero-footer { bottom:auto; top:calc(100svh - 72px); }
+.question .noise { display:none; }
+.water h2,.lightness h2 { font-size:clamp(38px,4.8vw,76px); white-space:nowrap; }
+.water .water-rating { font-size:clamp(27px,3vw,44px); margin-top:24px; }
+.body-chapter h2 { font-size:clamp(40px,5vw,76px); }
+.health-tech { margin-top:24px; padding-top:20px; }
+.health-tech p { font-size:15px; }
+.manifesto { font-size:clamp(18px,1.6vw,23px); }
+.description { font-size:16px; line-height:1.8; }
+.wear-details p { font-size:clamp(16px,1.5vw,21px); }
+html[data-design=b] .scene-pin { border:0; }
+html[data-design=c] .stage::after { display:none; }
+html[data-design=c] .stage { background:#F5F4F0; }
+html[data-design=c] .question .copy { background:transparent; }
+html[data-design=c] .body-chapter .copy { background:transparent; }
+html[data-motion-study=b] .chapter-index i { height:120px; }
+html[data-motion-study=c] .hero h1 { font-size:clamp(32px,4.9vw,78px); }
+@media(max-width:900px) and (min-width:768px) {
+ .copy,.idea .copy,.body-chapter .copy { width:48%; }
+ h1 { font-size:4.9vw; }
+ .hero-line { font-size:23px; }
+ .body-chapter h2 { font-size:4.8vw; }
+ .manifesto { font-size:18px; }
+ .description,.health-tech p { font-size:14px; }
+ .health-tech h3 { font-size:18px; }
+}
+@media(max-width:767px) {
+ header { min-height:144px; }
+ .chapter,.hero,.idea { min-height:200svh; height:200svh; padding:0; }
+ .chapter.hero { min-height:180svh; height:180svh; }
+ .scene-pin,.hero .scene-pin { padding:40px 24px 0; align-items:flex-start; }
+ .copy,.idea .copy,.body-chapter .copy { width:100%; }
+ .eyebrow { margin-bottom:20px; }
+ h1,h2,.question h2,.body-chapter h2 { font-size:clamp(30px,8.5vw,45px); }
+ .hero-line { font-size:23px; margin-top:20px; }
+ .manifesto { font-size:18px; margin-top:20px; }
+ .description { font-size:14px; margin-top:16px; }
+ .health-tech { margin-top:16px; padding-top:16px; }
+ .health-tech h3 { font-size:17px; }
+ .health-tech p { font-size:13px; line-height:1.6; margin-top:8px; }
+ .body-chapter .description { font-size:13px; }
+ .body-chapter .manifesto { font-size:17px; }
+ .water h2,.lightness h2 { font-size:clamp(28px,8.5vw,44px); white-space:normal; }
+ .water .water-rating { font-size:28px; }
+ .wear-details { margin-top:20px; gap:10px; }
+ .wear-details p { font-size:14px; }
+ .wear-notes { font-size:11px; margin-top:20px; line-height:1.7; }
+ .stage-caption { bottom:20px; font-size:8px; }
+ .chapter-index { bottom:90px; top:auto; }
+ html[data-motion-study=b] .chapter-index i { height:40px; }
+ html[data-motion-study=c] .hero h1 { font-size:clamp(30px,8.5vw,45px); }
+ .closing,.faq,footer { position:relative; z-index:5; }
+}
+@media(max-height:700px) and (min-width:768px) {
+ .scene-pin { padding-block:96px 56px; }
+ .body-chapter h2 { font-size:44px; }
+ .body-chapter .eyebrow { margin-bottom:16px; }
+ .body-chapter .manifesto { margin-top:20px; }
+ .body-chapter .description { margin-top:16px; }
+ .health-tech { margin-top:16px; padding-top:16px; }
+}
+@media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto;} }

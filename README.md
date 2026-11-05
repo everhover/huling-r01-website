@@ -88,3 +88,14 @@ Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放
 - Brand package limitation: `tokens/` and `fonts/` contain no usable parameter/font files, and the marks manifest is missing on this Mac. Colors were taken from the readable current `BRAND_RULES.md` and `DECISIONS.md`; existing official wordmark and existing system font stack retained. Full brand-package machine certification is not claimed.
 
 - Mobile study headers use the official 72px Chinese wordmark; footer lockup stays 240px. Both SVG source files match the current VI assets byte-for-byte.
+
+## 2026-11-06 · Three new motion studies
+
+- Comparison: `motions.html`; full pages: `motion-a.html`, `motion-b.html`, `motion-c.html`.
+- A uses a distant-to-close cinematic approach; B uses axial rotation and orbit-like product views; C uses rolling/arc trajectories and flip transitions. Each has new product positions, rotations and scale curves.
+- Waterproof and lightness are separate chapters. A straight thick-bottom glass follows the director reference (12.7 cm tall / 7.3 cm diameter). R01 falls under acceleration, slows in water with an integrated drag curve, then settles; ripples and bubbles respond to scroll progress.
+- A folded A4 plane glides onto the left scale pan; the left pan sinks and the R01 pan rises. Reference sizes: A4 folded length ~20.5 cm, scale span 40.6 cm, pan diameter 18 cm, ring outer diameter ~22.3 mm; weights ~5 g and 4.6 g. Small damped settling is a visual treatment, not calibrated metrology or a fluid simulation.
+- The glass, balance and plane are layered canvas scene drawings; R01 uses the identical existing WebGL model. No model geometry, materials or fallback images changed. Old design pages remain available.
+- Runtime: GSAP/ScrollTrigger 3.13.0, locally vendored; no runtime CDN requests. Scroll is native, with a short visual playhead lag; reduced motion shows the final scene without the physical travel.
+- Playwright acceptance: 126 scene/viewport checks across three variants, seven chapters and six widths (1440/1024/820/768/390/320); no horizontal overflow, positive model scale, WebGL errors 0. Three finishes and reduced motion passed. Air / entry / mid-water / late-water speed samples decrease; paper pan ends below ring pan. An additional 18 checks confirm both scale pans fit after composition adjustment. Water-to-scale boundary position/scale continuity checked.
+- Full brand-token certification and physical mobile-device/performance tests remain unverified; see the previous design study's source package limitations.
