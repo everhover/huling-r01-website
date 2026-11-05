@@ -99,3 +99,14 @@ Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放
 - Runtime: GSAP/ScrollTrigger 3.13.0, locally vendored; no runtime CDN requests. Scroll is native, with a short visual playhead lag; reduced motion shows the final scene without the physical travel.
 - Playwright acceptance: 126 scene/viewport checks across three variants, seven chapters and six widths (1440/1024/820/768/390/320); no horizontal overflow, positive model scale, WebGL errors 0. Three finishes and reduced motion passed. Air / entry / mid-water / late-water speed samples decrease; paper pan ends below ring pan. An additional 18 checks confirm both scale pans fit after composition adjustment. Water-to-scale boundary position/scale continuity checked.
 - Full brand-token certification and physical mobile-device/performance tests remain unverified; see the previous design study's source package limitations.
+
+## 2026-11-06 · v31 reference and proportion refinement
+
+- User-requested display model: inner diameter **20.3 mm** (+3 mm), width **7.5 mm**, radial wall **2.5 mm**, resulting outer diameter **25.3 mm**. Shared geometry updates all three finishes. Button size, material definitions and two-layer construction remain intact; microphone/LED depths and sensor windows move with their corresponding walls.
+- Glass dimensions now follow the latest user correction: **149 mm height / 73 mm diameter**, replacing the earlier 127 mm scene reference. Ring/glass and ring/scale size ratios use the new 25.3 mm ring outer diameter.
+- `assets/glass-reference.jpg` is the user-supplied `310830.jpg`, unchanged. The glass scene uses photographic wall/base layers with separately animated water, ripples and the existing 3D ring. A neutral studio ground in all three waterproof chapters preserves the supplied glass photograph's transmission.
+- Balance has a solid tapered beam, polished pivot, turned pedestal, raised foot and bowls with depth, highlights and contact shadows. The paper dart uses projected folded-wing/keel geometry inspired by the supplied multi-view reference; landing height follows its actual projected lower edge.
+- Except for the health/sensor chapter, motion views keep button and microphone normals toward the viewer, using only small angular variations. Front-facing display size is capped to preserve separation from the text column.
+- Updated three fallback PNGs are exported directly from the new renderer; model inspection states the new inner diameter. Previous committed versions remain available in Git history.
+
+- v31 QA: 126 responsive scene checks passed again; 54 control-facing samples passed; all three finishes and reduced motion passed; cup and ring ratios verified. No WebGL fallback uses the updated model PNGs. Public deployment is verified separately before delivery.

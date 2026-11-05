@@ -6,6 +6,7 @@
  const canvas=document.querySelector('#ring'),back=document.querySelector('#scene-back'),front=document.querySelector('#scene-front');
  const renderer=createRingRenderer(canvas,{refined:true});
  const bg=back.getContext('2d'),fg=front.getContext('2d');
+ const glassPhoto=new Image();glassPhoto.src='assets/glass-reference.jpg';glassPhoto.onload=()=>queue();
  const chapters=[...document.querySelectorAll('.chapter')];
  const reduced=matchMedia('(prefers-reduced-motion:reduce)'),mobile=matchMedia('(max-width:767px)');
  const dark=variant==='b';
@@ -26,7 +27,7 @@
   return {distance:1-Math.sin(q*Math.PI)*.012*(1-q),submerged:true,turn:2.285};
  }
  function newView(x=.73,y=.5,size=.24,rx=.36,ry=-.55,rz=-.5,opacity=1){return{x,y,size,rx,ry,rz,opacity}}
- function productView(i,p) {
+ function rawProductView(i,p) {
   const q=smooth(p),s=Math.sin(p*Math.PI);
   if(variant==='a') {
    return [
@@ -57,6 +58,13 @@
    ()=>newView(.73,.5,mix(.20,.30,q),.36,-.55,mix(-2,-.5,q))
   ][i]();
  }
+ function controlsPose(v,p=0) {
+  return {...v,size:mobile.matches?v.size:Math.min(v.size,.26),rx:1.17+Math.sin(p*Math.PI)*.06,ry:-1.91+Math.sin(p*Math.PI*2)*.065,rz:.05+Math.sin(p*Math.PI)*.08};
+ }
+ function productView(i,p) {
+  const v=rawProductView(i,p);
+  return i===3?v:controlsPose(v,p);
+ }
  function ellipse(ctx,x,y,rx,ry,fill,stroke,lw=1) {
   ctx.beginPath();ctx.ellipse(x,y,Math.max(.1,rx),Math.max(.1,ry),0,0,Math.PI*2);
   if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke()}
@@ -64,53 +72,63 @@
  function line(ctx,x1,y1,x2,y2,color,width=1){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}
  function cupGeometry() {
   const h=mobile.matches?Math.min(H*.36,W*.94):Math.min(H*.60,W*.34);
-  const w=h*7.3/12.7;
+  const w=h*7.3/14.9;
   return {cx:mobile.matches?W*.5:W*(variant==='c'?.73:.75),top:mobile.matches?H*.56:H*.29,w,h};
  }
  function waterView(p,alpha=1) {
-  const c=cupGeometry(),motion=drop(p),diam=c.w*22.3/73;
-  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h-diam*.34-12;
+  const c=cupGeometry(),motion=drop(p),diam=c.w*25.3/73;
+  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h*.915-diam*.37;
   // Air ends at the water line; water resistance then reduces translational and angular speed.
   let y=motion.distance<=.25?mix(start,entry,motion.distance/.25):mix(entry,bottom,(motion.distance-.25)/.75);
   const drift=(variant==='b'?Math.sin(p*5)*.08:variant==='c'?Math.sin(p*4)*.12:Math.sin(p*3)*.035)*c.w*(1-p);
-  const v=newView((c.cx+drift)/W,y/H,diam/(2.25*Math.min(W,H)),mix(.4,1.15,smooth(p)),mix(-.6,-.1,smooth(p)),motion.turn,alpha);
+  const v=controlsPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p);
   drawGlass(c,p,alpha);
   last.water={...c,ringDiameter:diam,ringY:y,submerged:motion.submerged,distance:motion.distance};
   return v;
  }
  function drawGlass(c,p,a) {
-  const {cx,top,w,h}=c,left=cx-w/2,right=cx+w/2,bottom=top+h,wy=top+h*.26,ry=w*.115;
+  const {cx,top,w,h}=c,left=cx-w/2,bottom=top+h,wy=top+h*.26,ry=w*.025;
   bg.save();fg.save();bg.globalAlpha=a;fg.globalAlpha=a;
-  ellipse(bg,cx,bottom+16,w*.6,w*.09,dark?'#17171740':'#1717170c');
-  const glass=bg.createLinearGradient(left,0,right,0);
-  glass.addColorStop(0,dark?'#FFFFFF0c':'#FFFFFF80');glass.addColorStop(.12,dark?'#FFFFFF03':'#FFFFFF18');glass.addColorStop(.86,'#FFFFFF04');glass.addColorStop(1,dark?'#FFFFFF15':'#FFFFFF99');
-  bg.fillStyle=glass;bg.beginPath();bg.moveTo(left,top);bg.lineTo(left,bottom);bg.ellipse(cx,bottom,w/2,ry,0,Math.PI,0,true);bg.lineTo(right,top);bg.closePath();bg.fill();
-  const water=bg.createLinearGradient(0,wy,0,bottom);water.addColorStop(0,dark?'#D8D5CF15':'#59595908');water.addColorStop(1,dark?'#D8D5CF29':'#59595918');
-  bg.fillStyle=water;bg.fillRect(left+3,wy,w-6,h*.74);ellipse(bg,cx,bottom-7,w/2-3,ry*.8,water);
-  ellipse(bg,cx,wy,w/2-3,ry*.85,dark?'#D8D5CF0b':'#FFFFFF60',dark?'#D8D5CF66':'#59595955');
-  // Front glass and water use a light translucent veil; no opaque layer hides the ring.
-  fg.fillStyle=dark?'#FFFFFF03':'#FFFFFF0a';fg.fillRect(left+3,wy,w-6,bottom-wy);
-  line(fg,left,top,left,bottom-3,dark?'#D8D5CF60':'#59595955',1.2);line(fg,right,top,right,bottom-3,dark?'#FFFFFF90':'#FFFFFF',2);
-  line(fg,left+6,top+18,left+6,bottom-20,dark?'#FFFFFF24':'#FFFFFFc0',2);
-  line(fg,right-8,top+25,right-8,bottom-22,dark?'#FFFFFF15':'#FFFFFFa0',4);
-  ellipse(fg,cx,top,w/2,ry,null,dark?'#D8D5CF80':'#59595960',1.5);
-  ellipse(fg,cx,top+3,w/2-3,ry-2,null,dark?'#FFFFFF45':'#FFFFFF',1.3);
-  ellipse(fg,cx,bottom,w/2,ry,null,dark?'#D8D5CF85':'#59595960',2);
-  ellipse(fg,cx,bottom-8,w/2-4,ry*.9,null,dark?'#FFFFFF35':'#FFFFFFd0',4);
-  // The impact ripple expands, then decays; bubbles rise while the ring sinks.
-  const impact=clamp((p-.28)/.2),ripAlpha=p>.28&&p<.62?Math.sin(impact*Math.PI)*.7:0;
-  if(ripAlpha>0){fg.globalAlpha=a*ripAlpha;ellipse(fg,cx,wy,w*.12+w*.34*impact,ry*.1+ry*.65*impact,null,ink,1);}
-  if(p>.28&&p<.88){fg.globalAlpha=a*.50;for(let j=0;j<6;j++){const t=clamp((p-.28)*1.6-j*.035),x=cx+Math.sin(j*2.4+t*8)*w*.13,y=wy+h*.48*(1-t);ellipse(fg,x,y,1.1+j*.18,1.6+j*.2,null,ink,.6)}}
+  ellipse(bg,cx,bottom+6,w*.53,w*.035,'#17171713');
+  if(glassPhoto.complete&&glassPhoto.naturalWidth) {
+   bg.globalCompositeOperation='multiply';
+   bg.drawImage(glassPhoto,165,16,270,568,left,top,w,h);
+   bg.globalCompositeOperation='source-over';
+  }
+  // Water occupies the straight inner bore above the 12 mm solid glass base.
+  const inset=w*.045,base=h*.085,innerBottom=bottom-base;
+  const water=bg.createLinearGradient(0,wy,0,innerBottom);
+  water.addColorStop(0,'#89948c08');water.addColorStop(.85,'#737d7710');water.addColorStop(1,'#59595919');
+  bg.fillStyle=water;bg.fillRect(left+inset,wy,w-2*inset,innerBottom-wy);
+  ellipse(bg,cx,wy,w*.455,ry,null,'#59595945',.8);
+  ellipse(bg,cx,innerBottom,w*.445,ry*.65,null,'#FFFFFFcc',1);
+  // Photograph's side walls and solid base sit in front of the submerged ring.
+  if(glassPhoto.complete&&glassPhoto.naturalWidth) {
+   fg.globalCompositeOperation='multiply';
+   fg.drawImage(glassPhoto,165,16,17,568,left,top,w*17/270,h);
+   fg.drawImage(glassPhoto,416,16,19,568,left+w*(251/270),top,w*19/270,h);
+   fg.drawImage(glassPhoto,165,536,270,48,left,top+h*(520/568),w,h*48/568);
+   fg.globalCompositeOperation='source-over';
+  }
+  fg.fillStyle='#FFFFFF06';fg.fillRect(left+inset,wy,w-2*inset,innerBottom-wy);
+  const impact=clamp((p-.28)/.22);
+  if(p>.28&&p<.53){fg.globalAlpha=a*(1-impact)*.6;ellipse(fg,cx,wy,w*(.10+.33*impact),ry*(.2+.7*impact),null,'#595959',.8)}
+  if(p>.28&&p<.88){fg.globalAlpha=a*.45;for(let j=0;j<5;j++){const t=clamp((p-.28)*1.6-j*.035);ellipse(fg,cx+Math.sin(j*2.4+t*8)*w*.11,wy+h*.45*(1-t),1+j*.13,1.4+j*.15,null,'#595959',.55)}}
   bg.restore();fg.restore();
+ }
+ function paperPoints(length) {
+  const verts=[ [.54,0,.01],[-.48,0,.10],[-.41,-.24,.02],[-.36,-.21,.055],[-.27,-.055,.10],[-.41,.24,.02],[-.36,.21,.055],[-.27,.055,.10],[-.36,0,-.095],[-.17,0,-.07] ];
+  return verts.map(([x,y,z])=>[(x*Math.cos(-.15)-y*Math.sin(-.15))*length,(y*.55-z*.92+x*.28)*length]);
  }
  function plane(ctx,x,y,length,angle,alpha=1) {
   ctx.save();ctx.translate(x,y);ctx.rotate(angle);ctx.globalAlpha*=alpha;
-  const L=length;
-  function poly(points,fill,stroke){ctx.beginPath();points.forEach(([x,y],i)=>i?ctx.lineTo(x*L,y*L*.45):ctx.moveTo(x*L,y*L*.45));ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=.7;ctx.stroke()}
-  poly([[-.5,.12],[.5,-.05],[-.29,-.26],[-.19,-.01]],'#FFFFFF','#D8D5CF');
-  poly([[-.5,.12],[.5,-.05],[-.12,.32],[-.19,-.01]],'#E8E5DF','#D8D5CF');
-  poly([[-.19,-.01],[.5,-.05],[-.28,.14]],'#F5F4F0','#D8D5CF');
-  line(ctx,-.19*L,-.01*L*.45,.5*L,-.05*L*.45,'#D8D5CF',.8);ctx.restore();
+  // Folded dart: raised centre crease, swept wings, turned-up trailing tips and keel.
+  const vertices=[ [.54,0,.01],[-.48,0,.10],[-.41,-.24,.02],[-.36,-.21,.055],[-.27,-.055,.10],[-.41,.24,.02],[-.36,.21,.055],[-.27,.055,.10],[-.36,0,-.095],[-.17,0,-.07] ];
+  const projected=paperPoints(length);
+  const project=v=>projected[vertices.indexOf(v)];
+  const faces=[{v:[0,8,9],fill:'#D8D5CF'},{v:[0,9,1],fill:'#E8E5DF'},{v:[0,2,3,4],fill:'#F5F4F0'},{v:[0,4,1],fill:'#FFFFFF'},{v:[0,1,7],fill:'#E8E5DF'},{v:[0,7,6,5],fill:'#FFFFFF'}];
+  faces.forEach(face=>{ctx.beginPath();face.v.forEach((n,i)=>{const p=project(vertices[n]);i?ctx.lineTo(...p):ctx.moveTo(...p)});ctx.closePath();const g=ctx.createLinearGradient(-length*.4,-length*.2,length*.4,length*.2);g.addColorStop(0,face.fill);g.addColorStop(1,face.fill==='#FFFFFF'?'#F5F4F0':face.fill);ctx.fillStyle=g;ctx.fill();ctx.strokeStyle='#59595926';ctx.lineWidth=.45;ctx.stroke()});
+  const a=project(vertices[1]),b=project(vertices[0]);line(ctx,...a,...b,'#FFFFFFcc',.9);ctx.restore();
  }
  function balanceView(p,alpha=1) {
   const mobileMode=mobile.matches;
@@ -125,28 +143,48 @@
   const baseY=cy+width*.38;
   bg.save();bg.globalAlpha=alpha;
   ellipse(bg,cx,baseY+10,width*.29,width*.035,dark?'#17171780':'#1717170b');
-  const metal=bg.createLinearGradient(cx-10,0,cx+10,0);metal.addColorStop(0,'#595959');metal.addColorStop(.35,'#FFFFFF');metal.addColorStop(.55,'#D8D5CF');metal.addColorStop(1,'#595959');
-  bg.fillStyle=metal;bg.beginPath();bg.moveTo(cx-4,cy-7);bg.lineTo(cx-11,baseY);bg.lineTo(cx+11,baseY);bg.lineTo(cx+4,cy-7);bg.closePath();bg.fill();
-  ellipse(bg,cx,baseY,width*.24,width*.035,metal,dark?'#D8D5CF55':'#59595955');
-  line(bg,lx,ly,rx,ry,ink,3);ellipse(bg,cx,cy,4,4,dark?'#FFFFFF':'#595959');
+  const metal=bg.createLinearGradient(cx-12,0,cx+12,0);
+  [[0,'#595959'],[.13,'#D8D5CF'],[.32,'#FFFFFF'],[.49,'#FFFFFF'],[.61,'#595959'],[.78,'#D8D5CF'],[1,'#595959']].forEach(([p,c])=>metal.addColorStop(p,c));
+  // Turned-metal pedestal with a raised cylindrical foot and polished collars.
+  const foot=bg.createLinearGradient(0,baseY-10,0,baseY+8);foot.addColorStop(0,'#FFFFFF');foot.addColorStop(.25,'#D8D5CF');foot.addColorStop(.65,'#595959');foot.addColorStop(.82,'#D8D5CF');foot.addColorStop(1,'#595959');
+  ellipse(bg,cx,baseY+7,width*.24,width*.045,'#595959');
+  bg.fillStyle=foot;bg.fillRect(cx-width*.24,baseY-2,width*.48,9);
+  ellipse(bg,cx,baseY-2,width*.24,width*.045,foot,'#59595980',.7);
+  ellipse(bg,cx,baseY-4,width*.224,width*.036,'#D8D5CF','#FFFFFFaa',.8);
+  bg.fillStyle=metal;bg.beginPath();bg.moveTo(cx-4,cy-10);bg.bezierCurveTo(cx-7,cy+35,cx-5,baseY-22,cx-17,baseY-5);bg.quadraticCurveTo(cx,baseY+2,cx+17,baseY-5);bg.bezierCurveTo(cx+5,baseY-22,cx+7,cy+35,cx+4,cy-10);bg.closePath();bg.fill();
+  ellipse(bg,cx,baseY-6,19,5,metal,'#59595955',.7);
+  // A tapered, solid beam replaces the hairline crossbar.
+  const beam=bg.createLinearGradient(0,cy-7,0,cy+7);beam.addColorStop(0,'#595959');beam.addColorStop(.26,'#FFFFFF');beam.addColorStop(.5,'#D8D5CF');beam.addColorStop(.75,'#595959');beam.addColorStop(1,'#D8D5CF');
+  bg.beginPath();bg.moveTo(lx,ly-2);bg.lineTo(cx,cy-7);bg.lineTo(rx,ry-2);bg.lineTo(rx,ry+2);bg.lineTo(cx,cy+4);bg.lineTo(lx,ly+2);bg.closePath();bg.fillStyle=beam;bg.fill();
+  line(bg,lx,ly-2,cx,cy-7,'#FFFFFFaa',.7);line(bg,cx,cy-7,rx,ry-2,'#FFFFFFaa',.7);
+  const pivot=bg.createRadialGradient(cx-2,cy-3,0,cx,cy,7);pivot.addColorStop(0,'#FFFFFF');pivot.addColorStop(.45,'#D8D5CF');pivot.addColorStop(.8,'#595959');pivot.addColorStop(1,'#171717');ellipse(bg,cx,cy,7,7,pivot);ellipse(bg,cx,cy,2,2,'#595959');
   for(const [x,y] of [[lx,ly],[rx,ry]]) {
-   line(bg,x,y,x-pan*.47,y+hang,ink,.8);line(bg,x,y,x+pan*.47,y+hang,ink,.8);
-   ellipse(bg,x,y+hang,pan*.55,pan*.12,dark?'#595959':'#E8E5DF',ink,1);
-   ellipse(bg,x,y+hang-2,pan*.51,pan*.09,dark?'#595959':'#F5F4F0',dark?'#D8D5CF66':'#FFFFFF',.8);
+   ellipse(bg,x,y,2.5,3.5,null,'#595959',1);
+   line(bg,x,y+3,x-pan*.47,y+hang,'#595959',.9);line(bg,x+.8,y+3,x+pan*.47,y+hang,'#D8D5CF',1.2);line(bg,x,y+3,x,y+hang-pan*.08,'#59595966',.6);
+   const py=y+hang;
+   const bowl=bg.createLinearGradient(0,py-pan*.10,0,py+pan*.16);
+   bowl.addColorStop(0,'#FFFFFF');bowl.addColorStop(.25,'#D8D5CF');bowl.addColorStop(.5,'#595959');bowl.addColorStop(.67,'#FFFFFF');bowl.addColorStop(.88,'#D8D5CF');bowl.addColorStop(1,'#595959');
+   ellipse(bg,x,py+4,pan*.55,pan*.135,bowl,'#59595980',.8);
+   const interior=bg.createRadialGradient(x-pan*.16,py-pan*.02,pan*.02,x,py,pan*.55);interior.addColorStop(0,'#FFFFFF');interior.addColorStop(.48,'#F5F4F0');interior.addColorStop(.87,'#D8D5CF');interior.addColorStop(.97,'#595959');interior.addColorStop(1,'#FFFFFF');
+   ellipse(bg,x,py-2,pan*.55,pan*.115,interior,'#FFFFFFcc',1.2);
+   ellipse(bg,x,py-1,pan*.50,pan*.090,null,'#59595966',.6);
+   const shadow=bg.createRadialGradient(x,py,0,x,py,pan*.30);shadow.addColorStop(0,'#17171722');shadow.addColorStop(1,'#17171700');
+   ellipse(bg,x,py,pan*.30,pan*.045,shadow);
   }
   // A4's 20–21 cm folded length is ~9.2× the ring outer diameter.
-  const ringD=width*22.3/406,planeL=width*205/406;
+  const ringD=width*25.3/406,planeL=width*205/406;
   const q=smooth(clamp(p/landing));
   const startX=variant==='b'?cx+width*.25:cx-width*.6;
   const startY=cy-width*.43;
-  const px=mix(startX,lx,q),py=mix(startY,ly+hang-planeL*.32*.45,q)-Math.sin(q*Math.PI)*width*(variant==='c'?.14:.08);
+  const paperFloor=Math.max(...paperPoints(planeL).map(([x,y])=>x*Math.sin(-.10)+y*Math.cos(-.10)));
+  const px=mix(startX,lx,q),py=mix(startY,ly+hang-paperFloor,q)-Math.sin(q*Math.PI)*width*(variant==='c'?.14:.08);
   const pa=mix(variant==='b'?-.8:.3,-.10,q)+Math.sin(q*Math.PI)*(variant==='c'?-.65:.3);
   plane(bg,px,py,planeL,pa);
   bg.font=`${mobileMode?11:13}px -apple-system,"PingFang SC",sans-serif`;bg.textAlign='center';bg.fillStyle=ink;
   bg.fillText('≈ 5 g',lx,ly+hang+pan*.43);bg.fillText('4.6 g',rx,ry+hang+pan*.43);
   bg.restore();
   last.balance={tilt,leftPanY:ly+hang,rightPanY:ry+hang,planeL,ringDiameter:ringD,landed:p>=landing,bounds:{left:lx-pan*.55,right:rx+pan*.55,bottom:Math.max(ly,ry)+hang+pan*.43}};
-  return newView(rx/W,(ry+hang-ringD*.30)/H,ringD/(2.25*Math.min(W,H)),1.08,-.3,.3,alpha);
+  return controlsPose(newView(rx/W,(ry+hang-ringD*.30)/H,ringD/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),0);
  }
  function applyMobile(v,i) {
   if(!mobile.matches||i===4||i===5)return v;
@@ -168,7 +206,7 @@
   if(i!==4&&i!==5&&transition>0&&i<6) {
    const target=applyMobile(productView(i+1,0),i+1),t=smooth(transition);
    // Physical scenes enter in their own frame; ring shrinks to their true relative size.
-   if(i+1===4){const c=cupGeometry();Object.assign(target,{x:c.cx/W,y:(c.top-c.h*.22)/H,size:(c.w*22.3/73)/(2.25*Math.min(W,H))})}
+   if(i+1===4){const c=cupGeometry();Object.assign(target,{x:c.cx/W,y:(c.top-c.h*.22)/H,size:(c.w*25.3/73)/((25.3/9.9)*Math.min(W,H))})}
    if(i+1===5){Object.assign(target,{x:mobile.matches?.65:.88,y:mobile.matches?.74:.62,size:.015})}
    for(const key of Object.keys(v))v[key]=mix(v[key],target[key],t);
   }

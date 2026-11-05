@@ -6,13 +6,14 @@ function createRingRenderer(canvas, options = {}) {
   const refined = options.refined === true;
   const finishNames = {silver:'雾银',black:'影黑',gold:'杏金'};
   const unitMm = 9.9;
-  const dimensions = { widthMm: 7.5, thicknessMm: 2.5, innerDiameterMm: 17.3, buttonDiameterMm: 4.6 };
+  const dimensions = { widthMm: 7.5, thicknessMm: 2.5, innerDiameterMm: 20.3, buttonDiameterMm: 4.6 };
+  canvas.dataset.dimensions = JSON.stringify(dimensions);
   const innerRadius = dimensions.innerDiameterMm / 2 / unitMm;
   const outerRadius = (dimensions.innerDiameterMm / 2 + dimensions.thicknessMm) / unitMm;
   const gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true, preserveDrawingBuffer: true });
   if (!gl) {
     const fallback = document.createElement('img');
-    fallback.src = refined ? 'assets/r01-silver-refined-fallback.png' : 'assets/r01-silver-fallback.png';
+    fallback.src = refined ? 'assets/r01-silver-refined-fallback.png?v=31' : 'assets/r01-silver-fallback.png';
     fallback.alt = '乎零 R01 银色戒指三维模型预览';
     fallback.className = 'ring-fallback';
     canvas.style.visibility = 'hidden';
@@ -22,7 +23,7 @@ function createRingRenderer(canvas, options = {}) {
       available: true,
       resize() {},
       draw(view,width,height,led,finish = 'silver') {
-        fallback.src = refined ? `assets/r01-${finish}-refined-fallback.png` : 'assets/r01-silver-fallback.png';
+        fallback.src = refined ? `assets/r01-${finish}-refined-fallback.png?v=31` : 'assets/r01-silver-fallback.png';
         fallback.alt = `乎零 R01 ${finishNames[finish] || finishNames.silver}戒指模型预览`;
         const size=Math.min(width,height)*view.size/.32;
         Object.assign(fallback.style,{
@@ -105,8 +106,8 @@ function createRingRenderer(canvas, options = {}) {
       float theta = atan(vLocal.y,vLocal.x);
       // Apertures are removed from the actual outer metal, with recessed parts below.
       if (material < .5) {
-        vec2 mic = vec2(angularDistance(theta,-.87)*1.126,vLocal.z);
-        vec2 led = vec2(angularDistance(theta,-1.06)*1.126,vLocal.z);
+        vec2 mic = vec2(angularDistance(theta,-.87)*${refined ? outerRadius.toFixed(8) : '1.126'},vLocal.z);
+        vec2 led = vec2(angularDistance(theta,-1.06)*${refined ? outerRadius.toFixed(8) : '1.126'},vLocal.z);
         bool microphoneOpening = refined
           ? roundedBox(mic,vec2(.079*1.35,.079),.079*.94)<0.0
           : length(mic)<.079;
@@ -306,14 +307,16 @@ function createRingRenderer(canvas, options = {}) {
     disk(keyAngle,.16,1.151,4);
   }
   const microphoneAspect=refined ? 1.35 : 1;
-  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],refined ? 13 : 2,80,microphoneAspect,refined);
-  disk(-.87,.073,1.105,9,80,microphoneAspect,refined);
-  disk(-.87,.07,1.11,5,80,microphoneAspect,refined);
-  bevel(-1.06,[[.027,1.126],[.023,1.11]],2,48);
-  disk(-1.06,.023,1.111,6,48);
+  const shellDistance=d=>refined ? outerRadius+(d-1.126) : d;
+  bevel(-.87,[[.08,shellDistance(1.126)],[.073,shellDistance(1.114)],[.071,shellDistance(1.107)]],refined ? 13 : 2,80,microphoneAspect,refined);
+  disk(-.87,.073,shellDistance(1.105),9,80,microphoneAspect,refined);
+  disk(-.87,.07,shellDistance(1.11),5,80,microphoneAspect,refined);
+  bevel(-1.06,[[.027,shellDistance(1.126)],[.023,shellDistance(1.11)]],2,48);
+  disk(-1.06,.023,shellDistance(1.111),6,48);
 
   // Curved, inset sensor windows. Large/small/small/large on the far inner wall.
   function sensorPatch(theta, halfWidth, halfHeight, radius, material, offsetZ=0) {
+    if(refined) radius=innerRadius+(radius-.874);
     const nx=16,ny=12;
     const point=(u,v)=> {
       const t=theta+u*halfWidth/radius;

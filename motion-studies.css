@@ -75,3 +75,12 @@ html[data-motion-study=c] .hero h1 { font-size:clamp(32px,4.9vw,78px); }
  .health-tech { margin-top:16px; padding-top:16px; }
 }
 @media(prefers-reduced-motion:reduce) { html{scroll-behavior:auto;} }
+/* Photographic glass is presented on a neutral studio ground in all variants. */
+html[data-chapter="4"] .stage { background:#F5F4F0; }
+html[data-chapter="4"] .stage::before { display:none; }
+.water .copy,.water .manifesto { color:#171717; }
+.water .description,.water .wear-notes,.water .eyebrow { color:#595959; }
+html[data-chapter="4"] .stage-caption,html[data-chapter="4"] .chapter-index,html[data-chapter="4"] #chapter { color:#595959; }
+
+html[data-chapter="4"] #scene-back,html[data-chapter="4"] #scene-front { mix-blend-mode:multiply; }
+.stage .ring-fallback { z-index:2; }
