@@ -9,11 +9,11 @@
   <title>乎零 R01 · 不止健康，下一代智能戒指</title>
   <link rel="stylesheet" href="style.css?v=17">
   <link rel="stylesheet" href="design-variants.css?v=29">
-  <script src="ring-renderer.js?v=31" defer></script>
-  <link rel="stylesheet" href="motion-studies.css?v=31">
+  <script src="ring-renderer.js?v=32" defer></script>
+  <link rel="stylesheet" href="motion-studies.css?v=32">
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="motion-studies.js?v=31" defer></script>
+  <script src="motion-studies.js?v=32" defer></script>
 </head>
 <body>
   <a class="skip" href="#idea">跳到产品内容</a>
@@ -100,8 +100,14 @@
             <button type="button" data-color="black" aria-pressed="false"><span class="swatch black"></span>影黑</button>
             <button type="button" data-color="gold" aria-pressed="false"><span class="swatch gold"></span>杏金</button>
           </div>
+          <div class="viewer-tools" role="group" aria-label="模型观察视角">
+            <button type="button" data-view="controls">按键与麦克风</button><button type="button" data-view="sensors">内圈传感器</button><button type="button" data-view="side">侧面</button><button type="button" id="finish-reset">复位</button>
+          </div>
+          <label class="zoom-control">缩放<input id="finish-zoom" type="range" min="75" max="130" value="100"></label>
+          <p class="viewer-hint">拖动旋转 · 滚轮或双指缩放</p>
           <p class="color-caption" id="color-caption" aria-live="polite">当前展示 · 雾银</p>
         </div>
+        <div class="finish-viewer"><canvas id="finish-ring" tabindex="0" aria-label="R01 三色交互模型，拖动或方向键旋转，Home 复位"></canvas></div>
       </div></section>
     </div>
     <section class="closing">

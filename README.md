@@ -110,3 +110,11 @@ Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放
 - Updated three fallback PNGs are exported directly from the new renderer; model inspection states the new inner diameter. Previous committed versions remain available in Git history.
 
 - v31 QA: 126 responsive scene checks passed again; 54 control-facing samples passed; all three finishes and reduced motion passed; cup and ring ratios verified. No WebGL fallback uses the updated model PNGs. Public deployment is verified separately before delivery.
+
+## 2026-11-06 · v32 collision, motion and embedded inspection
+
+- Glass landing now uses a perspective-projected conservative ring envelope rather than an estimated center offset. The lowest ring point settles 2 px above the photograph's inner floor; water fill stops at that inner floor. The glass fades before the ring travels toward the next scene, preventing exit through a visible wall.
+- Scroll travel rotates substantially again, with variant-dependent turn direction/amplitude. Separate resting poses favor the button/microphone/light; the health chapter keeps the sensor view. Reduced motion still shows stable end states.
+- Each finish chapter embeds the same current three-color model as a separate interactive viewer: drag, two-finger pinch, wheel/range zoom, hardware/sensor/side presets, reset and arrow-key rotation (Home resets). Color changes preserve inspection orientation. The inspector is shown only during that chapter; its state is independent of scroll animation.
+- Ring geometry, dimensions, material definitions and three finish assets were not changed for v32.
+- Playwright: 54 late-drop floor checks across three variants and six widths; 6 final-contact checks at 1440 and 390px verified ~2px clearance. All three embedded viewers passed drag, distinct finish renders without camera reset, presets, range zoom, keyboard and mobile layout checks. Native browser touch events verified pinch zoom. Short-phone layout and reduced-motion contact were checked separately.

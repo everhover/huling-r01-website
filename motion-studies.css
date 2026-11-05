@@ -84,3 +84,25 @@ html[data-chapter="4"] .stage-caption,html[data-chapter="4"] .chapter-index,html
 
 html[data-chapter="4"] #scene-back,html[data-chapter="4"] #scene-front { mix-blend-mode:multiply; }
 .stage .ring-fallback { z-index:2; }
+.finish-viewer { position:absolute; right:5vw; top:14%; width:44vw; height:72%; z-index:5; }
+#finish-ring { width:100%; height:100%; touch-action:none; cursor:grab; outline-offset:-4px; }
+#finish-ring:active { cursor:grabbing; }
+.viewer-tools { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.viewer-tools button { color:inherit; background:transparent; border:1px solid var(--hairline); min-height:44px; padding:9px 12px; cursor:pointer; font-size:12px; }
+.viewer-tools button:hover { border-color:currentColor; }
+.zoom-control { display:flex; align-items:center; gap:16px; margin-top:16px; font-size:12px; color:var(--secondary); }
+.zoom-control input { max-width:210px; width:60%; accent-color:#075A55; min-height:36px; }
+.viewer-hint { color:var(--secondary); font-size:12px; margin-top:8px; }
+@media(max-width:767px) {
+ .finish-viewer { top:auto; bottom:50px; right:0; width:100%; height:290px; }
+ .finishes .scene-pin { padding-top:32px; }
+ .finishes h2 { font-size:30px; }
+ .finishes .eyebrow { margin-bottom:12px; }
+ .finishes .color-picker { margin-top:20px; }
+ .viewer-tools { margin-top:16px; gap:6px; }
+ .viewer-tools button { padding:8px; font-size:11px; }
+ .zoom-control { margin-top:8px; }
+}
+.finish-viewer { visibility:hidden; }
+html[data-chapter="6"] .finish-viewer { visibility:visible; }
+#finish-ring:focus-visible { outline:2px solid #0F766E; }

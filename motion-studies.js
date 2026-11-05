@@ -58,12 +58,40 @@
    ()=>newView(.73,.5,mix(.20,.30,q),.36,-.55,mix(-2,-.5,q))
   ][i]();
  }
- function controlsPose(v,p=0) {
-  return {...v,size:mobile.matches?v.size:Math.min(v.size,.26),rx:1.17+Math.sin(p*Math.PI)*.06,ry:-1.91+Math.sin(p*Math.PI*2)*.065,rz:.05+Math.sin(p*Math.PI)*.08};
+ const stopPoses=[
+  {rx:.95,ry:-1.82,rz:.30},
+  {rx:1.1,ry:-1.95,rz:-.20},
+  {rx:.75,ry:-2.12,rz:.48},
+  null,
+  {rx:1.05,ry:-1.72,rz:-.12},
+  {rx:.82,ry:-1.95,rz:.22},
+  {rx:.9,ry:-1.9,rz:.18}
+ ];
+ function controlsPose(v,p=0,scene=0) {
+  const pose=stopPoses[scene]||stopPoses[0];
+  // A full turn while travelling, then ease into a distinct readable hardware view.
+  const travel=1-smooth(clamp((p-.10)/.70));
+  const turn=(variant==='b'?1.15:variant==='c'?-.95:.85)*Math.PI*2*travel;
+  return {...v,size:mobile.matches?v.size:Math.min(v.size,.26),
+   rx:pose.rx+Math.sin(p*Math.PI*2)*.18*travel,
+   ry:pose.ry+turn,rz:pose.rz+Math.sin(p*Math.PI)*.42*travel};
  }
  function productView(i,p) {
   const v=rawProductView(i,p);
-  return i===3?v:controlsPose(v,p);
+  if(i===6)return {...v,x:.73,y:.5,size:mobile.matches?v.size:.28*Math.min(W*.44,H*.72)/Math.min(W,H),...stopPoses[6]};
+  return i===3?v:controlsPose(v,p,i);
+ }
+ // Conservative projection of the unchanged ring envelope, including perspective.
+ function ringEnvelope(v) {
+  const cx=Math.cos(v.rx),sx=Math.sin(v.rx),cy=Math.cos(v.ry),sy=Math.sin(v.ry),cz=Math.cos(v.rz),sz=Math.sin(v.rz);
+  const m=[cz*cy,sz*cy,-sy,cz*sy*sx-sz*cx,sz*sy*sx+cz*cx,cy*sx,cz*sy*cx+sz*sx,sz*sy*cx-cz*sx,cy*cx];
+  const scale=Math.min(W,H)*v.size,points=[];
+  for(const z of [-3.75/9.9,3.75/9.9])for(let j=0;j<128;j++){
+   const t=j/128*Math.PI*2,x=12.65/9.9*Math.cos(t),y=12.65/9.9*Math.sin(t);
+   const yy=m[1]*x+m[4]*y+m[7]*z,zz=m[2]*x+m[5]*y+m[8]*z;
+   points.push(yy*scale*5/(5-zz));
+  }
+  return {bottom:Math.max(...points),top:Math.min(...points)};
  }
  function ellipse(ctx,x,y,rx,ry,fill,stroke,lw=1) {
   ctx.beginPath();ctx.ellipse(x,y,Math.max(.1,rx),Math.max(.1,ry),0,0,Math.PI*2);
@@ -77,13 +105,17 @@
  }
  function waterView(p,alpha=1) {
   const c=cupGeometry(),motion=drop(p),diam=c.w*25.3/73;
-  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h*.915-diam*.37;
+  const ringScale=diam/((25.3/9.9)*Math.min(W,H));
+  const settled=controlsPose(newView(c.cx/W,.5,ringScale,0,0,0,alpha),1,4);
+  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h*.855-ringEnvelope(settled).bottom-2;
   // Air ends at the water line; water resistance then reduces translational and angular speed.
   let y=motion.distance<=.25?mix(start,entry,motion.distance/.25):mix(entry,bottom,(motion.distance-.25)/.75);
   const drift=(variant==='b'?Math.sin(p*5)*.08:variant==='c'?Math.sin(p*4)*.12:Math.sin(p*3)*.035)*c.w*(1-p);
-  const v=controlsPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p);
+  const v=controlsPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p,4);
+  const envelope=ringEnvelope(v),floorY=c.top+c.h*.855;
+  v.y=Math.min(v.y,(floorY-envelope.bottom-2)/H);
   drawGlass(c,p,alpha);
-  last.water={...c,ringDiameter:diam,ringY:y,submerged:motion.submerged,distance:motion.distance};
+  last.water={...c,ringDiameter:diam,ringY:v.y*H,floorY,pixelBottom:v.y*H+envelope.bottom,submerged:motion.submerged,distance:motion.distance};
   return v;
  }
  function drawGlass(c,p,a) {
@@ -96,12 +128,13 @@
    bg.globalCompositeOperation='source-over';
   }
   // Water occupies the straight inner bore above the 12 mm solid glass base.
-  const inset=w*.045,base=h*.085,innerBottom=bottom-base;
+  const inset=w*.045,base=h*.145,innerBottom=bottom-base;
   const water=bg.createLinearGradient(0,wy,0,innerBottom);
   water.addColorStop(0,'#89948c08');water.addColorStop(.85,'#737d7710');water.addColorStop(1,'#59595919');
   bg.fillStyle=water;bg.fillRect(left+inset,wy,w-2*inset,innerBottom-wy);
   ellipse(bg,cx,wy,w*.455,ry,null,'#59595945',.8);
   ellipse(bg,cx,innerBottom,w*.445,ry*.65,null,'#FFFFFFcc',1);
+  if(p>.80){bg.globalAlpha=a*smooth((p-.8)/.12)*.18;ellipse(bg,cx,innerBottom-1,w*.12,2,'#171717');bg.globalAlpha=a;}
   // Photograph's side walls and solid base sit in front of the submerged ring.
   if(glassPhoto.complete&&glassPhoto.naturalWidth) {
    fg.globalCompositeOperation='multiply';
@@ -184,7 +217,7 @@
   bg.fillText('≈ 5 g',lx,ly+hang+pan*.43);bg.fillText('4.6 g',rx,ry+hang+pan*.43);
   bg.restore();
   last.balance={tilt,leftPanY:ly+hang,rightPanY:ry+hang,planeL,ringDiameter:ringD,landed:p>=landing,bounds:{left:lx-pan*.55,right:rx+pan*.55,bottom:Math.max(ly,ry)+hang+pan*.43}};
-  return controlsPose(newView(rx/W,(ry+hang-ringD*.30)/H,ringD/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),0);
+  return controlsPose(newView(rx/W,(ry+hang-ringD*.30)/H,ringD/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),1,5);
  }
  function applyMobile(v,i) {
   if(!mobile.matches||i===4||i===5)return v;
@@ -200,7 +233,7 @@
   let p=clamp(local/(hold*.8));
   if(reduced.matches)p=1;
   const transition=clamp((local-hold)/H);
-  const alpha=1-smooth(transition);
+  const alpha=1-smooth(i===4?clamp(transition/.45):transition);
   last={scene:i,progress:p,transition,variant};
   let v=i===4?waterView(p,alpha):i===5?balanceView(p,alpha):applyMobile(productView(i,p),i);
   if(i!==4&&i!==5&&transition>0&&i<6) {
@@ -210,8 +243,15 @@
    if(i+1===5){Object.assign(target,{x:mobile.matches?.65:.88,y:mobile.matches?.74:.62,size:.015})}
    for(const key of Object.keys(v))v[key]=mix(v[key],target[key],t);
   }
-  if((i===4||i===5)&&transition>0&&i<6){const target=i===4?balanceView(0,0):applyMobile(productView(i+1,0),i+1),t=smooth(transition);for(const k of Object.keys(v))v[k]=mix(v[k],target[k],t);v.opacity=1;}
-  renderer.draw(v,W,H,i===2,finish);
+  if((i===4||i===5)&&transition>0&&i<6){const target=i===4?balanceView(0,0):applyMobile(productView(i+1,0),i+1),t=smooth(i===4?clamp((transition-.5)/.5):transition);for(const k of Object.keys(v))v[k]=mix(v[k],target[k],t);v.opacity=1;}
+  if(transition>0&&i<6&&!(i===4&&transition<=.5)&&!reduced.matches) {
+   v.ry+=Math.sin(transition*Math.PI*2)*(variant==='b'?1.5:variant==='c'?-1.3:1.1);
+   v.rz+=Math.sin(transition*Math.PI)*.35;
+  }
+  // Water remains collision-constrained during travel out of the glass as well.
+  if(i===4&&transition<=.5){const e=ringEnvelope(v),floorY=last.water.floorY;v.y=Math.min(v.y,(floorY-e.bottom-2)/H);last.water.pixelBottom=v.y*H+e.bottom;}
+  renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,i===2,finish);
+  if(i===6)drawInspector();
   last.view={...v};canvas.dataset.finish=finish;canvas.dataset.scene=String(i);
   document.querySelector('#chapter').textContent=String(i+1).padStart(2,'0');
   document.documentElement.dataset.chapter=String(i);
@@ -225,7 +265,35 @@
   ScrollTrigger.create({start:0,end:()=>ScrollTrigger.maxScroll(window),onUpdate:()=>{if(ctx.conditions.reduce){state.scroll=scrollY;queue()}else follow(scrollY)},onRefresh:()=>{state.scroll=scrollY;resize()}});
  });
  addEventListener('resize',resize);document.fonts.ready.then(()=>{resize();ScrollTrigger.refresh()});resize();
- document.querySelectorAll('button[data-color]').forEach(button=>button.addEventListener('click',()=>{finish=button.dataset.color;document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelector('#color-caption').textContent=`已选择 · ${{silver:'雾银',black:'影黑',gold:'杏金'}[finish]}`;queue()}));
+ document.querySelectorAll('button[data-color]').forEach(button=>button.addEventListener('click',()=>{finish=button.dataset.color;document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));drawInspector();document.querySelector('#color-caption').textContent=`已选择 · ${{silver:'雾银',black:'影黑',gold:'杏金'}[finish]}`;queue()}));
+ const inspectCanvas=document.querySelector('#finish-ring');
+ const inspectRenderer=createRingRenderer(inspectCanvas,{refined:true});
+ let inspection={rx:.9,ry:-1.9,rz:.18,zoom:1};
+ const pointers=new Map();let gesture=null;
+ function drawInspector(){
+  if(!inspectCanvas)return;
+  if(mobile.matches){const copyBottom=chapters[6].querySelector('.copy').getBoundingClientRect().bottom;inspectCanvas.parentElement.style.height=`${Math.max(100,Math.min(290,H-copyBottom-66))}px`;}else inspectCanvas.parentElement.style.height='';
+  const w=inspectCanvas.clientWidth,h=inspectCanvas.clientHeight,r=Math.min(devicePixelRatio||1,2);
+  if(inspectCanvas.width!==Math.round(w*r)||inspectCanvas.height!==Math.round(h*r)){inspectCanvas.width=Math.round(w*r);inspectCanvas.height=Math.round(h*r);inspectRenderer.resize();}
+  inspectRenderer.draw({x:.5,y:.5,size:.28*inspection.zoom,opacity:1,...inspection},w,h,false,finish);
+  inspectCanvas.dataset.finish=finish;
+ }
+ function zoom(value){inspection.zoom=clamp(value,.75,1.3);document.querySelector('#finish-zoom').value=String(Math.round(inspection.zoom*100));drawInspector();}
+ function resetInspection(){inspection={rx:.9,ry:-1.9,rz:.18,zoom:1};zoom(1);}
+ inspectCanvas.addEventListener('pointerdown',e=>{inspectCanvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});gesture=null;});
+ inspectCanvas.addEventListener('pointermove',e=>{
+  if(!pointers.has(e.pointerId))return;
+  const previous=pointers.get(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pointers.size===2){const a=[...pointers.values()],distance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(gesture)zoom(inspection.zoom*distance/gesture);gesture=distance;}
+  else {inspection.ry+=(e.clientX-previous.x)*.012;inspection.rx+=(e.clientY-previous.y)*.012;drawInspector();}
+ });
+ for(const type of ['pointerup','pointercancel','lostpointercapture'])inspectCanvas.addEventListener(type,e=>{pointers.delete(e.pointerId);gesture=null;});
+ inspectCanvas.addEventListener('wheel',e=>{e.preventDefault();zoom(inspection.zoom-e.deltaY*.001);},{passive:false});
+ inspectCanvas.addEventListener('keydown',e=>{const directions={ArrowLeft:[0,-.15],ArrowRight:[0,.15],ArrowUp:[-.15,0],ArrowDown:[.15,0]};if(directions[e.key]){e.preventDefault();inspection.rx+=directions[e.key][0];inspection.ry+=directions[e.key][1];drawInspector();}if(e.key==='Home'){e.preventDefault();resetInspection();}});
+ document.querySelector('#finish-zoom').addEventListener('input',e=>zoom(Number(e.target.value)/100));
+ document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{const presets={controls:{rx:.9,ry:-1.9,rz:.18},sensors:{rx:-.4,ry:-1,rz:1.95},side:{rx:.1,ry:-1.15,rz:-.5}};inspection={...inspection,...presets[b.dataset.view]};drawInspector();}));
+ document.querySelector('#finish-reset').addEventListener('click',resetInspection);
+ addEventListener('resize',()=>{if(last.scene===6)drawInspector()});
  // Read-only diagnostic values for repeatable browser acceptance, plus normal scroll seek.
- window.motionStudy={inspect:()=>JSON.parse(JSON.stringify(last)),dropSample:drop,underwater,seek:(scene,p)=>{scrollTo({top:tops[scene]+clamp(p)*Math.max(1,sizes[scene]-H)*.8,behavior:'instant'});ScrollTrigger.update()}};
+ window.motionStudy={inspect:()=>JSON.parse(JSON.stringify({...last,inspection})),dropSample:drop,underwater,seek:(scene,p)=>{scrollTo({top:tops[scene]+clamp(p)*Math.max(1,sizes[scene]-H)*.8,behavior:'instant'});ScrollTrigger.update()}};
 })();
