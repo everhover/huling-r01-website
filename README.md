@@ -86,3 +86,5 @@ Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放
 - Playwright: 108 chapter/viewport checks (three pages × six sections × 1440/1024/820/768/390/320 widths), screenshots reviewed, finish selection, FAQ and reduced-motion checked. Screenshots were reviewed on the authoring Mac; end-user previews are the GitHub Pages URLs above.
 - Known inherited text: the color caption still says this round displays silver, and FAQ mentions phone screenshot placeholders. These were deliberately left verbatim under the text-freeze instruction; model switching itself supports all three finishes.
 - Brand package limitation: `tokens/` and `fonts/` contain no usable parameter/font files, and the marks manifest is missing on this Mac. Colors were taken from the readable current `BRAND_RULES.md` and `DECISIONS.md`; existing official wordmark and existing system font stack retained. Full brand-package machine certification is not claimed.
+
+- Mobile study headers use the official 72px Chinese wordmark; footer lockup stays 240px. Both SVG source files match the current VI assets byte-for-byte.

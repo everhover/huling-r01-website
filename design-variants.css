@@ -147,3 +147,8 @@ html[data-design=c] .closing a { color:#FFFFFF; border-color:#FFFFFF; }
 }
 
 html[data-design=c] .ring-fallback { z-index:1; }
+
+@media (max-width:767px) {
+ header img { content:url("assets/wordmark-cn.svg"); width:72px; }
+ footer img { width:240px; }
+}
