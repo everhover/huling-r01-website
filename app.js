@@ -61,13 +61,12 @@ const desktopViews = [
   { x: .24, y: .52, size: .28, rx: -.4, ry: .5, rz: -.8, opacity: 1 },
   { x: .76, y: .53, size: .26, rx: 1, ry: -.3, rz: .4, opacity: 1 }
 ];
-const mobileViews = [
-  { x: .75, y: .72, size: .34, rx: .36, ry: -.55, rz: -.5, opacity: 1 },
-  { x: .5, y: .55, size: .6, rx: 1.1, ry: .4, rz: .5, opacity: .1 },
-  { x: .72, y: .77, size: .44, rx: .3, ry: -.95, rz: -.6, opacity: 1 },
-  { x: .54, y: .79, size: .31, rx: -.4, ry: .5, rz: -.8, opacity: 1 },
-  { x: .67, y: .81, size: .29, rx: 1, ry: -.3, rz: .4, opacity: 1 }
-];
+const mobileViews = desktopViews.map(view => ({
+  ...view,
+  x: .5,
+  y: .5,
+  size: view.opacity < .2 ? .36 : .32
+}));
 
 function render() {
   pendingFrame = false;
