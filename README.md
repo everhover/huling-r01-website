@@ -120,3 +120,5 @@ Playwright 检查三种材质、五种屏幕宽度、五个视角及灯光缩放
 - Playwright: 54 late-drop floor checks across three variants and six widths; 6 final-contact checks at 1440 and 390px verified ~2px clearance. All three embedded viewers passed drag, distinct finish renders without camera reset, presets, range zoom, keyboard and mobile layout checks. Native browser touch events verified pinch zoom. Short-phone layout and reduced-motion contact were checked separately.
 
 v32 review routes: [motion comparison](https://everhover.github.io/huling-r01-website/motions.html?v=32) · [interactive finish viewer](https://everhover.github.io/huling-r01-website/motion-a.html?v=32#finishes). Use the new query version when reviewing to refresh cached page resources.
+
+- v33 cache revision adds deterministic initial/hash navigation after page and fonts are ready; direct scene/inspector links land on their actual chapter despite sticky scenes and ScrollTrigger refresh. Interaction and model behavior remain the v32 implementation.

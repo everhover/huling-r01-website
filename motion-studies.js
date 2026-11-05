@@ -294,6 +294,16 @@
  document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{const presets={controls:{rx:.9,ry:-1.9,rz:.18},sensors:{rx:-.4,ry:-1,rz:1.95},side:{rx:.1,ry:-1.15,rz:-.5}};inspection={...inspection,...presets[b.dataset.view]};drawInspector();}));
  document.querySelector('#finish-reset').addEventListener('click',resetInspection);
  addEventListener('resize',()=>{if(last.scene===6)drawInspector()});
+ function jumpToHash(){
+  if(!location.hash)return;
+  const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if(!target)return;
+  const y=target.getBoundingClientRect().top+scrollY;
+  scrollTo({top:y,behavior:'instant'});state.scroll=scrollY;ScrollTrigger.update();queue();
+ }
+ const pageLoaded=document.readyState==='complete'?Promise.resolve():new Promise(resolve=>addEventListener('load',resolve,{once:true}));
+ Promise.all([document.fonts.ready,pageLoaded]).then(()=>{resize();ScrollTrigger.refresh();requestAnimationFrame(jumpToHash)});
+ addEventListener('hashchange',()=>requestAnimationFrame(jumpToHash));
  // Read-only diagnostic values for repeatable browser acceptance, plus normal scroll seek.
  window.motionStudy={inspect:()=>JSON.parse(JSON.stringify({...last,inspection})),dropSample:drop,underwater,seek:(scene,p)=>{scrollTo({top:tops[scene]+clamp(p)*Math.max(1,sizes[scene]-H)*.8,behavior:'instant'});ScrollTrigger.update()}};
 })();
