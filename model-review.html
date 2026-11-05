@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>R01 银色模型 · 细节检查</title>
-  <script src="ring-renderer.js?v=22" defer></script>
-  <script src="model-review.js?v=22" defer></script>
+  <script src="ring-renderer.js?v=24" defer></script>
+  <script src="model-review.js?v=24" defer></script>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; background: #20201e; color: #eee; font-family: -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
@@ -45,6 +45,7 @@
       <h1>R01 银色模型<br>实拍参考首版</h1>
       <p>拖动旋转，查看部件与内圈。<br>键盘方向键也可调整视角。</p>
       <div class="views">
+        <button data-view="button">按键比例正视</button>
         <button data-view="silhouette">立式轮廓</button>
         <button data-view="controls">按键 / 麦克风 / 灯</button>
         <button data-view="sensors">内圈传感器</button>
@@ -52,6 +53,7 @@
       </div>
       <label>放大细节<input id="zoom" type="range" min="20" max="55" value="31"></label>
       <label><input id="led" type="checkbox" checked> 白色指示灯</label>
+      <p>宽 7.5 mm · 厚 2.5 mm<br>内径约 17.3 mm<br>按键直径暂按 4.6 mm 估算</p>
       <p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。当前仅展示银色。</p>
     </aside>
   </main>

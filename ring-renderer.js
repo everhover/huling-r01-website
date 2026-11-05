@@ -4,6 +4,10 @@
  */
 function createRingRenderer(canvas, options = {}) {
   const refined = options.refined === true;
+  const unitMm = 9.9;
+  const dimensions = { widthMm: 7.5, thicknessMm: 2.5, innerDiameterMm: 17.3, buttonDiameterMm: 4.6 };
+  const innerRadius = dimensions.innerDiameterMm / 2 / unitMm;
+  const outerRadius = (dimensions.innerDiameterMm / 2 + dimensions.thicknessMm) / unitMm;
   const gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true, preserveDrawingBuffer: true });
   if (!gl) {
     const fallback = document.createElement('img');
@@ -127,6 +131,7 @@ function createRingRenderer(canvas, options = {}) {
         if (material<.5) light=metalReflection*.62+vec3(.13+.08*diffuse+.02*fill);
         if (material>.5 && material<1.5) light=metalReflection*.60+vec3(.085+.06*diffuse);
         if (material>1.5 && material<2.5) light=metalReflection*.48+vec3(.12+.08*diffuse);
+        if (material>3.5 && material<4.5) light=metalReflection*.65+vec3(.12+.06*diffuse);
         if (material>2.5 && material<3.5) light=vec3(.012);
       }
       float grain=noise(vLocal*550.0)-.5;
@@ -186,6 +191,13 @@ function createRingRenderer(canvas, options = {}) {
   function triangle(a,b,c) { for(const v of [a,b,c]) vertex(...v); }
   function normalize(v) { const length=Math.hypot(...v); return v.map(x=>x/length); }
   function lathe(profile, material, segments=256) {
+    if (refined) {
+      // Calibrate the body, not the round controls, so buttons stay circular.
+      profile=profile.map(([radius,z])=>[
+        innerRadius+(radius-.874)/(.252)*(outerRadius-innerRadius),
+        z*(dimensions.widthMm/2/unitMm)/.386
+      ]);
+    }
     const edgeNormals=profile.slice(0,-1).map((point,index)=> {
       const next=profile[index+1];
       return normalize([next[1]-point[1],point[0]-next[0]]);
@@ -261,11 +273,20 @@ function createRingRenderer(canvas, options = {}) {
       }
     }
   }
-  // Button ~3.6 mm; mic ~1.55 mm; indicator ~0.5 mm. All centers at band mid-width.
+  // Refined button diameter is estimated from the user's near-frontal photo.
   const keyAngle=.18;
-  disk(keyAngle,.184,1.128,3);
-  bevel(keyAngle,[[.181,1.128],[.182,1.137],[.173,1.147],[.16,1.151]],1);
-  disk(keyAngle,.16,1.151,4);
+  if (refined) {
+    const buttonRadius=dimensions.buttonDiameterMm/2/unitMm;
+    const faceRadius=4.2/2/unitMm;
+    disk(keyAngle,buttonRadius,outerRadius+.002,3);
+    bevel(keyAngle,[[buttonRadius-.003,outerRadius+.002],[buttonRadius,outerRadius+.011],
+      [faceRadius+.006,outerRadius+.021],[faceRadius,outerRadius+.025]],1);
+    disk(keyAngle,faceRadius,outerRadius+.025,4);
+  } else {
+    disk(keyAngle,.184,1.128,3);
+    bevel(keyAngle,[[.181,1.128],[.182,1.137],[.173,1.147],[.16,1.151]],1);
+    disk(keyAngle,.16,1.151,4);
+  }
   const microphoneAspect=refined ? 1.35 : 1;
   bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2,80,microphoneAspect,refined);
   disk(-.87,.073,1.105,9,80,microphoneAspect,refined);

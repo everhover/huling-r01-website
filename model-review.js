@@ -1,6 +1,7 @@
 const reviewCanvas=document.querySelector('#review-ring');
 const reviewRenderer=createRingRenderer(reviewCanvas,{refined:true});
 const reviewViews={
+  button:{rx:Math.PI/2,ry:-Math.PI/2+.18,rz:0},
   silhouette:{rx:.36,ry:-.55,rz:-.5},
   controls:{rx:-.4,ry:-1.2,rz:1.95},
   sensors:{rx:-.4,ry:-1.0,rz:1.95},
