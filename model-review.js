@@ -1,5 +1,5 @@
 const reviewCanvas=document.querySelector('#review-ring');
-const reviewRenderer=createRingRenderer(reviewCanvas);
+const reviewRenderer=createRingRenderer(reviewCanvas,{refined:true});
 const reviewViews={
   silhouette:{rx:.36,ry:-.55,rz:-.5},
   controls:{rx:-.4,ry:-1.2,rz:1.95},

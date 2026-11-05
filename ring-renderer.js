@@ -2,11 +2,12 @@
  * The five supplied photographs define structure; feature sizes remain estimates.
  * No third-party runtime, remote textures or continuous animation loop.
  */
-function createRingRenderer(canvas) {
+function createRingRenderer(canvas, options = {}) {
+  const refined = options.refined === true;
   const gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true, preserveDrawingBuffer: true });
   if (!gl) {
     const fallback = document.createElement('img');
-    fallback.src = 'assets/r01-silver-fallback.png';
+    fallback.src = refined ? 'assets/r01-silver-refined-fallback.png' : 'assets/r01-silver-fallback.png';
     fallback.alt = '乎零 R01 银色戒指三维模型预览';
     fallback.className = 'ring-fallback';
     canvas.style.visibility = 'hidden';
@@ -59,6 +60,7 @@ function createRingRenderer(canvas) {
     varying vec3 vLocal;
     varying vec3 vDetail;
     const float PI = 3.14159265359;
+    const bool refined = ${refined ? 'true' : 'false'};
     float angularDistance(float a, float b) { return atan(sin(a-b),cos(a-b)); }
     float noise(vec3 p) { return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453); }
     float roundedBox(vec2 p, vec2 b, float r) {
@@ -66,7 +68,17 @@ function createRingRenderer(canvas) {
       return length(max(q,0.0))+min(max(q.x,q.y),0.0)-r;
     }
     vec3 environment(vec3 r, float roughness) {
-      // Long, neutral studio softboxes reflected by the polished inner lip.
+      if (refined) {
+        // Metallic surfaces reflect bright studio panels separated by dark cards.
+        float width=.035+roughness*.30;
+        float left=exp(-pow(abs((r.x+.48)/width),3.0))*smoothstep(-.8,.25,r.z);
+        float right=exp(-pow(abs((r.x-.72)/(.025+roughness*.20)),3.0));
+        float ceiling=smoothstep(.10,.65,-r.y)*(1.0-smoothstep(.65,.95,abs(r.x)));
+        float soft=pow(max(0.0,dot(r,normalize(vec3(-.6,-.8,1.4)))),mix(110.0,9.0,roughness));
+        float darkCard=1.0-.8*exp(-pow((r.x-.12)/(.10+roughness*.1),2.0));
+        return vec3((.025+2.8*left+1.6*right+1.15*ceiling+1.2*soft)*darkCard);
+      }
+      // Original study lighting stays available to the scroll prototype.
       float broad = pow(max(0.0,dot(r,normalize(vec3(-.6,-.8,1.4)))),mix(90.0,7.0,roughness));
       float strip = exp(-pow((r.x+.39)*mix(28.0,4.0,roughness),2.0)) * smoothstep(-.7,.6,r.z);
       float rim = pow(max(0.0,dot(r,normalize(vec3(.9,.4,.5)))),mix(120.0,10.0,roughness));
@@ -80,7 +92,7 @@ function createRingRenderer(canvas) {
       if (material < .5) {
         vec2 mic = vec2(angularDistance(theta,-.87)*1.126,vLocal.z);
         vec2 led = vec2(angularDistance(theta,-1.06)*1.126,vLocal.z);
-        if (length(mic)<.079 || length(led)<.026) discard;
+        if (length(mic/vec2(refined ? 1.35 : 1.0,1.0))<.079 || length(led)<.026) discard;
       }
       if ((material>6.5 && material<7.5) || material>10.5) {
         if (roundedBox(vDetail.yz,vec2(1.0),.24)>0.0) discard;
@@ -98,8 +110,18 @@ function createRingRenderer(canvas) {
       if (material>2.5 && material<3.5) { roughness=.7; base=vec3(.045); }
       if (material>3.5 && material<4.5) { roughness=.43; base=vec3(.63,.64,.65); }
       vec3 light=base*(.23+.53*diffuse+.13*fill)+environment(reflected,roughness)*(.32+.18*fresnel);
+      if (refined) {
+        roughness=.62;
+        if (material>.5 && material<1.5) roughness=.045;
+        if (material>1.5 && material<2.5) roughness=.10;
+        if (material>3.5 && material<4.5) roughness=.28;
+        vec3 metalReflection=environment(reflected,roughness)*vec3(.91,.925,.94);
+        light=metalReflection+vec3(.015*diffuse+.008*fill);
+        if (material<.5) light=metalReflection*.62+vec3(.13+.08*diffuse+.02*fill);
+        if (material>2.5 && material<3.5) light=vec3(.012);
+      }
       float grain=noise(vLocal*550.0)-.5;
-      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*.045;
+      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*(refined ? .009 : .045);
       if (material>1.5 && material<2.5) {
         float brushed=sin(vLocal.z*1800.0+sin(theta*500.0))*.003;
         light+=brushed;
@@ -123,7 +145,12 @@ function createRingRenderer(canvas) {
         light+=vec3(.04,.08,.06)*pow(max(0.0,dot(n,eye)),8.0);
       }
       if (material>10.5) light=vec3(.36)+environment(reflected,.14)*.3;
-      light=pow(max(light,vec3(0.0)),vec3(.88));
+      if (refined && (material<2.5 || (material>3.5 && material<4.5))) {
+        light=light/(vec3(1.0)+light);
+        light=pow(max(light,vec3(0.0)),vec3(1.0/2.2));
+      } else {
+        light=pow(max(light,vec3(0.0)),vec3(.88));
+      }
       gl_FragColor=vec4(light*uOpacity,uOpacity);
     }
   `;
@@ -180,23 +207,23 @@ function createRingRenderer(canvas) {
   lathe([[.881,.252],[.875,.23],[.874,-.23],[.881,-.252]],2);
 
   // A circular feature uses tangent/axial coordinates and truly projects from the band.
-  function disk(theta, radius, distance, material, steps=80) {
+  function disk(theta, radius, distance, material, steps=80, aspect=1) {
     const normal=[Math.cos(theta),Math.sin(theta),0];
     const tangent=[-Math.sin(theta),Math.cos(theta),0];
-    const point=(x,y)=>[[normal[0]*distance+tangent[0]*x,normal[1]*distance+tangent[1]*x,y],normal,[material,x,y]];
+    const point=(x,y)=>[[normal[0]*distance+tangent[0]*x*aspect,normal[1]*distance+tangent[1]*x*aspect,y],normal,[material,x,y]];
     for(let i=0;i<steps;i++) {
       const a=i/steps*Math.PI*2,b=(i+1)/steps*Math.PI*2;
       triangle(point(0,0),point(Math.cos(a)*radius,Math.sin(a)*radius),point(Math.cos(b)*radius,Math.sin(b)*radius));
     }
   }
-  function bevel(theta, profile, material, steps=80) {
+  function bevel(theta, profile, material, steps=80, aspect=1) {
     const radial=[Math.cos(theta),Math.sin(theta),0];
     const tangent=[-Math.sin(theta),Math.cos(theta),0];
     for(let j=0;j<profile.length-1;j++) {
       const [r0,d0]=profile[j], [r1,d1]=profile[j+1];
       const direction=normalize([d1-d0,r0-r1]);
       const point=(r,d,t)=> {
-        const x=Math.cos(t)*r,y=Math.sin(t)*r;
+        const x=Math.cos(t)*r*aspect,y=Math.sin(t)*r;
         return [[radial[0]*d+tangent[0]*x,radial[1]*d+tangent[1]*x,y],normalize([radial[0]*direction[1]+tangent[0]*Math.cos(t)*direction[0],radial[1]*direction[1]+tangent[1]*Math.cos(t)*direction[0],Math.sin(t)*direction[0]]),[material,x,y]];
       };
       for(let i=0;i<steps;i++) {
@@ -211,9 +238,10 @@ function createRingRenderer(canvas) {
   disk(keyAngle,.184,1.128,3);
   bevel(keyAngle,[[.181,1.128],[.182,1.137],[.173,1.147],[.16,1.151]],1);
   disk(keyAngle,.16,1.151,4);
-  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2);
-  disk(-.87,.073,1.105,9);
-  disk(-.87,.07,1.11,5);
+  const microphoneAspect=refined ? 1.35 : 1;
+  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2,80,microphoneAspect);
+  disk(-.87,.073,1.105,9,80,microphoneAspect);
+  disk(-.87,.07,1.11,5,80,microphoneAspect);
   bevel(-1.06,[[.027,1.126],[.023,1.11]],2,48);
   disk(-1.06,.023,1.111,6,48);
 
