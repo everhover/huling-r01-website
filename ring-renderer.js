@@ -92,12 +92,19 @@ function createRingRenderer(canvas, options = {}) {
       if (material < .5) {
         vec2 mic = vec2(angularDistance(theta,-.87)*1.126,vLocal.z);
         vec2 led = vec2(angularDistance(theta,-1.06)*1.126,vLocal.z);
-        if (length(mic/vec2(refined ? 1.35 : 1.0,1.0))<.079 || length(led)<.026) discard;
+        bool microphoneOpening = refined
+          ? roundedBox(mic,vec2(.079*1.35,.079),.079*.70)<0.0
+          : length(mic)<.079;
+        if (microphoneOpening || length(led)<.026) discard;
       }
       if ((material>6.5 && material<7.5) || material>10.5) {
         if (roundedBox(vDetail.yz,vec2(1.0),.24)>0.0) discard;
       }
       vec3 n=normalize(vNormal);
+      if (refined && material<.5) {
+        vec3 microNormal=vec3(noise(vLocal*360.0),noise(vLocal.yzx*360.0),noise(vLocal.zxy*360.0))-.5;
+        n=normalize(n+microNormal*.025);
+      }
       vec3 eye=normalize(vec3(0.0,0.0,5.0)-vPosition);
       vec3 reflected=reflect(-eye,n);
       float diffuse=max(0.0,dot(n,normalize(vec3(-.45,-.7,1.2))));
@@ -112,16 +119,18 @@ function createRingRenderer(canvas, options = {}) {
       vec3 light=base*(.23+.53*diffuse+.13*fill)+environment(reflected,roughness)*(.32+.18*fresnel);
       if (refined) {
         roughness=.62;
-        if (material>.5 && material<1.5) roughness=.045;
-        if (material>1.5 && material<2.5) roughness=.10;
+        if (material>.5 && material<1.5) roughness=.24;
+        if (material>1.5 && material<2.5) roughness=.30;
         if (material>3.5 && material<4.5) roughness=.28;
         vec3 metalReflection=environment(reflected,roughness)*vec3(.91,.925,.94);
         light=metalReflection+vec3(.015*diffuse+.008*fill);
         if (material<.5) light=metalReflection*.62+vec3(.13+.08*diffuse+.02*fill);
+        if (material>.5 && material<1.5) light=metalReflection*.50+vec3(.10+.07*diffuse);
+        if (material>1.5 && material<2.5) light=metalReflection*.48+vec3(.12+.08*diffuse);
         if (material>2.5 && material<3.5) light=vec3(.012);
       }
       float grain=noise(vLocal*550.0)-.5;
-      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*(refined ? .009 : .045);
+      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*(refined ? .038 : .045);
       if (material>1.5 && material<2.5) {
         float brushed=sin(vLocal.z*1800.0+sin(theta*500.0))*.003;
         light+=brushed;
@@ -192,8 +201,11 @@ function createRingRenderer(canvas, options = {}) {
         const t0=i/segments*Math.PI*2;
         const t1=(i+1)/segments*Math.PI*2;
         const at=(r,z,t,n)=>[[r*Math.cos(t),r*Math.sin(t),z],[n[0]*Math.cos(t),n[0]*Math.sin(t),n[1]],[material,0,0]];
-        const a=at(r0,z0,t0,profileNormals[j]), b=at(r0,z0,t1,profileNormals[j]);
-        const c=at(r1,z1,t1,profileNormals[j+1]), d=at(r1,z1,t0,profileNormals[j+1]);
+        const crispFold=refined && material===1 && j>=2;
+        const startNormal=crispFold ? edgeNormals[j] : profileNormals[j];
+        const endNormal=crispFold ? edgeNormals[j] : profileNormals[j+1];
+        const a=at(r0,z0,t0,startNormal), b=at(r0,z0,t1,startNormal);
+        const c=at(r1,z1,t1,endNormal), d=at(r1,z1,t0,endNormal);
         triangle(a,b,c);triangle(a,c,d);
       }
     }
@@ -206,24 +218,31 @@ function createRingRenderer(canvas, options = {}) {
   lathe([[.881,-.252],[.898,-.284],[.934,-.334],[.974,-.367],[1.025,-.386],[1.064,-.386],[1.083,-.379]],1);
   lathe([[.881,.252],[.875,.23],[.874,-.23],[.881,-.252]],2);
 
-  // A circular feature uses tangent/axial coordinates and truly projects from the band.
-  function disk(theta, radius, distance, material, steps=80, aspect=1) {
+  // Feature contours are tangent to the band; the microphone has real straight sides.
+  function contour(angle,radius,aspect,rounded) {
+    const cosine=Math.cos(angle),sine=Math.sin(angle);
+    if (!rounded) return [cosine*radius*aspect,sine*radius];
+    const corner=radius*.70;
+    return [Math.sign(cosine)*(radius*aspect-corner)+corner*cosine,
+      Math.sign(sine)*(radius-corner)+corner*sine];
+  }
+  function disk(theta, radius, distance, material, steps=80, aspect=1, rounded=false) {
     const normal=[Math.cos(theta),Math.sin(theta),0];
     const tangent=[-Math.sin(theta),Math.cos(theta),0];
-    const point=(x,y)=>[[normal[0]*distance+tangent[0]*x*aspect,normal[1]*distance+tangent[1]*x*aspect,y],normal,[material,x,y]];
+    const point=(x,y)=>[[normal[0]*distance+tangent[0]*x,normal[1]*distance+tangent[1]*x,y],normal,[material,x,y]];
     for(let i=0;i<steps;i++) {
       const a=i/steps*Math.PI*2,b=(i+1)/steps*Math.PI*2;
-      triangle(point(0,0),point(Math.cos(a)*radius,Math.sin(a)*radius),point(Math.cos(b)*radius,Math.sin(b)*radius));
+      triangle(point(0,0),point(...contour(a,radius,aspect,rounded)),point(...contour(b,radius,aspect,rounded)));
     }
   }
-  function bevel(theta, profile, material, steps=80, aspect=1) {
+  function bevel(theta, profile, material, steps=80, aspect=1, rounded=false) {
     const radial=[Math.cos(theta),Math.sin(theta),0];
     const tangent=[-Math.sin(theta),Math.cos(theta),0];
     for(let j=0;j<profile.length-1;j++) {
       const [r0,d0]=profile[j], [r1,d1]=profile[j+1];
       const direction=normalize([d1-d0,r0-r1]);
       const point=(r,d,t)=> {
-        const x=Math.cos(t)*r*aspect,y=Math.sin(t)*r;
+        const [x,y]=contour(t,r,aspect,rounded);
         return [[radial[0]*d+tangent[0]*x,radial[1]*d+tangent[1]*x,y],normalize([radial[0]*direction[1]+tangent[0]*Math.cos(t)*direction[0],radial[1]*direction[1]+tangent[1]*Math.cos(t)*direction[0],Math.sin(t)*direction[0]]),[material,x,y]];
       };
       for(let i=0;i<steps;i++) {
@@ -239,9 +258,9 @@ function createRingRenderer(canvas, options = {}) {
   bevel(keyAngle,[[.181,1.128],[.182,1.137],[.173,1.147],[.16,1.151]],1);
   disk(keyAngle,.16,1.151,4);
   const microphoneAspect=refined ? 1.35 : 1;
-  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2,80,microphoneAspect);
-  disk(-.87,.073,1.105,9,80,microphoneAspect);
-  disk(-.87,.07,1.11,5,80,microphoneAspect);
+  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2,80,microphoneAspect,refined);
+  disk(-.87,.073,1.105,9,80,microphoneAspect,refined);
+  disk(-.87,.07,1.11,5,80,microphoneAspect,refined);
   bevel(-1.06,[[.027,1.126],[.023,1.11]],2,48);
   disk(-1.06,.023,1.111,6,48);
 
