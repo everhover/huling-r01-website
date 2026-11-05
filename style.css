@@ -61,7 +61,7 @@ canvas { display: block; width: 100%; height: 100%; }
 .copy { width: 52%; position: relative; z-index: 2; }
 p, h1, h2 { margin: 0; }
 .eyebrow { font-size: 10px; letter-spacing: .18em; line-height: 1.7; margin-bottom: 32px; color: #b9b9b2; }
-h1 { font-size: clamp(60px, 7.3vw, 118px); line-height: 1.08; font-weight: 500; letter-spacing: -.065em; }
+h1 { font-size: clamp(32px, 5.1vw, 82px); line-height: 1.08; font-weight: 500; letter-spacing: -.065em; }
 h2 { font-size: clamp(46px, 5.5vw, 84px); line-height: 1.2; font-weight: 500; letter-spacing: -.055em; }
 .period { color: #969692; }
 .hero { min-height: 100vh; min-height: 100svh; padding-top: 150px; padding-bottom: 120px; }
@@ -124,12 +124,12 @@ footer p, footer a { font-size: 10px; line-height: 1.8; }
   .chapter { padding: 105px 24px 80px; min-height: 115svh; align-items: flex-start; }
   .copy, .body-chapter .copy { width: 100%; }
   .hero { min-height: 100svh; padding-top: 120px; }
-  h1 { font-size: clamp(46px, 11.8vw, 78px); }
+  h1 { font-size: clamp(30px, 10.2vw, 68px); }
   h2 { font-size: 43px; }
   .eyebrow { margin-bottom: 22px; font-size: 9px; }
   .hero-line { font-size: 17px; margin-top: 22px; }
   .description { font-size: 13px; line-height: 1.85; margin-top: 18px; }
-  .hero .description { max-width: 205px; }
+  .hero .description { max-width: none; }
   .hero .explore { margin-top: 16px; font-size: 11px; gap: 24px; }
   .hero-footer { left: 24px; right: 24px; bottom: 25px; font-size: 9px; }
   .hero-footer span:last-child { display: none; }
@@ -229,3 +229,5 @@ canvas.haptic { animation: tactile .22s linear; }
 .swatch.black { background: #424448; }
 .swatch.gold { background: #c9a37b; }
 .color-caption { margin-top: 12px; font-size: 9px; color: #888; }
+
+.title-line, .hero-line, .hero-tagline { white-space: nowrap; }
