@@ -8,6 +8,7 @@ const reviewViews={
   profile:{rx:.1,ry:-1.15,rz:-.5}
 };
 let reviewView={...reviewViews.silhouette};
+let reviewFinish=new URLSearchParams(location.search).get('finish') === 'black' ? 'black' : 'silver';
 let pointer=null;
 let framePending=false;
 function drawReview() {
@@ -19,7 +20,7 @@ function drawReview() {
     reviewCanvas.width=targetWidth;reviewCanvas.height=targetHeight;
     reviewRenderer.resize();
   }
-  reviewRenderer.draw({x:.5,y:.5,size:Number(document.querySelector('#zoom').value)/100,opacity:1,...reviewView},width,height,document.querySelector('#led').checked);
+  reviewRenderer.draw({x:.5,y:.5,size:Number(document.querySelector('#zoom').value)/100,opacity:1,...reviewView},width,height,document.querySelector('#led').checked,reviewFinish);
 }
 function queueReview() {
   if(!framePending) { framePending=true;requestAnimationFrame(drawReview); }
@@ -53,3 +54,14 @@ document.querySelector('#zoom').addEventListener('input',queueReview);
 document.querySelector('#led').addEventListener('change',queueReview);
 addEventListener('resize',queueReview);
 queueReview();
+
+function selectReviewFinish(finish) {
+  reviewFinish=finish;
+  document.querySelectorAll('button[data-finish]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.finish===finish)));
+  document.querySelector('#finish-name').textContent=finish==='black' ? '影黑' : '雾银';
+  reviewCanvas.dataset.finish=finish;
+  reviewCanvas.setAttribute('aria-label',`R01 ${finish==='black'?'影黑':'雾银'}戒指三维检查，可拖动旋转`);
+  queueReview();
+}
+document.querySelectorAll('button[data-finish]').forEach(button=>button.addEventListener('click',()=>selectReviewFinish(button.dataset.finish)));
+selectReviewFinish(reviewFinish);

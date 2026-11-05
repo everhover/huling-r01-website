@@ -20,7 +20,9 @@ function createRingRenderer(canvas, options = {}) {
     return {
       available: true,
       resize() {},
-      draw(view,width,height) {
+      draw(view,width,height,led,finish = 'silver') {
+        fallback.src = refined && finish === 'black' ? 'assets/r01-black-refined-fallback.png' : (refined ? 'assets/r01-silver-refined-fallback.png' : 'assets/r01-silver-fallback.png');
+        fallback.alt = `乎零 R01 ${finish === 'black' ? '影黑' : '雾银'}戒指模型预览`;
         const size=Math.min(width,height)*view.size/.32;
         Object.assign(fallback.style,{
           width:`${size}px`,height:`${size}px`,
@@ -59,6 +61,7 @@ function createRingRenderer(canvas, options = {}) {
     precision highp float;
     uniform float uOpacity;
     uniform float uLed;
+    uniform float uBlack;
     varying vec3 vNormal;
     varying vec3 vPosition;
     varying vec3 vLocal;
@@ -91,6 +94,11 @@ function createRingRenderer(canvas, options = {}) {
     }
     void main() {
       float material = vDetail.x;
+      bool buttonRim = material>11.5 && material<12.5;
+      bool microphoneRim = material>12.5;
+      if (buttonRim) material=1.0;
+      if (microphoneRim) material=2.0;
+      bool blackCoat = refined && uBlack>.5 && (material<.5 || (material>3.5 && material<4.5) || buttonRim || microphoneRim);
       float theta = atan(vLocal.y,vLocal.x);
       // Apertures are removed from the actual outer metal, with recessed parts below.
       if (material < .5) {
@@ -133,9 +141,13 @@ function createRingRenderer(canvas, options = {}) {
         if (material>1.5 && material<2.5) light=metalReflection*.48+vec3(.12+.08*diffuse);
         if (material>3.5 && material<4.5) light=metalReflection*.65+vec3(.12+.06*diffuse);
         if (material>2.5 && material<3.5) light=vec3(.012);
+        if (blackCoat) {
+          light=vec3(.014,.016,.018)*(.55+.60*diffuse+.16*fill)
+            +environment(reflected,.82)*.025;
+        }
       }
       float grain=noise(vLocal*550.0)-.5;
-      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*(refined ? .038 : .045);
+      if (material<.5 || (material>3.5 && material<4.5)) light+=grain*(blackCoat ? .0028 : (refined ? .038 : .045));
       if (material>1.5 && material<2.5) {
         float brushed=sin(vLocal.z*1800.0+sin(theta*500.0))*.003;
         light+=brushed;
@@ -146,6 +158,7 @@ function createRingRenderer(canvas, options = {}) {
         vec2 grid=abs(fract(vDetail.yz*46.0)-.5);
         float wire=1.0-smoothstep(.055,.12,min(grid.x,grid.y));
         light=vec3(.035)+vec3(.22)*wire+diffuse*.05;
+        if (refined && uBlack>.5) light=vec3(.018)+vec3(.09)*wire+diffuse*.02;
       }
       if (material>5.5 && material<6.5) light=mix(vec3(.06),vec3(1.0),uLed);
       if (material>6.5 && material<7.5) light=vec3(.012,.018,.023)+environment(reflected,.12)*.08;
@@ -280,7 +293,7 @@ function createRingRenderer(canvas, options = {}) {
     const faceRadius=4.2/2/unitMm;
     disk(keyAngle,buttonRadius,outerRadius+.002,3);
     bevel(keyAngle,[[buttonRadius-.003,outerRadius+.002],[buttonRadius,outerRadius+.011],
-      [faceRadius+.006,outerRadius+.021],[faceRadius,outerRadius+.025]],1);
+      [faceRadius+.006,outerRadius+.021],[faceRadius,outerRadius+.025]],12);
     disk(keyAngle,faceRadius,outerRadius+.025,4);
   } else {
     disk(keyAngle,.184,1.128,3);
@@ -288,7 +301,7 @@ function createRingRenderer(canvas, options = {}) {
     disk(keyAngle,.16,1.151,4);
   }
   const microphoneAspect=refined ? 1.35 : 1;
-  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],2,80,microphoneAspect,refined);
+  bevel(-.87,[[.08,1.126],[.073,1.114],[.071,1.107]],refined ? 13 : 2,80,microphoneAspect,refined);
   disk(-.87,.073,1.105,9,80,microphoneAspect,refined);
   disk(-.87,.07,1.11,5,80,microphoneAspect,refined);
   bevel(-1.06,[[.027,1.126],[.023,1.11]],2,48);
@@ -329,7 +342,7 @@ function createRingRenderer(canvas, options = {}) {
     gl.vertexAttribPointer(location,3,gl.FLOAT,false,0,0);
   }
   const uniforms={};
-  for(const name of ['uRotation','uViewport','uCenter','uScale','uOpacity','uLed']) uniforms[name]=gl.getUniformLocation(program,name);
+  for(const name of ['uRotation','uViewport','uCenter','uScale','uOpacity','uLed','uBlack']) uniforms[name]=gl.getUniformLocation(program,name);
   gl.enable(gl.DEPTH_TEST);
   gl.depthFunc(gl.LEQUAL);
   gl.clearColor(0,0,0,0);
@@ -343,7 +356,7 @@ function createRingRenderer(canvas, options = {}) {
   return {
     available: true,
     resize() { gl.viewport(0,0,canvas.width,canvas.height); },
-    draw(view,width,height,led) {
+    draw(view,width,height,led,finish = 'silver') {
       gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
       gl.uniformMatrix3fv(uniforms.uRotation,false,rotation(view.rx,view.ry,view.rz));
       gl.uniform2f(uniforms.uViewport,width,height);
@@ -351,6 +364,7 @@ function createRingRenderer(canvas, options = {}) {
       gl.uniform1f(uniforms.uScale,Math.min(width,height)*view.size);
       gl.uniform1f(uniforms.uOpacity,view.opacity);
       gl.uniform1f(uniforms.uLed,led ? 1 : 0);
+      gl.uniform1f(uniforms.uBlack,refined && finish === 'black' ? 1 : 0);
       gl.drawArrays(gl.TRIANGLES,0,vertexCount);
     }
   };

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>R01 银色模型 · 细节检查</title>
-  <script src="ring-renderer.js?v=24" defer></script>
-  <script src="model-review.js?v=24" defer></script>
+  <title>R01 银色 / 黑色模型 · 细节检查</title>
+  <script src="ring-renderer.js?v=27" defer></script>
+  <script src="model-review.js?v=27" defer></script>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; background: #20201e; color: #eee; font-family: -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
@@ -20,6 +20,9 @@
     h1 { font-size: 24px; font-weight: 500; line-height: 1.5; margin: 0 0 12px; }
     p { color: #aaa; font-size: 13px; line-height: 1.8; margin: 10px 0 26px; }
     .views { display: grid; gap: 10px; }
+    .finishes { display: flex; gap: 10px; margin: 18px 0; }
+    .finishes button { flex: 1; text-align: center; color: #999; }
+    .finishes button[aria-pressed=true] { border-color: #ddd; color: #fff; background: #ffffff0a; }
     button { border: 1px solid #ffffff40; background: transparent; color: #eee; min-height: 44px; padding: 10px; cursor: pointer; font: inherit; font-size: 12px; text-align: left; }
     button:hover { background: #ffffff10; }
     button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid white; outline-offset: 4px; }
@@ -42,7 +45,11 @@
   <main>
     <div class="viewer"><canvas id="review-ring" aria-label="R01 银色戒指三维检查，可拖动旋转" tabindex="0"></canvas></div>
     <aside>
-      <h1>R01 银色模型<br>实拍参考首版</h1>
+      <h1>R01 · <span id="finish-name">雾银</span><br>实拍参考模型</h1>
+      <div class="finishes" role="group" aria-label="选择模型材质">
+        <button data-finish="silver" aria-pressed="true">雾银</button>
+        <button data-finish="black" aria-pressed="false">影黑</button>
+      </div>
       <p>拖动旋转，查看部件与内圈。<br>键盘方向键也可调整视角。</p>
       <div class="views">
         <button data-view="button">按键比例正视</button>
@@ -54,7 +61,7 @@
       <label>放大细节<input id="zoom" type="range" min="20" max="55" value="31"></label>
       <label><input id="led" type="checkbox" checked> 白色指示灯</label>
       <p>宽 7.5 mm · 厚 2.5 mm<br>内径约 17.3 mm<br>按键直径暂按 4.6 mm 估算</p>
-      <p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。当前仅展示银色。</p>
+      <p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。提供雾银与影黑材质对照。</p>
     </aside>
   </main>
 </body>
