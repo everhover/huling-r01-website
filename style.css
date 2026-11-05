@@ -271,7 +271,7 @@ canvas.haptic { animation: tactile .22s linear; }
   .proof { flex-wrap: wrap; }
 }
 
-/* Keep the idea chapter focused on the headline and product. */
+/* Left copy retains its heading, interaction detail and product description. */
 .idea { flex-direction: row; align-items: center; gap: 0; min-height: 115vh; min-height: 115svh; }
 .idea .copy { width: 52%; }
 .idea h2 { font-size: clamp(30px, 3.9vw, 60px); }
