@@ -9,6 +9,12 @@ let height = 0;
 let pendingFrame = false;
 let chapterTops = [];
 let recordingState = 0;
+let selectedColor = 'silver';
+const finishes = {
+  silver: { name: '雾银', rgb: [1, 1.004, 1.012] },
+  black: { name: '影黑', rgb: [.42, .43, .45] },
+  gold: { name: '杏金', rgb: [1, .81, .61] }
+};
 
 function resize() {
   width = canvas.clientWidth;
@@ -108,7 +114,9 @@ function render() {
     const illumination = Math.max(0, normal[0] * -.35 + normal[1] * -.65 + normal[2] * .67);
     const reflection = Math.pow(Math.max(0, normal[0] * -.25 + normal[1] * -.35 + normal[2] * .9), 22);
     const metal = Math.round(48 + illumination * 130 + reflection * 72);
-    context.fillStyle = `rgb(${metal},${metal + 1},${metal + 3})`;
+    const finish = finishes[selectedColor].rgb;
+    const channels = finish.map(channel => Math.min(255, Math.round(metal * channel)));
+    context.fillStyle = `rgb(${channels.join(',')})`;
     context.strokeStyle = context.fillStyle;
     context.lineWidth = .6;
     context.beginPath();
@@ -201,3 +209,13 @@ record.addEventListener('click', () => {
   resize();
 });
 canvas.addEventListener('animationend', () => canvas.classList.remove('haptic'));
+
+const colorButtons = [...document.querySelectorAll('[data-color]')];
+colorButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    selectedColor = button.dataset.color;
+    colorButtons.forEach(option => option.setAttribute('aria-pressed', String(option === button)));
+    document.querySelector('#color-caption').textContent = `当前颜色 · ${finishes[selectedColor].name} / 色彩为交互示意`;
+    queueFrame();
+  });
+});

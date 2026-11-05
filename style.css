@@ -209,3 +209,23 @@ canvas.haptic { animation: tactile .22s linear; }
 @media (prefers-reduced-motion: reduce) {
   canvas.haptic { animation: none; }
 }
+
+.color-picker { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.color-picker button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #ffffff26;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 11px;
+}
+.color-picker button[aria-pressed=true] { border-color: #ccc; color: white; }
+.swatch { display: block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid #ffffff50; }
+.swatch.silver { background: #c2c3c5; }
+.swatch.black { background: #424448; }
+.swatch.gold { background: #c9a37b; }
+.color-caption { margin-top: 12px; font-size: 9px; color: #888; }
