@@ -102,8 +102,11 @@
    const phone=phoneGeometry(),pxPerMm=phone.height/150;
    result.size=pxPerMm*9.9/Math.min(W,H);
    const edge=ringEnvelope(result);
-   result.x=(phone.left-18-edge.right)/W;
-   result.y=(phone.top+phone.height-edge.bottom)/H;
+   const tilt=Math.PI/12,depth=1+phone.width*.5*Math.sin(tilt)/1000;
+   const phoneLeft=phone.left+phone.width*.5-phone.width*.5*Math.cos(tilt)/depth;
+   const phoneBottom=phone.top+phone.height*.5+phone.height*.5/depth;
+   result.x=(phoneLeft+(edge.right-edge.left)*.20-edge.right)/W;
+   result.y=(phoneBottom-edge.bottom)/H;
   }
   return result;
  }
