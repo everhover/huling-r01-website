@@ -99,16 +99,18 @@
   if(i===6)return {...v,x:.73,y:.5,size:mobile.matches?v.size:.28*Math.min(W*.44,H*.72)/Math.min(W,H),...stopPoses[6]};
   const result=i===3?v:controlsPose(v,p,i);
   if(dark&&i===2){
-   if(!mobile.matches){
-    result.size*=.85;
-    const range=document.createRange(),walker=document.createTreeWalker(chapters[2].querySelector('.copy'),NodeFilter.SHOW_TEXT);
-    const rights=[];while(walker.nextNode()){if(!walker.currentNode.textContent.trim())continue;range.selectNodeContents(walker.currentNode);rights.push(...Array.from(range.getClientRects(),r=>r.right))}
-    const right=Math.max(...rights);
-    const edge=ringEnvelope({...result,rx:.75,ry:-2.12,rz:.48});
-    result.x=Math.min(.76,(right+94-edge.left)/W);
-   }
+   const phone=phoneGeometry(),pxPerMm=phone.height/150;
+   result.size=pxPerMm*9.9/Math.min(W,H);
+   const edge=ringEnvelope(result);
+   result.x=(phone.left-18-edge.right)/W;
+   result.y=(phone.top+phone.height-edge.bottom)/H;
   }
   return result;
+ }
+ function phoneGeometry(){
+  const height=Math.min(H*(mobile.matches?.43:.65),mobile.matches?390:640,W*(mobile.matches?.95:1));
+  const width=height*71.9/150;
+  return {height,width,left:mobile.matches?W*.60-width/2:W*.77-width/2,top:mobile.matches?Math.max(H*.45,chapters[2].querySelector('.copy').getBoundingClientRect().bottom+30):H*.18};
  }
  // A diagram overlay traced from the existing lathe profile; physical renderer stays untouched.
  function questionWire(v,amount) {
@@ -274,7 +276,7 @@
   return controlsPose(newView(rx/W,(ry+hang-ringD*.30)/H,ringD/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),1,5);
  }
  function applyMobile(v,i) {
-  if(!mobile.matches||i===4||i===5)return v;
+  if(!mobile.matches||i===4||i===5||(dark&&i===2))return v;
   if(variant==='b'&&i===0)return {...v,x:.5,y:.60,size:.22};
   const copy=chapters[i].querySelector('.copy').getBoundingClientRect();
   const base=Math.max(H*.72,copy.bottom+H*.12);
@@ -290,6 +292,8 @@
   const transition=clamp((local-hold)/H);
   const alpha=1-smooth(i===4?clamp(transition/.45):transition);
   last={scene:i,progress:p,transition,variant};
+  const phoneEl=document.querySelector('.recording-phone');
+  if(phoneEl){const g=phoneGeometry();Object.assign(phoneEl.style,{left:g.left+'px',top:g.top+'px',width:g.width+'px',height:g.height+'px',opacity:String(i===2?alpha:i===1?smooth(transition):0)});last.phone={...g,ringOuterDiameterMm:25.3,phoneHeightMm:150};}
   let v=i===4?waterView(p,alpha):i===5?balanceView(p,alpha):applyMobile(productView(i,p),i);
   if(i!==4&&i!==5&&transition>0&&i<6) {
    const target=applyMobile(productView(i+1,0),i+1),t=smooth(transition);
