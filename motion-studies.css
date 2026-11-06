@@ -106,3 +106,59 @@ html[data-chapter="4"] #scene-back,html[data-chapter="4"] #scene-front { mix-ble
 .finish-viewer { visibility:hidden; }
 html[data-chapter="6"] .finish-viewer { visibility:visible; }
 #finish-ring:focus-visible { outline:2px solid #0F766E; }
+/* B refinement draft: remove decorative separators; keep control outlines. */
+html[data-design="b"] header,
+html[data-design="b"] .hero-footer,
+html[data-design="b"] .health-tech,
+html[data-design="b"] .faq details,
+html[data-design="b"] footer { border:0; }
+html[data-design="b"] .stage::before,
+html[data-design="b"] .chapter-index i,
+html[data-design="b"] nav a::after { display:none; }
+html[data-design="b"] .closing a { border:0; }
+html[data-design="b"][data-chapter="4"] .stage { background:#171717; }
+html[data-design="b"] .water .copy,
+html[data-design="b"] .water .manifesto { color:#FFFFFF; }
+html[data-design="b"] .water .description,
+html[data-design="b"] .water .wear-notes,
+html[data-design="b"] .water .eyebrow,
+html[data-design="b"][data-chapter="4"] .stage-caption,
+html[data-design="b"][data-chapter="4"] .chapter-index,
+html[data-design="b"][data-chapter="4"] #chapter { color:#D8D5CF; }
+html[data-design="b"][data-chapter="4"] #scene-back,
+html[data-design="b"][data-chapter="4"] #scene-front {
+  filter:invert(1);
+  mix-blend-mode:screen;
+}
+/* Restored navigation remains above the ring on a soft text-protection layer. */
+@media(min-width:768px) {
+ html[data-design="b"] header { isolation:isolate; }
+ html[data-design="b"] header::before {
+  content:""; position:absolute; inset:0 0 -40px; z-index:-1; pointer-events:none;
+  background:linear-gradient(to bottom,#171717eb 0%,#171717bd 45%,#17171700 100%);
+ }
+}
+
+/* Black B: scattered monitoring vocabulary around the wireframe chapter. */
+html[data-motion-study=b] .question .noise { display:block; inset:8% 5%; color:#aaa7a0; opacity:.55; pointer-events:none; }
+html[data-motion-study=b] .question .noise span { font-size:14px; letter-spacing:.08em; }
+html[data-motion-study=b] .question .noise span:nth-child(1) { left:3%; top:25%; }
+html[data-motion-study=b] .question .noise span:nth-child(2) { right:15%; top:15%; font-size:22px; }
+html[data-motion-study=b] .question .noise span:nth-child(3) { right:2%; bottom:30%; }
+html[data-motion-study=b] .question .noise span:nth-child(4) { left:12%; bottom:11%; font-size:20px; }
+html[data-motion-study=b] .question .noise span:nth-child(5) { left:24%; top:9%; }
+html[data-motion-study=b] .question .noise span:nth-child(6) { right:24%; bottom:7%; }
+html[data-motion-study=b] .question .noise span:nth-child(7) { left:5%; top:52%; }
+html[data-motion-study=b] .question .noise span:nth-child(8) { right:7%; top:38%; }
+html[data-motion-study=b] .question .noise span:nth-child(9) { left:15%; top:5%; }
+html[data-motion-study=b] .question .noise span:nth-child(10) { right:3%; top:7%; }
+html[data-motion-study=b] .question .noise span:nth-child(11) { left:1%; bottom:24%; }
+html[data-motion-study=b] .question .noise span:nth-child(12) { right:5%; bottom:13%; }
+html[data-motion-study=b] .question .noise span:nth-child(13) { left:40%; top:4%; }
+html[data-motion-study=b] .question .noise span:nth-child(14) { right:34%; bottom:0; }
+html[data-motion-study=b] .question .noise span:nth-child(15) { left:5%; top:11%; }
+html[data-motion-study=b] .question .noise span:nth-child(16) { right:2%; top:24%; }
+@media(max-width:767px) {
+ html[data-motion-study=b] .question .noise { inset:38% 5% 4%; opacity:.45; }
+ html[data-motion-study=b] .question .noise span,html[data-motion-study=b] .question .noise span:nth-child(2),html[data-motion-study=b] .question .noise span:nth-child(4) { font-size:10px; }
+}

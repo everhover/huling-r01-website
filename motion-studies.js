@@ -15,7 +15,7 @@
  const mix=(a,b,t)=>a+(b-a)*t;
  const smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
  const state={scroll:scrollY};
- let W=0,H=0,dpr=1,tops=[],sizes=[],finish='silver',pending=false,last={};
+ let W=0,H=0,dpr=1,tops=[],sizes=[],finish=variant==='b'?'black':'silver',pending=false,last={};
  const tau=.13;
  // v(t)=v_terminal+(v_entry-v_terminal)e^(-t/tau), integrated analytically.
  function underwater(t) {t=clamp(t);return (.31*t+(.95-.31)*tau*(1-Math.exp(-t/tau)))/(.31+(.95-.31)*tau*(1-Math.exp(-1/tau)));}
@@ -78,8 +78,37 @@
  }
  function productView(i,p) {
   const v=rawProductView(i,p);
+  if(variant==='b'&&i===0){
+   const q=smooth(p);
+   return newView(mix(1.08,.76,q),.50,mix(W*.365/Math.min(W,H),Math.min(.26,W*.20/Math.min(W,H)),q),mix(Math.PI-.06,.95,q),mix(-.20,-1.82,q),mix(Math.PI+.18,.30,q));
+  }
   if(i===6)return {...v,x:.73,y:.5,size:mobile.matches?v.size:.28*Math.min(W*.44,H*.72)/Math.min(W,H),...stopPoses[6]};
   return i===3?v:controlsPose(v,p,i);
+ }
+ // A diagram overlay traced from the existing lathe profile; physical renderer stays untouched.
+ function questionWire(v,amount) {
+  if(amount<=0)return;
+  const profile=[[1.105,-.379],[1.12,-.37],[1.126,-.351],[1.126,-.18],[1.126,0],[1.126,.18],[1.126,.351],[1.12,.37],[1.105,.379],[1.083,.379],[1.069,.386],[1.045,.386],[1.039,.381],[.903,.283],[.887,.258],[.881,.248],[.875,.23],[.874,0],[.875,-.23],[.881,-.248],[.887,-.258],[.903,-.283],[1.039,-.381],[1.045,-.386],[1.069,-.386],[1.083,-.379],[1.105,-.379]].map(([r,z])=>[10.15/9.9+(r-.874)/.252*(2.5/9.9),z*(3.75/9.9)/.386]);
+  const cx=Math.cos(v.rx),sx=Math.sin(v.rx),cy=Math.cos(v.ry),sy=Math.sin(v.ry),cz=Math.cos(v.rz),sz=Math.sin(v.rz);
+  const m=[cz*cy,sz*cy,-sy,cz*sy*sx-sz*cx,sz*sy*sx+cz*cx,cy*sx,cz*sy*cx+sz*sx,sz*sy*cx-cz*sx,cy*cx];
+  const project=(r,z,t)=>{const x=r*Math.cos(t),y=r*Math.sin(t),xx=m[0]*x+m[3]*y+m[6]*z,yy=m[1]*x+m[4]*y+m[7]*z,zz=m[2]*x+m[5]*y+m[8]*z,k=Math.min(W,H)*v.size*5/(5-zz);return[v.x*W+xx*k,v.y*H+yy*k]};
+  bg.save();bg.strokeStyle='#D8D5CF';bg.lineWidth=mobile.matches?.55:.7;
+  const path=points=>{bg.beginPath();points.forEach((pt,j)=>j?bg.lineTo(...pt):bg.moveTo(...pt));bg.stroke()};
+  profile.forEach(([r,z],j)=>{bg.globalAlpha=amount*(j%3===0?.32:.13);path(Array.from({length:129},(_,k)=>project(r,z,k/128*Math.PI*2)))});
+  for(let j=0;j<80;j++){const reveal=clamp(amount*1.6-(j%4)*.13);bg.globalAlpha=reveal*.25;path(profile.map(([r,z])=>project(r,z,j/80*Math.PI*2)))}
+  bg.restore();
+ }
+ function blackOpening(i,p,transition) {
+  const small=newView(mobile.matches?.5:.71,mobile.matches?.62:.44,mobile.matches?.20:.20,2.72,-.40,3.42);
+  const large=newView(.5,mobile.matches?.64:.53,mobile.matches?.48:.47,2.55,-.43,3.72,.035);
+  if(i===0){
+   const start=applyMobile(productView(0,0),0),out=smooth(clamp(p/.72)),v={};
+   for(const k of Object.keys(start))v[k]=mix(start[k],small[k],out);
+   const slide=smooth(transition);for(const k of Object.keys(v))v[k]=mix(v[k],large[k],slide);
+   return {v,wire:smooth(clamp((transition-.12)/.88))};
+  }
+  const v={...large,rz:large.rz+smooth(p)*.15};
+  return {v,wire:1-smooth(transition)};
  }
  // Conservative projection of the unchanged ring envelope, including perspective.
  function ringEnvelope(v) {
@@ -221,6 +250,7 @@
  }
  function applyMobile(v,i) {
   if(!mobile.matches||i===4||i===5)return v;
+  if(variant==='b'&&i===0)return {...v,x:.5,y:.60,size:.22};
   const copy=chapters[i].querySelector('.copy').getBoundingClientRect();
   const base=Math.max(H*.72,copy.bottom+H*.12);
   return {...v,x:.5+(v.x-.73)*.25,y:Math.min(H*.84,base)/H,size:i===1?.22:Math.min(.21,(H-copy.bottom-65)/(2.4*Math.min(W,H))),opacity:i===1?.08:v.opacity};
@@ -248,6 +278,7 @@
    v.ry+=Math.sin(transition*Math.PI*2)*(variant==='b'?1.5:variant==='c'?-1.3:1.1);
    v.rz+=Math.sin(transition*Math.PI)*.35;
   }
+  if(dark&&i<2){const opening=blackOpening(i,p,transition);v=opening.v;if(i===1&&transition>0){const target=applyMobile(productView(2,0),2),t=smooth(transition);for(const k of Object.keys(v))v[k]=mix(v[k],target[k],t)}questionWire(v,opening.wire);last.wire=opening.wire;}
   // Water remains collision-constrained during travel out of the glass as well.
   if(i===4&&transition<=.5){const e=ringEnvelope(v),floorY=last.water.floorY;v.y=Math.min(v.y,(floorY-e.bottom-2)/H);last.water.pixelBottom=v.y*H+e.bottom;}
   renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,i===2,finish);
@@ -265,6 +296,8 @@
   ScrollTrigger.create({start:0,end:()=>ScrollTrigger.maxScroll(window),onUpdate:()=>{if(ctx.conditions.reduce){state.scroll=scrollY;queue()}else follow(scrollY)},onRefresh:()=>{state.scroll=scrollY;resize()}});
  });
  addEventListener('resize',resize);document.fonts.ready.then(()=>{resize();ScrollTrigger.refresh()});resize();
+ document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===finish)));
+ if(variant==='b')document.querySelector('#color-caption').textContent='当前展示 · 影黑';
  document.querySelectorAll('button[data-color]').forEach(button=>button.addEventListener('click',()=>{finish=button.dataset.color;document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));drawInspector();document.querySelector('#color-caption').textContent=`已选择 · ${{silver:'雾银',black:'影黑',gold:'杏金'}[finish]}`;queue()}));
  const inspectCanvas=document.querySelector('#finish-ring');
  const inspectRenderer=createRingRenderer(inspectCanvas,{refined:true});
