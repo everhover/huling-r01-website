@@ -172,7 +172,7 @@ html[data-motion-study=b] .question .noise span:nth-child(16) { right:2%; top:24
 .phone-placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:#aaa; }
 .phone-placeholder span { font-size:17px; letter-spacing:.22em; font-weight:300; }
 .phone-placeholder p { font-size:12px; color:#777; margin:0; }
-.phone-interface { width:100%; height:100%; object-fit:cover; display:block; }
+.phone-interface { width:100%; height:100%; object-fit:contain; object-position:center; display:block; background:#101211; }
 .phone-interface[hidden] { display:none; }
 .phone-interface:not([hidden])+.phone-placeholder { display:none; }
 @media(max-width:767px){
@@ -183,3 +183,6 @@ html[data-motion-study=b] .question .noise span:nth-child(16) { right:2%; top:24
  .phone-placeholder p { font-size:9px; }
  .phone-home { height:3px; bottom:6px; }
 }
+
+.phone-screen:has(.phone-interface:not([hidden])) .phone-island,
+.phone-screen:has(.phone-interface:not([hidden])) .phone-home { display:none; }
