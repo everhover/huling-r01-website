@@ -82,7 +82,7 @@
   {rx:.9,ry:-1.9,rz:.18}
  ];
  function controlsPose(v,p=0,scene=0) {
-  const pose=dark&&scene===2?{rx:Math.PI-.10,ry:-.80,rz:Math.PI-.04}:stopPoses[scene]||stopPoses[0];
+  const pose=dark&&scene===2?{rx:3.55,ry:-.95,rz:3.05}:stopPoses[scene]||stopPoses[0];
   // A full turn while travelling, then ease into a distinct readable hardware view.
   const travel=1-smooth(clamp((p-.10)/.70));
   const turn=(variant==='b'?1.15:variant==='c'?-.95:.85)*Math.PI*2*travel;
@@ -105,7 +105,7 @@
     const rights=[];while(walker.nextNode()){if(!walker.currentNode.textContent.trim())continue;range.selectNodeContents(walker.currentNode);rights.push(...Array.from(range.getClientRects(),r=>r.right))}
     const right=Math.max(...rights);
     const edge=ringEnvelope({...result,rx:.75,ry:-2.12,rz:.48});
-    result.x=Math.min(.76,(right+75-edge.left)/W);
+    result.x=Math.min(.76,(right+94-edge.left)/W);
    }
   }
   return result;
