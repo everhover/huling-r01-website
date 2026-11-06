@@ -43,12 +43,18 @@ function createRingRenderer(canvas, options = {}) {
     uniform vec2 uViewport;
     uniform vec2 uCenter;
     uniform float uScale;
+    uniform float uPress;
     varying vec3 vNormal;
     varying vec3 vPosition;
     varying vec3 vLocal;
     varying vec3 vDetail;
     void main() {
-      vec3 p = uRotation * aPosition;
+      vec3 local = aPosition;
+      // Animate the existing key face and bevel along its radial axis; no added mesh.
+      if ((aDetail.x>3.5 && aDetail.x<4.5) || (aDetail.x>11.5 && aDetail.x<12.5)) {
+        local -= vec3(cos(.18),sin(.18),0.0) * uPress * .018;
+      }
+      vec3 p = uRotation * local;
       float camera = 5.0 - p.z;
       vec2 center = vec2(uCenter.x * 2.0 / uViewport.x - 1.0, 1.0 - uCenter.y * 2.0 / uViewport.y);
       vec2 offset = vec2(p.x, -p.y) * uScale * 10.0 / uViewport;
@@ -350,7 +356,7 @@ function createRingRenderer(canvas, options = {}) {
     gl.vertexAttribPointer(location,3,gl.FLOAT,false,0,0);
   }
   const uniforms={};
-  for(const name of ['uRotation','uViewport','uCenter','uScale','uOpacity','uLed','uBlack','uGold']) uniforms[name]=gl.getUniformLocation(program,name);
+  for(const name of ['uRotation','uViewport','uCenter','uScale','uOpacity','uPress','uLed','uBlack','uGold']) uniforms[name]=gl.getUniformLocation(program,name);
   gl.enable(gl.DEPTH_TEST);
   gl.depthFunc(gl.LEQUAL);
   gl.clearColor(0,0,0,0);
@@ -371,7 +377,8 @@ function createRingRenderer(canvas, options = {}) {
       gl.uniform2f(uniforms.uCenter,width*view.x,height*view.y);
       gl.uniform1f(uniforms.uScale,Math.min(width,height)*view.size);
       gl.uniform1f(uniforms.uOpacity,view.opacity);
-      gl.uniform1f(uniforms.uLed,led ? 1 : 0);
+      gl.uniform1f(uniforms.uPress,view.press || 0);
+      gl.uniform1f(uniforms.uLed,Number(led) || 0);
       gl.uniform1f(uniforms.uBlack,refined && finish === 'black' ? 1 : 0);
       gl.uniform1f(uniforms.uGold,refined && finish === 'gold' ? 1 : 0);
       gl.drawArrays(gl.TRIANGLES,0,vertexCount);

@@ -16,6 +16,20 @@
  const smooth=t=>{t=clamp(t);return t*t*(3-2*t)};
  const state={scroll:scrollY};
  let W=0,H=0,dpr=1,tops=[],sizes=[],finish=variant==='b'?'black':'silver',pending=false,last={};
+ const keyDemo={press:0,led:0};let keyTimeline=null,keyPlayed=false;
+ function updateKeyDemo(i,p,transition){
+  if(!dark)return;
+  if(i!==2){if(keyTimeline)keyTimeline.kill();keyTimeline=null;keyPlayed=false;keyDemo.press=0;keyDemo.led=0;return;}
+  if(p<.8||transition>0||keyPlayed)return;
+  keyPlayed=true;
+  if(reduced.matches){keyDemo.led=1;return;}
+  keyTimeline=gsap.timeline({onUpdate:queue})
+   .to(keyDemo,{press:1,duration:.09,ease:'power2.in'},.18)
+   .to(keyDemo,{press:0,duration:.12,ease:'power2.out'})
+   .to(keyDemo,{press:1,duration:.09,ease:'power2.in'},.47)
+   .to(keyDemo,{press:0,duration:.12,ease:'power2.out'})
+   .to(keyDemo,{led:1,duration:.16,ease:'power1.out'},.72);
+ }
  const tau=.13;
  // v(t)=v_terminal+(v_entry-v_terminal)e^(-t/tau), integrated analytically.
  function underwater(t) {t=clamp(t);return (.31*t+(.95-.31)*tau*(1-Math.exp(-t/tau)))/(.31+(.95-.31)*tau*(1-Math.exp(-1/tau)));}
@@ -83,7 +97,18 @@
    return newView(mix(1.08,.76,q),.50,mix(W*.365/Math.min(W,H),Math.min(.26,W*.20/Math.min(W,H)),q),mix(Math.PI-.06,.95,q),mix(-.20,-1.82,q),mix(Math.PI+.18,.30,q));
   }
   if(i===6)return {...v,x:.73,y:.5,size:mobile.matches?v.size:.28*Math.min(W*.44,H*.72)/Math.min(W,H),...stopPoses[6]};
-  return i===3?v:controlsPose(v,p,i);
+  const result=i===3?v:controlsPose(v,p,i);
+  if(dark&&i===2){
+   if(!mobile.matches){
+    result.size*=.85;
+    const range=document.createRange(),walker=document.createTreeWalker(chapters[2].querySelector('.copy'),NodeFilter.SHOW_TEXT);
+    const rights=[];while(walker.nextNode()){if(!walker.currentNode.textContent.trim())continue;range.selectNodeContents(walker.currentNode);rights.push(...Array.from(range.getClientRects(),r=>r.right))}
+    const right=Math.max(...rights);
+    const edge=ringEnvelope(result);
+    result.x=Math.min(.76,(right+56-edge.left)/W);
+   }
+  }
+  return result;
  }
  // A diagram overlay traced from the existing lathe profile; physical renderer stays untouched.
  function questionWire(v,amount) {
@@ -117,10 +142,10 @@
   const scale=Math.min(W,H)*v.size,points=[];
   for(const z of [-3.75/9.9,3.75/9.9])for(let j=0;j<128;j++){
    const t=j/128*Math.PI*2,x=12.65/9.9*Math.cos(t),y=12.65/9.9*Math.sin(t);
-   const yy=m[1]*x+m[4]*y+m[7]*z,zz=m[2]*x+m[5]*y+m[8]*z;
-   points.push(yy*scale*5/(5-zz));
+   const xx=m[0]*x+m[3]*y+m[6]*z,yy=m[1]*x+m[4]*y+m[7]*z,zz=m[2]*x+m[5]*y+m[8]*z;
+   points.push([xx*scale*5/(5-zz),yy*scale*5/(5-zz)]);
   }
-  return {bottom:Math.max(...points),top:Math.min(...points)};
+  return {bottom:Math.max(...points.map(p=>p[1])),top:Math.min(...points.map(p=>p[1])),left:Math.min(...points.map(p=>p[0])),right:Math.max(...points.map(p=>p[0]))};
  }
  function ellipse(ctx,x,y,rx,ry,fill,stroke,lw=1) {
   ctx.beginPath();ctx.ellipse(x,y,Math.max(.1,rx),Math.max(.1,ry),0,0,Math.PI*2);
@@ -253,7 +278,7 @@
   if(variant==='b'&&i===0)return {...v,x:.5,y:.60,size:.22};
   const copy=chapters[i].querySelector('.copy').getBoundingClientRect();
   const base=Math.max(H*.72,copy.bottom+H*.12);
-  return {...v,x:.5+(v.x-.73)*.25,y:Math.min(H*.84,base)/H,size:i===1?.22:Math.min(.21,(H-copy.bottom-65)/(2.4*Math.min(W,H))),opacity:i===1?.08:v.opacity};
+  return {...v,x:.5+(v.x-.73)*.25,y:Math.min(H*.84,base)/H,size:i===1?.22:Math.min(.21,(H-copy.bottom-65)/(2.4*Math.min(W,H)))*(dark&&i===2?.85:1),opacity:i===1?.08:v.opacity};
  }
  function frame() {
   pending=false;if(!W||!H)return;
@@ -281,7 +306,10 @@
   if(dark&&i<2){const opening=blackOpening(i,p,transition);v=opening.v;if(i===1&&transition>0){const target=applyMobile(productView(2,0),2),t=smooth(transition);for(const k of Object.keys(v))v[k]=mix(v[k],target[k],t)}questionWire(v,opening.wire);last.wire=opening.wire;}
   // Water remains collision-constrained during travel out of the glass as well.
   if(i===4&&transition<=.5){const e=ringEnvelope(v),floorY=last.water.floorY;v.y=Math.min(v.y,(floorY-e.bottom-2)/H);last.water.pixelBottom=v.y*H+e.bottom;}
-  renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,i===2,finish);
+  updateKeyDemo(i,p,transition);
+  if(dark&&i===2)v.press=keyDemo.press;
+  renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,dark?(i===2?keyDemo.led:0):i===2,finish);
+  last.keyDemo={press:keyDemo.press,led:keyDemo.led,played:keyPlayed};
   if(i===6)drawInspector();
   last.view={...v};canvas.dataset.finish=finish;canvas.dataset.scene=String(i);
   document.querySelector('#chapter').textContent=String(i+1).padStart(2,'0');
