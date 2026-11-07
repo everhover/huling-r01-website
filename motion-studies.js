@@ -162,15 +162,20 @@
   const w=h*7.3/14.9;
   return {cx:mobile.matches?W*.5:W*(variant==='c'?.73:.75),top:mobile.matches?H*.56:H*.29,w,h};
  }
+ function waterPose(view,p){
+  const v=controlsPose(view,p,4);
+  if(dark){const t=smooth(clamp((p-.65)/.30));for(const [k,end] of Object.entries({rx:1.38,ry:0,rz:0}))v[k]=mix(v[k],end,t);}
+  return v;
+ }
  function waterView(p,alpha=1) {
   const c=cupGeometry(),motion=drop(p),diam=c.w*25.3/73;
   const ringScale=diam/((25.3/9.9)*Math.min(W,H));
-  const settled=controlsPose(newView(c.cx/W,.5,ringScale,0,0,0,alpha),1,4);
+  const settled=waterPose(newView(c.cx/W,.5,ringScale,0,0,0,alpha),1);
   const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h*.855-ringEnvelope(settled).bottom-2;
   // Air ends at the water line; water resistance then reduces translational and angular speed.
   let y=motion.distance<=.25?mix(start,entry,motion.distance/.25):mix(entry,bottom,(motion.distance-.25)/.75);
   const drift=(variant==='b'?Math.sin(p*5)*.08:variant==='c'?Math.sin(p*4)*.12:Math.sin(p*3)*.035)*c.w*(1-p);
-  const v=controlsPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p,4);
+  const v=waterPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p);
   const envelope=ringEnvelope(v),floorY=c.top+c.h*.855;
   v.y=Math.min(v.y,(floorY-envelope.bottom-2)/H);
   drawGlass(c,p,alpha);
