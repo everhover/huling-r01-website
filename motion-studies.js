@@ -162,6 +162,8 @@
   const w=h*7.3/14.9;
   return {cx:mobile.matches?W*.5:W*(variant==='c'?.73:.75),top:mobile.matches?H*.56:H*.29,w,h};
  }
+ function glassFloor(c){return c.top+c.h*(dark?.882:.855)}
+ function floorGap(){return dark?0:2}
  function waterPose(view,p){
   const v=controlsPose(view,p,4);
   if(dark){const t=smooth(clamp((p-.65)/.30));for(const [k,end] of Object.entries({rx:1.38,ry:0,rz:0}))v[k]=mix(v[k],end,t);}
@@ -171,13 +173,13 @@
   const c=cupGeometry(),motion=drop(p),diam=c.w*25.3/73;
   const ringScale=diam/((25.3/9.9)*Math.min(W,H));
   const settled=waterPose(newView(c.cx/W,.5,ringScale,0,0,0,alpha),1);
-  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=c.top+c.h*.855-ringEnvelope(settled).bottom-2;
+  const entry=c.top+c.h*.26,start=c.top-c.h*.22,bottom=glassFloor(c)-ringEnvelope(settled).bottom-floorGap();
   // Air ends at the water line; water resistance then reduces translational and angular speed.
   let y=motion.distance<=.25?mix(start,entry,motion.distance/.25):mix(entry,bottom,(motion.distance-.25)/.75);
   const drift=(variant==='b'?Math.sin(p*5)*.08:variant==='c'?Math.sin(p*4)*.12:Math.sin(p*3)*.035)*c.w*(1-p);
   const v=waterPose(newView((c.cx+drift)/W,y/H,diam/((25.3/9.9)*Math.min(W,H)),0,0,0,alpha),p);
-  const envelope=ringEnvelope(v),floorY=c.top+c.h*.855;
-  v.y=Math.min(v.y,(floorY-envelope.bottom-2)/H);
+  const envelope=ringEnvelope(v),floorY=glassFloor(c);
+  v.y=Math.min(v.y,(floorY-envelope.bottom-floorGap())/H);
   drawGlass(c,p,alpha);
   last.water={...c,ringDiameter:diam,ringY:v.y*H,floorY,pixelBottom:v.y*H+envelope.bottom,submerged:motion.submerged,distance:motion.distance};
   return v;
@@ -192,7 +194,7 @@
    bg.globalCompositeOperation='source-over';
   }
   // Water occupies the straight inner bore above the 12 mm solid glass base.
-  const inset=w*.045,base=h*.145,innerBottom=bottom-base;
+  const inset=w*.045,base=h*(dark?.118:.145),innerBottom=bottom-base;
   const water=bg.createLinearGradient(0,wy,0,innerBottom);
   water.addColorStop(0,'#89948c08');water.addColorStop(.85,'#737d7710');water.addColorStop(1,'#59595919');
   bg.fillStyle=water;bg.fillRect(left+inset,wy,w-2*inset,innerBottom-wy);
@@ -317,7 +319,7 @@
   }
   if(dark&&i<2){const opening=blackOpening(i,p,transition);v=opening.v;if(i===1&&transition>0){const target=applyMobile(productView(2,0),2),t=smooth(transition);for(const k of Object.keys(v))v[k]=mix(v[k],target[k],t)}questionWire(v,opening.wire);last.wire=opening.wire;}
   // Water remains collision-constrained during travel out of the glass as well.
-  if(i===4&&transition<=.5){const e=ringEnvelope(v),floorY=last.water.floorY;v.y=Math.min(v.y,(floorY-e.bottom-2)/H);last.water.pixelBottom=v.y*H+e.bottom;}
+  if(i===4&&transition<=.5){const e=ringEnvelope(v),floorY=last.water.floorY;v.y=Math.min(v.y,(floorY-e.bottom-floorGap())/H);last.water.pixelBottom=v.y*H+e.bottom;}
   updateKeyDemo(i,p,transition);
   if(dark&&i===2)v.press=keyDemo.press;
   renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,dark?(i===2?keyDemo.led:0):i===2,finish);
