@@ -323,7 +323,16 @@
   const alpha=1-smooth(i===4?clamp(transition/.45):transition);
   last={scene:i,progress:p,transition,variant};
   const phoneEl=document.querySelector('.recording-phone');
-  if(phoneEl){const g=phoneGeometry();Object.assign(phoneEl.style,{left:g.left+'px',top:g.top+'px',width:g.width+'px',height:g.height+'px',opacity:String(i===2?alpha:i===1?smooth(transition):0)});last.phone={...g,ringOuterDiameterMm:25.3,phoneHeightMm:150};}
+  if(phoneEl){
+   const g=phoneGeometry(),image=phoneEl.querySelector('.phone-interface');
+   // Keep the 150 × 71.9 mm body. Fit the bezel to the source aspect, never stretch the image.
+   const imageRatio=image.naturalWidth&&image.naturalHeight?image.naturalWidth/image.naturalHeight:591/1280;
+   const padY=g.height*.012,padX=(g.width-(g.height-2*padY)*imageRatio)/2;
+   phoneEl.style.setProperty('--phone-pad-y',padY+'px');phoneEl.style.setProperty('--phone-pad-x',padX+'px');
+   phoneEl.style.setProperty('--phone-radius',g.height*.072+'px');phoneEl.style.setProperty('--screen-radius',g.height*.060+'px');
+   Object.assign(phoneEl.style,{left:g.left+'px',top:g.top+'px',width:g.width+'px',height:g.height+'px',opacity:String(i===2?alpha:i===1?smooth(transition):0)});
+   last.phone={...g,ringOuterDiameterMm:25.3,phoneHeightMm:150,phoneWidthMm:71.9,imageRatio};
+  }
   let v=i===4?waterView(p,alpha):i===5?balanceView(p,alpha):applyMobile(productView(i,p),i);
   if(i!==4&&i!==5&&transition>0&&i<6) {
    const target=applyMobile(productView(i+1,0),i+1),t=smooth(transition);

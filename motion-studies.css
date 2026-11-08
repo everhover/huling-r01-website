@@ -296,3 +296,8 @@ html[data-locale=en] .hero h1 { font-size:clamp(32px,3.4vw,52px); }
  html[data-locale=ja] .hero h1,html[data-locale=en] .hero h1 { font-size:clamp(30px,8vw,39px); }
  html[data-locale=en] header img,html[data-locale=ja] header img { content:url('assets/wordmark.svg'); width:150px; }
 }
+
+/* Match the screen aperture to the unmodified screenshot at every device scale. */
+.recording-phone { padding:var(--phone-pad-y,7px) var(--phone-pad-x,8px); border-radius:var(--phone-radius,42px); }
+.phone-screen { border:0; border-radius:var(--screen-radius,35px); }
+.phone-interface { object-fit:contain; background:#f5f4f0; }
