@@ -233,8 +233,22 @@
   const a=project(vertices[1]),b=project(vertices[0]);line(ctx,...a,...b,'#FFFFFFcc',.9);ctx.restore();
  }
  function weightComparison(alpha=1){
-  const small=mobile.matches,cx=W*(small?.36:.70)-19,top=H*(small?.55:.34),bottom=H*(small?.80:.67);
-  const paperH=Math.min(small?115:158,H*.18),paperW=paperH*210/297,labelX=cx+(small?80:145);
+  const small=mobile.matches,cx=W*(small?.36:.70)-19;
+  let top=H*.34,bottom=H*.67,paperH=Math.min(158,H*.18),ringD=132;
+  let visibility=1;
+  if(small){
+   const stageTop=canvas.getBoundingClientRect().top;
+   const copyBottom=chapters[5].querySelector('.copy').getBoundingClientRect().bottom-stageTop;
+   const areaTop=Math.max(copyBottom+24,H*.30),areaBottom=H-72,room=Math.max(0,areaBottom-areaTop);
+   visibility=smooth(clamp((room-90)/70));
+   paperH=Math.min(115,room*.36);ringD=Math.min(84,room*.27);
+   const trial=newView(0,0,ringD/((25.3/9.9)*Math.min(W,H)),3.55,-.95,3.05),edge=ringEnvelope(trial);
+   const ringH=edge.bottom-edge.top,gap=Math.min(32,room*.09),groupH=paperH+gap+ringH;
+   const start=areaTop+Math.max(0,(room-groupH)/2);
+   top=start+paperH/2;bottom=start+paperH+gap-edge.top;
+  }
+  const paperW=paperH*210/297,labelX=cx+(small?80:145);
+  alpha*=visibility;
   bg.save();bg.globalAlpha=alpha;
   bg.shadowColor='#0005';bg.shadowBlur=18;bg.shadowOffsetY=8;
   const paper=bg.createLinearGradient(cx-paperW/2,top-paperH/2,cx+paperW/2,top+paperH/2);
@@ -245,8 +259,8 @@
   bg.textAlign='left';bg.fillStyle='#D8D5CF';bg.font=`${small?20:28}px -apple-system,"PingFang SC",sans-serif`;
   bg.fillText(ui.five,labelX,top+8);bg.fillText(ui.light,labelX,bottom+8);
   bg.restore();
-  last.weightComparison={layout:'vertical',paperGrams:5,ringGrams:4.6};
-  return newView(cx/W,bottom/H,(small?84:132)/((25.3/9.9)*Math.min(W,H)),3.55,-.95,3.05,alpha);
+  last.weightComparison={layout:'vertical',paperGrams:5,ringGrams:4.6,paperTop:top-paperH/2,paperBottom:top+paperH/2,alpha};
+  return newView(cx/W,bottom/H,ringD/((25.3/9.9)*Math.min(W,H)),3.55,-.95,3.05,alpha);
  }
  function balanceView(p,alpha=1) {
   if(dark)return weightComparison(alpha);
@@ -310,7 +324,24 @@
   if(variant==='b'&&i===0)return {...v,x:.5,y:.60,size:.22};
   const copy=chapters[i].querySelector('.copy').getBoundingClientRect();
   const base=Math.max(H*.72,copy.bottom+H*.12);
-  return {...v,x:.5+(v.x-.73)*.25,y:Math.min(H*.84,base)/H,size:i===1?.22:Math.min(.21,(H-copy.bottom-65)/(2.4*Math.min(W,H)))*(dark&&i===2?.85:1),opacity:i===1?.08:v.opacity};
+  return {...v,x:.5+(v.x-.73)*.25,y:Math.min(H*.84,base)/H,size:i===1?.22:Math.max(0,Math.min(.21,(H-copy.bottom-65)/(2.4*Math.min(W,H))))*(dark&&i===2?.85:1),opacity:i===1?.08:v.opacity};
+ }
+ function protectMobileCopy(){
+  let safeTop=0;
+  if(dark&&mobile.matches){
+   const stageTop=canvas.getBoundingClientRect().top;
+   chapters.forEach((chapter,index)=>{
+    if(index===1)return; // The question chapter intentionally uses a background wireframe.
+    const r=chapter.querySelector('.copy').getBoundingClientRect();
+    if(r.top<H&&r.bottom>0)safeTop=Math.max(safeTop,r.bottom-stageTop+18);
+   });
+  }
+  safeTop=clamp(safeTop,0,H);
+  for(const layer of [back,canvas,front])layer.style.clipPath=safeTop?`inset(${safeTop}px 0 0)`:'none';
+  const phone=document.querySelector('.recording-phone');
+  if(phone)phone.style.clipPath=safeTop?`inset(${Math.max(0,safeTop-parseFloat(phone.style.top||0))}px 0 0)`:'none';
+  document.querySelectorAll('.stage .ring-fallback').forEach(image=>{const inset=Math.max(0,canvas.getBoundingClientRect().top+safeTop-image.getBoundingClientRect().top);image.style.clipPath=safeTop?`inset(${inset}px 0 0)`:'none'});
+  last.visualSafeTop=safeTop;
  }
  function frame() {
   pending=false;if(!W||!H)return;
@@ -354,6 +385,7 @@
   renderer.draw({...v,opacity:i===6?0:v.opacity},W,H,dark?(i===2?keyDemo.led:0):i===2,finish);
   last.keyDemo={press:keyDemo.press,led:keyDemo.led,played:keyPlayed};
   if(i===6)drawInspector();
+  protectMobileCopy();
   last.view={...v};canvas.dataset.finish=finish;canvas.dataset.scene=String(i);
   document.querySelector('#chapter').textContent=String(i+1).padStart(2,'0');
   document.documentElement.dataset.chapter=String(i);
