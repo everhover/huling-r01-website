@@ -230,7 +230,7 @@
   const a=project(vertices[1]),b=project(vertices[0]);line(ctx,...a,...b,'#FFFFFFcc',.9);ctx.restore();
  }
  function weightComparison(alpha=1){
-  const small=mobile.matches,cx=W*(small?.36:.70),top=H*(small?.55:.34),bottom=H*(small?.80:.67);
+  const small=mobile.matches,cx=W*(small?.36:.70)-19,top=H*(small?.55:.34),bottom=H*(small?.80:.67);
   const paperH=Math.min(small?115:158,H*.18),paperW=paperH*210/297,labelX=cx+(small?80:145);
   bg.save();bg.globalAlpha=alpha;
   bg.shadowColor='#0005';bg.shadowBlur=18;bg.shadowOffsetY=8;
