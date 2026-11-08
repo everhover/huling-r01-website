@@ -13,8 +13,8 @@
  const onReady=()=>{const menu=document.querySelector('#language-select');if(!menu)return;menu.value=current;menu.addEventListener('change',()=>navigate(menu.value,true));};
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',onReady,{once:true});else onReady();
  if(valid.includes(explicit)){navigate(explicit);return;}
- // A direct link to a translated page is an explicit language choice.
- if(current!=='zh')return;
+ // Every locale URL is stable. Only the neutral home entry performs IP selection.
+ if(document.documentElement.dataset.languageEntry!=='true')return;
  const preference=get(localStorage,'huling-language');if(valid.includes(preference)){navigate(preference);return;}
  const cached=get(sessionStorage,'huling-region-language');if(valid.includes(cached)){navigate(cached);return;}
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),1800);

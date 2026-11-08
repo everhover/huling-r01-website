@@ -1,114 +1,177 @@
-<!doctype html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+
+<html data-design="b" data-language-entry="true" data-locale="zh" data-motion-study="b" data-type="product" lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。">
-  <title>乎零 R01 · 不止健康，下一代智能戒指</title>
-  <link rel="stylesheet" href="style.css?v=17">
-  <script src="ring-renderer.js?v=17" defer></script>
-  <script src="app.js?v=17" defer></script>
-</head>
+<meta charset="utf-8"/>
+<script src="locale-router.js?v=54"></script><meta content="product" name="page-type"/>
+<meta content="tech" name="site-kind"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。" name="description"/>
+<title>乎零 R01 · 不止健康，下一代智能戒指</title>
+<link href="style.css?v=17" rel="stylesheet"/>
+<link href="design-variants.css?v=29" rel="stylesheet"/>
+<script defer="" src="ring-renderer.js?v=53"></script>
+<link href="motion-studies.css?v=50" rel="stylesheet"/>
+<script defer="" src="assets/vendor/gsap.min.js"></script>
+<script defer="" src="assets/vendor/ScrollTrigger.min.js"></script>
+<script defer="" src="motion-studies.js?v=53"></script>
+<link href="motion-b.html" rel="canonical"/><link href="motion-b.html" hreflang="zh-CN" rel="alternate"/><link href="motion-b-zh-hant.html" hreflang="zh-Hant" rel="alternate"/><link href="motion-b-en.html" hreflang="en" rel="alternate"/><link href="motion-b-ja.html" hreflang="ja" rel="alternate"/><link href="./" hreflang="x-default" rel="alternate"/><meta content="index, follow, max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="HULING" property="og:site_name"/><meta content="乎零 R01 · 不止健康，下一代智能戒指" property="og:title"/><meta content="乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。" property="og:description"/><meta content="motion-b.html" property="og:url"/><meta content="assets/r01-black-refined-fallback.png" property="og:image"/><meta content="HULING R01" property="og:image:alt"/><meta content="zh_CN" property="og:locale"/><meta content="summary_large_image" name="twitter:card"/><meta content="乎零 R01 · 不止健康，下一代智能戒指" name="twitter:title"/><meta content="乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。" name="twitter:description"/><meta content="assets/r01-black-refined-fallback.png" name="twitter:image"/><meta content="HULING R01" name="twitter:image:alt"/><script data-seo="structured-data" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "./#organization", "name": "HULING", "url": "./", "logo": "assets/wordmark.svg"}, {"@type": "WebSite", "@id": "./#website", "name": "HULING", "url": "./", "inLanguage": ["zh-CN", "zh-Hant", "en", "ja"]}, {"@type": "WebPage", "@id": "motion-b.html#webpage", "url": "motion-b.html", "name": "乎零 R01 · 不止健康，下一代智能戒指", "description": "乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。", "inLanguage": "zh-CN", "isPartOf": {"@id": "./#website"}, "about": {"@id": "./#r01"}}, {"@type": "Product", "@id": "./#r01", "name": "HULING R01", "model": "R01", "brand": {"@type": "Brand", "name": "HULING"}, "description": "乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。", "image": ["assets/r01-black-refined-fallback.png"]}]}</script></head>
 <body>
-  <a class="skip" href="#idea">跳到产品内容</a>
-  <header>
-    <a href="#top" aria-label="乎零首页"><img src="assets/wordmark.svg" width="240" alt="乎零 HULING"></a>
-    <nav aria-label="主导航"><a href="#idea">掌控想法</a><a href="#body">掌控身体</a><a href="#craft">认识 R01 <span>↗</span></a><button class="app-download" type="button" aria-disabled="true" title="下载入口即将开放">下载乎零 App<small>即将开放</small></button></nav>
-  </header>
-  <main>
-    <div class="story" id="top">
-      <div class="stage" aria-hidden="true">
-        <canvas id="ring"></canvas>
-        <div class="grain"></div>
-        <div class="stage-caption">R01 / 实拍参考建模 · 首版</div>
-        <div class="hardware-status" id="hardware-status"><span class="status-light"></span><span id="hardware-label">双击戒指，开始记录</span></div>
-        <div class="chapter-index"><span id="chapter">01</span><i></i><span>06</span></div>
-      </div>
-      <section class="chapter hero" data-scene="0" aria-labelledby="hero-title">
-        <div class="copy">
-          <p class="eyebrow">HULING R01 / PERSONAL AI RING</p>
-          <h1 id="hero-title">不止健康，<br><span class="title-line">下一代智能戒指<span class="period">。</span></span></h1>
-          <p class="hero-line">乎零 AI 语音健康戒指</p>
-          <p class="description hero-tagline">心里纷扰少，身体才更好</p>
-          <a class="explore" href="#question">向下探索 <span>↓</span></a>
-        </div>
-        <div class="hero-footer"><span>一枚戒指，连接你的想法与身体。</span><span>SCROLL TO DISCOVER ↓</span></div>
-      </section>
-      <section class="chapter question" id="question" data-scene="1" aria-labelledby="question-title">
-        <div class="noise" aria-hidden="true"><span>心率</span><span>HRV</span><span>睡眠时长</span><span>步数</span><span>体温</span><span>恢复</span></div>
-        <div class="copy">
-          <p class="eyebrow">从监测，到掌控</p>
-          <h2 id="question-title">指标越来越多，<br>焦虑越来越多<span class="period">。</span></h2>
-          <p class="description">我们想让智能戒指往前走一步。<br>让身体状态有意义，让脑海里的事有着落。</p>
-        </div>
-      </section>
-      <section class="chapter idea" id="idea" data-scene="2" aria-labelledby="idea-title">
-        <div class="copy">
-          <p class="eyebrow">01 / 掌控想法</p>
-          <h2 id="idea-title">闪念不忘，<br><span class="idea-title-line">让大脑用来思考</span></h2>
-          <p class="manifesto">双击，轻震，白灯亮起。<br>开口，把事情交给乎零。</p>
-          <p class="description">录音内容自动整理成笔记、待办和日程，<br>未来还有无限可能</p>
-        </div>
-      </section>
-      <section class="chapter body-chapter" id="body" data-scene="3" aria-labelledby="body-title">
-        <div class="copy">
-          <p class="eyebrow">02 / 掌控身体</p>
-          <h2 id="body-title">身体的信号，<br>值得被读懂。</h2>
-          <p class="manifesto">不仅了解身体指标，更了解你的所思所想，帮你更好地优化身心状态。</p>
-          <p class="description">从睡眠、活动与身体状态出发，<br>把分散的数据，变成了解自己的线索。<br>先看到理解，需要时再展开数据。</p>
-          <div class="health-tech">
-            <h3>搭载 Apollo 3 主控芯片</h3>
-            <p>搭配高精度 PPG 传感器、体温传感器和加速度传感器，实现心率、血氧、睡眠和运动的全面监测。</p>
-          </div>
-
-        </div>
-      </section>
-      <section class="chapter craft" id="craft" data-scene="4" aria-labelledby="craft-title">
-        <div class="copy">
-          <p class="eyebrow">03 / 小小一枚，始终在手边</p>
-          <h2 id="craft-title">洗手不用摘，<br>超轻无感戴</h2>
-          <div class="wear-details">
-            <p>最小圈号重量仅 4.6 克，比一张 A4 纸还轻<sup>1</sup></p>
-            <p>支持 IPX8 防水，日常使用完全不用担心<sup>2</sup></p>
-            <p>高强度铝合金材质，不怕刮，不怕划</p>
-          </div>
-
-          <ol class="wear-notes">
-            <li>最小 6 号圈号重量 4.6 克，80 g/m² A4 纸重量约 5 克。</li>
-            <li>经过华测专业检验，达到 IPX8 水平。</li>
-          </ol>
-        </div>
-      </section>
-      <section class="chapter finishes" id="finishes" data-scene="5" aria-labelledby="finishes-title">
-        <div class="copy">
-          <p class="eyebrow">04 / 三色可选</p>
-          <h2 id="finishes-title">选一种，<br>属于你的颜色。</h2>
-          <div class="color-picker" role="group" aria-label="选择戒指颜色">
-            <button type="button" data-color="silver" aria-pressed="true"><span class="swatch silver"></span>雾银</button>
-            <button type="button" data-color="black" aria-pressed="false"><span class="swatch black"></span>影黑</button>
-            <button type="button" data-color="gold" aria-pressed="false"><span class="swatch gold"></span>杏金</button>
-          </div>
-          <p class="color-caption" id="color-caption" aria-live="polite">当前展示 · 雾银 / 本轮模型统一展示银色</p>
-        </div>
-      </section>
-    </div>
-    <section class="closing">
-      <p class="eyebrow">HULING R01</p>
-      <h2>掌控想法。<br>掌控身体。</h2>
-      <p>把注意力，留给真正重要的事。</p>
-      <a href="#top">重新探索 R01 <span>↑</span></a>
-    </section>
-    <section class="faq" id="questions">
-      <div><p class="eyebrow">关于 R01</p><h2>再了解一点。</h2></div>
-      <div class="faq-list">
-        <details><summary>R01 和健康监测戒指有什么不同？</summary><p>R01 围绕“掌控想法、掌控身体”设计，将主动语音记录和身体状态体验放在同一枚戒指上。双击说出灵感和事情，录音内容自动整理成待办与日程，无需二次整理，通过 App 查看结果，同时了解自己的身体状态。</p></details>
-        <details><summary>怎样开始记录？会一直录音吗？</summary><p>双击戒指，轻震反馈、白色指示灯亮起，开始录音。再双击结束录音，内容自动整理成待办与日程，无需手动分类。记录由你主动触发，你决定开始与结束。本页手机界面为截图占位示意。</p></details>
-        <details><summary>R01 防水吗？</summary><p>R01 已通过 IPX8 测试，支持洗手佩戴。具体测试条件、其他涉水场景和保养要求，以产品说明为准。</p></details>
-        <details><summary>有几种颜色？佩戴重吗？</summary><p>R01 提供雾银、影黑、杏金三种颜色。最小 6 号圈号重量为 4.6 克，比一张 80 g/m² 的 A4 纸还轻。</p></details>
-        <details><summary>在哪里查看价格、尺码和兼容性？</summary><p>本页为产品官网原型。价格、尺码、续航、兼容性及获取渠道将在产品信息确认后补充。</p></details>
-      </div>
-    </section>
-  </main>
-  <footer><img src="assets/wordmark.svg" alt="乎零 HULING" width="240"><p>R01 官网原型 / 2026.11<br>外观与交互演示，供内容及设计评审</p><a href="#top">回到顶部 ↑</a></footer>
+<a class="skip" href="#idea">跳到产品内容</a>
+<header>
+<a aria-label="乎零首页" href="#top"><img alt="乎零 HULING" src="assets/wordmark.svg" width="240"/></a>
+<nav aria-label="主导航"><a href="#idea">了解乎零 R01</a><button aria-disabled="true" class="app-download" title="下载入口即将开放" type="button">下载乎零 App<small>即将开放</small></button><label class="language-picker"><span class="comparison-sr">语言版本</span><select aria-label="语言版本" id="language-select"><option selected="" value="zh">简体中文</option><option value="zh-Hant">繁體中文</option><option value="en">English</option><option value="ja">日本語</option></select></label></nav>
+</header><noscript data-seo="language-links"><nav aria-label="Language"><a href="motion-b.html" hreflang="zh-CN">简体中文</a> <a href="motion-b-zh-hant.html" hreflang="zh-Hant">繁體中文</a> <a href="motion-b-en.html" hreflang="en">English</a> <a href="motion-b-ja.html" hreflang="ja">日本語</a> </nav></noscript>
+<main>
+<div class="story" id="top">
+<div aria-hidden="true" class="stage">
+<canvas class="scene-layer" id="scene-back"></canvas>
+<div aria-hidden="true" class="recording-phone" data-device="iphone-18-pro" data-height-mm="150" data-width-mm="71.9">
+<div class="phone-screen"><img alt="乎零 App 产品周会录音界面" class="phone-interface" src="assets/app-recording-meeting-v49.jpg"/><i class="phone-island"></i><i class="phone-home"></i></div>
+</div>
+<canvas id="ring"></canvas>
+<canvas class="scene-layer" id="scene-front"></canvas>
+<div class="grain"></div>
+<div class="hardware-status" id="hardware-status"><span class="status-light"></span><span id="hardware-label">双击戒指，开始记录</span></div>
+<div class="chapter-index"><span id="chapter">01</span><i></i><span>07</span></div>
+</div>
+<section aria-labelledby="hero-title" class="chapter hero" data-scene="0"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">HULING R01 / PERSONAL AI RING</p>
+<h1 id="hero-title">不止健康，<br/><span class="title-line">下一代智能戒指<span class="period">。</span></span></h1>
+<p class="hero-line">乎零 AI 语音健康戒指</p>
+<p class="description hero-tagline">心里纷扰少，身体才更好</p>
+<a class="explore" href="#question">向下探索 <span>↓</span></a>
+</div>
+<div class="hero-footer"><span>一枚戒指，连接你的想法与身体。</span><span>SCROLL TO DISCOVER ↓</span></div>
+</div></section>
+<section aria-labelledby="question-title" class="chapter question" data-scene="1" id="question"><div class="scene-pin">
+<div aria-hidden="true" class="noise"><span>心率</span><span>HRV</span><span>睡眠时长</span><span>步数</span><span>体温</span><span>恢复</span><span>血氧</span><span>深睡</span><span>活动量</span><span>静息心率</span><span>睡眠评分</span><span>运动强度</span><span>浅睡</span><span>清醒次数</span><span>呼吸频率</span><span>卡路里</span></div>
+<div class="copy">
+<p class="eyebrow">从监测，到掌控</p>
+<h2 id="question-title">指标越来越多，<br/>焦虑越来越多<span class="period">。</span></h2>
+<p class="description">我们想让智能戒指往前走一步。<br/>让身体状态有意义，让脑海里的事有着落。</p>
+</div>
+</div></section>
+<section aria-labelledby="idea-title" class="chapter idea" data-scene="2" id="idea"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">01 / 掌控想法</p>
+<h2 id="idea-title">闪念不忘，<br/><span class="idea-title-line">让大脑用来思考</span></h2>
+<p class="manifesto">双击，轻震，白灯亮起。<br/>开口，把事情交给乎零。</p>
+<p class="description">录音内容自动整理成笔记、待办和日程，<br/>未来还有无限可能</p>
+</div>
+</div></section>
+<section aria-labelledby="body-title" class="chapter body-chapter" data-scene="3" id="body"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">02 / 掌控身体</p>
+<h2 id="body-title">身体和心理，<br/>都值得被读懂</h2>
+<p class="manifesto">不仅了解身体指标，更了解你的所思所想，帮你更好地优化身心状态。</p>
+<p class="description">从睡眠、活动与身体状态出发，<br/>把分散的数据，变成了解自己的线索。<br/>先看到理解，需要时再展开数据。</p>
+<div class="health-tech">
+<h3>搭载 Apollo 3 主控芯片</h3>
+<p>搭配高精度 PPG 传感器、体温传感器和加速度传感器，实现心率、血氧、睡眠和运动的全面监测。</p>
+</div>
+</div>
+</div></section>
+<section aria-labelledby="water-title" class="chapter water" data-scene="4" id="water"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">03 / 小小一枚，始终在手边</p>
+<h2 id="water-title">洗手不用摘</h2>
+<p class="manifesto water-rating">IPX8 防水</p>
+<p class="description">支持 IPX8 防水，日常使用完全不用担心<sup>2</sup></p>
+<ol class="wear-notes" start="2"><li>经过华测专业检验，达到 IPX8 水平。</li></ol>
+</div>
+</div></section>
+<section aria-labelledby="craft-title" class="chapter lightness" data-scene="5" id="craft"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">04 / 小小一枚，始终在手边</p>
+<h2 id="craft-title">超轻无感佩戴</h2>
+<div class="wear-details">
+<p>最小圈号重量仅 4.6 克，比一张 A4 纸还轻<sup>1</sup></p>
+<p>306 不锈钢材质，不怕刮，不怕划</p>
+</div>
+<ol class="wear-notes"><li>最小 6 号圈号重量 4.6 克，80 g/m² A4 纸重量约 5 克。</li></ol>
+</div>
+</div></section>
+<section aria-labelledby="compare-title" class="product-comparison" id="compare">
+<div class="comparison-heading"><p class="eyebrow">R01 / 能力一览</p><h2 id="compare-title">健康与记录，<br/>都在乎零。</h2></div>
+<div class="comparison-table-wrap">
+<table aria-describedby="comparison-notes" class="comparison-table"><caption class="comparison-sr">乎零 R01 与健康戒指、录音戒指的功能及规格对比</caption>
+<colgroup><col class="compare-label-col"/><col class="compare-r01-col"/><col/><col/></colgroup>
+<thead><tr><th scope="col"><span class="comparison-sr">对比项目</span></th><th class="r01-cell" scope="col"><span class="compare-product-name">乎零 R01</span><span class="compare-product-purpose">健康 + 记录</span></th><th scope="col">健康戒指</th><th scope="col">录音戒指</th></tr></thead>
+<tbody><tr class="compare-group"><th scope="row">录音能力</th><td class="r01-cell"></td><td></td><td></td></tr>
+<tr><th scope="row">语音录音</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr class="compare-group"><th scope="row">健康监测</th><td class="r01-cell"></td><td></td><td></td></tr>
+<tr><th scope="row">心率监测</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td></tr>
+<tr><th scope="row">血氧监测</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td></tr>
+<tr><th scope="row">睡眠监测</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td></tr>
+<tr><th scope="row">运动监测</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td></tr>
+<tr class="compare-group"><th scope="row">软件能力</th><td class="r01-cell"></td><td></td><td></td></tr>
+<tr><th scope="row">录音转写</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr><th scope="row">自动摘要</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr><th scope="row">区分说话人</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr><th scope="row">提取行动项</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr><th scope="row">提取日历／日程</th><td class="r01-cell"><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td><td><span aria-label="不支持" class="compare-mark no" role="img">✕</span></td><td><span aria-label="支持" class="compare-mark yes" role="img">✓</span></td></tr>
+<tr class="compare-group"><th scope="row">佩戴与硬件</th><td class="r01-cell"></td><td></td><td></td></tr>
+<tr class="compare-spec"><th scope="row">续航</th><td class="r01-cell"><strong>6～7 天</strong></td><td>6～9 天</td><td>约 2 天<small>常规使用</small></td></tr>
+<tr class="compare-spec"><th scope="row">材质</th><td class="r01-cell"><strong>306 不锈钢</strong></td><td>钛金属<small>内外圈</small></td><td>钛金属<small>内外圈</small></td></tr>
+<tr class="compare-spec"><th scope="row">防水</th><td class="r01-cell"><strong>IPX8</strong></td><td>IP68</td><td>IP67</td></tr></tbody>
+</table>
+</div>
+<div class="comparison-notes" id="comparison-notes"><p>✓ 支持　✕ 不支持。对比以所选参考产品为准，不代表同类产品的全部能力。</p><p>续航受使用方式与功能设置影响；录音戒指为常规使用约 2 天，连续录音最长 8 小时。不同防水标识的测试条件不同。</p><p>参考资料：<a href="https://ouraring.com/store/rings/oura-ring-5" rel="noopener noreferrer" target="_blank">健康戒指官方规格 ↗</a><a href="https://vocci.ai/" rel="noopener noreferrer" target="_blank">录音戒指官方规格 ↗</a></p></div>
+</section>
+<section aria-labelledby="finishes-title" class="chapter finishes" data-scene="6" id="finishes"><div class="scene-pin">
+<div class="copy">
+<p class="eyebrow">05 / 两色可选</p>
+<h2 id="finishes-title">选一种，<br/>属于你的颜色。</h2>
+<div aria-label="选择戒指颜色" class="color-picker" role="group">
+<button aria-pressed="true" data-color="silver" type="button"><span class="swatch silver"></span>雾银</button>
+<button aria-pressed="false" data-color="black" type="button"><span class="swatch black"></span>影黑</button>
+</div>
+<div aria-label="模型观察视角" class="viewer-tools" role="group">
+<button data-view="controls" type="button">按键与麦克风</button><button data-view="sensors" type="button">内圈传感器</button><button data-view="side" type="button">侧面</button><button id="finish-reset" type="button">复位</button>
+</div>
+<label class="zoom-control">缩放<input id="finish-zoom" max="130" min="75" type="range" value="100"/></label>
+<p class="viewer-hint">拖动旋转 · 滚轮或双指缩放</p>
+<p aria-live="polite" class="color-caption" id="color-caption">当前展示 · 雾银</p>
+</div>
+<div class="finish-viewer"><canvas aria-label="R01 两色交互模型，拖动或方向键旋转，Home 复位" id="finish-ring" tabindex="0"></canvas></div>
+</div></section>
+</div>
+<section class="closing">
+<p class="eyebrow">HULING R01</p>
+<h2>掌控想法。<br/>掌控身体。</h2>
+<p>把注意力，留给真正重要的事。</p>
+<a href="#top">重新探索 R01 <span>↑</span></a>
+</section>
+<section aria-labelledby="faq-title" class="faq" id="questions">
+<div class="faq-heading"><p class="eyebrow">关于 R01</p><h2 id="faq-title">再了解一点。</h2></div>
+<div class="faq-list">
+<div aria-labelledby="faq-group-0" class="faq-group"><h3 id="faq-group-0">认识 R01</h3>
+<details><summary>R01 和普通健康戒指、录音戒指有什么不同？</summary><p>R01 将健康监测与语音记录放在同一枚戒指里。它既能记录心率、血氧、睡眠和运动，也能把说出的内容整理成笔记、待办和日程，帮助你掌控身体，也掌控想法。</p></details>
+</div>
+<div aria-labelledby="faq-group-1" class="faq-group"><h3 id="faq-group-1">录音与 AI</h3>
+<details><summary>怎样开始和结束录音？</summary><p>双击戒指按键开始录音，戒指轻震、白色指示灯亮起；再次双击即可结束。录音不支持暂停或取消，传到手机后可以直接删除。</p></details>
+<details><summary>不带手机、没有网络，还能录音吗？</summary><p>可以。R01 支持独立录音，戒指内可暂存最长 2 小时的录音，之后再传到手机。AI 转写和摘要需要联网处理。</p></details>
+<details><summary>能录多远？户外可以使用吗？</summary><p>支持 1～5 米距离的录音，户外场景也可使用。超过 5 米不在支持范围内。</p></details>
+<details><summary>支持哪些语言？</summary><p>支持中文普通话、方言、英语以及中英混说。</p></details>
+<details><summary>录音后能整理什么？待办和日程可以修改吗？</summary><p>支持录音转写、自动摘要、区分说话人，并提取行动项和日历／日程信息。生成的待办和日程可以修改，也支持提醒和同步。</p></details>
+<details><summary>每月有多少转写时长？超出后还能录音吗？</summary><p>基础订阅每月包含 300 分钟录音转写。额度用完后，录音仍可正常传到手机并保存，目前暂不支持转写超出额度的部分。</p></details>
+</div>
+<div aria-labelledby="faq-group-2" class="faq-group"><h3 id="faq-group-2">隐私与兼容</h3>
+<details><summary>录音和健康数据会保存在云端吗？</summary><p>录音与健康数据保存在你的手机本地，可以自行删除。AI 转写和摘要需要云端临时读取音频进行处理，但云端不会存储用户的音频数据，也不保留处理结果。数据在传输和存储时均采用加密保护。</p></details>
+<details><summary>支持哪些手机？</summary><p>初期支持 iOS，安卓版本计划于 2027 年 1 月支持。</p></details>
+</div>
+<div aria-labelledby="faq-group-3" class="faq-group"><h3 id="faq-group-3">佩戴与使用</h3>
+<details><summary>怎样选择合适的尺码？</summary><p>我们会先寄出一套纸模。你可以根据纸模选择合适的尺寸，再将具体圈号告知我们。</p></details>
+<details><summary>可以监测什么？健康数据能用于诊断吗？</summary><p>R01 支持心率、血氧、睡眠和运动监测，帮助你了解日常身体状态。健康数据用于日常状态参考，不可用于医学诊断。</p></details>
+<details><summary>洗手、洗澡和游泳时能戴吗？</summary><p>日常洗手和冷水游泳可以佩戴；不建议在洗澡或热水游泳时佩戴。R01 经过华测专业检验，达到 IPX8 防水水平。</p></details>
+<details><summary>怎样充电？充满后能用多久？</summary><p>通过充电盒充电，约 90 分钟可充满。充满后可使用约 7 天，实际续航会随使用情况变化。</p></details>
+<details><summary>有哪些颜色、材质？佩戴重吗？</summary><p>提供雾银、影黑两种颜色，材质为 306 不锈钢。最小 6 号圈号重量约 4.6 克。</p></details>
+</div>
+</div>
+</section>
+</main>
+<footer><img alt="乎零 HULING" src="assets/wordmark.svg" width="240"/><p>乎零 R01</p><a href="#top">回到顶部 ↑</a></footer>
 </body>
 </html>

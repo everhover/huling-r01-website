@@ -1,3 +1,23 @@
+## Current production handoff (v54)
+
+Current site: black B design, Simplified/Traditional Chinese, English and Japanese.
+The root entry now shows the current design. Historic preview links below are archived
+notes, not production deployment instructions.
+
+**Portable deployment:** see [docs/DEPLOYMENT-SEO.md](docs/DEPLOYMENT-SEO.md).
+Configure the actual public base URL at build time; no dependency on this repository
+owner, repository name, GitHub Actions or Pages APIs.
+
+```sh
+python3 -m pip install -r tools/requirements.txt
+python3 tools/build-locales.py
+python3 tools/seo.py --site-url https://YOUR-DOMAIN/OPTIONAL-PATH/ --output dist
+```
+
+Upload the contents of the generated directory. Source previews have relative metadata;
+production builds generate absolute canonical/hreflang, social metadata, JSON-LD, robots
+and sitemap for the supplied destination. Rebuild when the destination changes.
+
 # 乎零 R01 官网原型
 
 中文、响应式、无构建依赖的产品介绍网站。下载后打开 index.html，或运行 `python3 -m http.server 8080` 后访问 http://localhost:8080。

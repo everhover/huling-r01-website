@@ -52,3 +52,7 @@ for option in menu.select('option'):
  option.attrs.pop('selected',None)
  if option['value']=='zh-Hant':option['selected']=''
 (root/'motion-b-zh-hant.html').write_text(str(soup))
+
+# Keep portable SEO metadata and the neutral homepage in sync after translating.
+from seo import update_source
+update_source(root)

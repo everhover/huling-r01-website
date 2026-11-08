@@ -1,12 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>R01 三色模型 · 细节检查</title>
-  <script src="ring-renderer.js?v=31" defer></script>
-  <script src="model-review.js?v=31" defer></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>R01 三色模型 · 细节检查</title>
+<script defer="" src="ring-renderer.js?v=31"></script>
+<script defer="" src="model-review.js?v=31"></script>
+<style>
     * { box-sizing: border-box; }
     body { margin: 0; background: #20201e; color: #eee; font-family: -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
     header { padding: 24px 32px; display: flex; justify-content: space-between; gap: 20px; align-items: center; }
@@ -39,31 +40,31 @@
       .views { grid-template-columns: 1fr 1fr; }
     }
   </style>
-</head>
+<meta content="noindex, follow" name="robots"/></head>
 <body>
-  <header><img src="assets/wordmark.svg" alt="乎零 HULING"><a href="./?v=17">返回官网原型 ↗</a></header>
-  <main>
-    <div class="viewer"><canvas id="review-ring" aria-label="R01 银色戒指三维检查，可拖动旋转" tabindex="0"></canvas></div>
-    <aside>
-      <h1>R01 · <span id="finish-name">雾银</span><br>实拍参考模型</h1>
-      <div class="finishes" role="group" aria-label="选择模型材质">
-        <button data-finish="silver" aria-pressed="true">雾银</button>
-        <button data-finish="black" aria-pressed="false">影黑</button>
-        <button data-finish="gold" aria-pressed="false">杏金</button>
-      </div>
-      <p>拖动旋转，查看部件与内圈。<br>键盘方向键也可调整视角。</p>
-      <div class="views">
-        <button data-view="button">按键比例正视</button>
-        <button data-view="silhouette">立式轮廓</button>
-        <button data-view="controls">按键 / 麦克风 / 灯</button>
-        <button data-view="sensors">内圈传感器</button>
-        <button data-view="profile">内圈折角</button>
-      </div>
-      <label>放大细节<input id="zoom" type="range" min="20" max="55" value="31"></label>
-      <label><input id="led" type="checkbox" checked> 白色指示灯</label>
-      <p>宽 7.5 mm · 厚 2.5 mm<br>内径约 20.3 mm<br>按键直径暂按 4.6 mm 估算</p>
-      <p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。提供雾银、影黑与杏金材质对照。</p>
-    </aside>
-  </main>
+<header><img alt="乎零 HULING" src="assets/wordmark.svg"/><a href="./?v=17">返回官网原型 ↗</a></header>
+<main>
+<div class="viewer"><canvas aria-label="R01 银色戒指三维检查，可拖动旋转" id="review-ring" tabindex="0"></canvas></div>
+<aside>
+<h1>R01 · <span id="finish-name">雾银</span><br/>实拍参考模型</h1>
+<div aria-label="选择模型材质" class="finishes" role="group">
+<button aria-pressed="true" data-finish="silver">雾银</button>
+<button aria-pressed="false" data-finish="black">影黑</button>
+<button aria-pressed="false" data-finish="gold">杏金</button>
+</div>
+<p>拖动旋转，查看部件与内圈。<br/>键盘方向键也可调整视角。</p>
+<div class="views">
+<button data-view="button">按键比例正视</button>
+<button data-view="silhouette">立式轮廓</button>
+<button data-view="controls">按键 / 麦克风 / 灯</button>
+<button data-view="sensors">内圈传感器</button>
+<button data-view="profile">内圈折角</button>
+</div>
+<label>放大细节<input id="zoom" max="55" min="20" type="range" value="31"/></label>
+<label><input checked="" id="led" type="checkbox"/> 白色指示灯</label>
+<p>宽 7.5 mm · 厚 2.5 mm<br/>内径约 20.3 mm<br/>按键直径暂按 4.6 mm 估算</p>
+<p class="note">已按五张实拍重建。部件尺寸、夹角和未露出部分仍按照片估算，待实物或工程尺寸校准。提供雾银、影黑与杏金材质对照。</p>
+</aside>
+</main>
 </body>
 </html>

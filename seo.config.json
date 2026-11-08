@@ -1,0 +1,12 @@
+{
+  "site_url": "",
+  "brand": "HULING",
+  "product": "HULING R01",
+  "image": "assets/r01-black-refined-fallback.png",
+  "locales": {
+    "zh-CN": "motion-b.html",
+    "zh-Hant": "motion-b-zh-hant.html",
+    "en": "motion-b-en.html",
+    "ja": "motion-b-ja.html"
+  }
+}

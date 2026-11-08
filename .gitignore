@@ -1,0 +1,6 @@
+.playwright-cli/
+artifacts/
+dist/
+site-dist/
+__pycache__/
+*.pyc
