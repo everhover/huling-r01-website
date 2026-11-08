@@ -4,7 +4,8 @@
  */
 function createRingRenderer(canvas, options = {}) {
   const refined = options.refined === true;
-  const finishNames = {silver:'雾银',black:'影黑',gold:'杏金'};
+  const renderLocale=document.documentElement.dataset.locale||'zh';
+  const finishNames=renderLocale==='en'?{silver:'Mist Silver',black:'Shadow Black',gold:'Gold'}:renderLocale==='ja'?{silver:'ミストシルバー',black:'シャドーブラック',gold:'ゴールド'}:{silver:'雾银',black:'影黑',gold:'金色'};
   const unitMm = 9.9;
   const dimensions = { widthMm: 7.5, thicknessMm: 2.5, innerDiameterMm: 20.3, buttonDiameterMm: 4.6 };
   canvas.dataset.dimensions = JSON.stringify(dimensions);
@@ -14,7 +15,7 @@ function createRingRenderer(canvas, options = {}) {
   if (!gl) {
     const fallback = document.createElement('img');
     fallback.src = refined ? 'assets/r01-silver-refined-fallback.png?v=31' : 'assets/r01-silver-fallback.png';
-    fallback.alt = '乎零 R01 银色戒指三维模型预览';
+    fallback.alt=renderLocale==='en'?'HULING R01 ring':renderLocale==='ja'?'HULING R01 リング':'乎零 R01 戒指';
     fallback.className = 'ring-fallback';
     canvas.style.visibility = 'hidden';
     canvas.after(fallback);
@@ -24,7 +25,7 @@ function createRingRenderer(canvas, options = {}) {
       resize() {},
       draw(view,width,height,led,finish = 'silver') {
         fallback.src = refined ? `assets/r01-${finish}-refined-fallback.png?v=31` : 'assets/r01-silver-fallback.png';
-        fallback.alt = `乎零 R01 ${finishNames[finish] || finishNames.silver}戒指模型预览`;
+        fallback.alt=`HULING R01 · ${finishNames[finish] || finishNames.silver}`;
         const size=Math.min(width,height)*view.size/.32;
         Object.assign(fallback.style,{
           width:`${size}px`,height:`${size}px`,

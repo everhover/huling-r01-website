@@ -10,6 +10,9 @@
  const chapters=[...document.querySelectorAll('.chapter')];
  const reduced=matchMedia('(prefers-reduced-motion:reduce)'),mobile=matchMedia('(max-width:767px)');
  const dark=variant==='b';
+ const locale=document.documentElement.dataset.locale||'zh';
+ const localeCopy={zh:{silver:'雾银',black:'影黑',show:'当前展示',chosen:'已选择',five:'≈ 5 克',light:'≈ 4.6 克'},en:{silver:'Mist Silver',black:'Shadow Black',show:'Now showing',chosen:'Selected',five:'≈ 5 g',light:'≈ 4.6 g'},ja:{silver:'ミストシルバー',black:'シャドーブラック',show:'表示中',chosen:'選択中',five:'約 5 g',light:'約 4.6 g'}};
+ const ui=localeCopy[locale]||localeCopy.zh;
  const ink=dark?'#D8D5CF':'#595959';
  const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
  const mix=(a,b,t)=>a+(b-a)*t;
@@ -240,7 +243,7 @@
   bg.shadowColor='transparent';bg.strokeStyle='#D8D5CF';bg.lineWidth=.7;bg.strokeRect(cx-paperW/2,top-paperH/2,paperW,paperH);
   bg.fillStyle='#595959';bg.font=`${small?10:12}px -apple-system,"PingFang SC",sans-serif`;bg.textAlign='center';bg.fillText('A4',cx,top+4);
   bg.textAlign='left';bg.fillStyle='#D8D5CF';bg.font=`${small?20:28}px -apple-system,"PingFang SC",sans-serif`;
-  bg.fillText('≈ 5 克',labelX,top+8);bg.fillText('≈ 4.6 克',labelX,bottom+8);
+  bg.fillText(ui.five,labelX,top+8);bg.fillText(ui.light,labelX,bottom+8);
   bg.restore();
   last.weightComparison={layout:'vertical',paperGrams:5,ringGrams:4.6};
   return newView(cx/W,bottom/H,(small?84:132)/((25.3/9.9)*Math.min(W,H)),3.55,-.95,3.05,alpha);
@@ -356,8 +359,8 @@
  });
  addEventListener('resize',resize);document.fonts.ready.then(()=>{resize();ScrollTrigger.refresh()});resize();
  document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===finish)));
- if(variant==='b')document.querySelector('#color-caption').textContent='当前展示 · 影黑';
- document.querySelectorAll('button[data-color]').forEach(button=>button.addEventListener('click',()=>{finish=button.dataset.color;document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));drawInspector();document.querySelector('#color-caption').textContent=`已选择 · ${{silver:'雾银',black:'影黑',gold:'杏金'}[finish]}`;queue()}));
+ if(variant==='b')document.querySelector('#color-caption').textContent=ui.show+' · '+ui.black;
+ document.querySelectorAll('button[data-color]').forEach(button=>button.addEventListener('click',()=>{finish=button.dataset.color;document.querySelectorAll('button[data-color]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));drawInspector();document.querySelector('#color-caption').textContent=`${ui.chosen} · ${ui[finish]}`;queue()}));
  const inspectCanvas=document.querySelector('#finish-ring');
  const inspectRenderer=createRingRenderer(inspectCanvas,{refined:true});
  let inspection={rx:.9,ry:-1.9,rz:.18,zoom:1};
