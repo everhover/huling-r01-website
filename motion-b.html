@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css?v=17">
   <link rel="stylesheet" href="design-variants.css?v=29">
   <script src="ring-renderer.js?v=35" defer></script>
-  <link rel="stylesheet" href="motion-studies.css?v=45">
+  <link rel="stylesheet" href="motion-studies.css?v=46">
   <script src="assets/vendor/gsap.min.js" defer></script>
   <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
   <script src="motion-studies.js?v=45" defer></script>
@@ -146,14 +146,31 @@
       <p>把注意力，留给真正重要的事。</p>
       <a href="#top">重新探索 R01 <span>↑</span></a>
     </section>
-    <section class="faq" id="questions">
-      <div><p class="eyebrow">关于 R01</p><h2>再了解一点。</h2></div>
+    <section class="faq" id="questions" aria-labelledby="faq-title">
+      <div class="faq-heading"><p class="eyebrow">关于 R01</p><h2 id="faq-title">再了解一点。</h2></div>
       <div class="faq-list">
-        <details><summary>R01 和健康监测戒指有什么不同？</summary><p>R01 围绕“掌控想法、掌控身体”设计，将主动语音记录和身体状态体验放在同一枚戒指上。双击说出灵感和事情，录音内容自动整理成待办与日程，无需二次整理，通过 App 查看结果，同时了解自己的身体状态。</p></details>
-        <details><summary>怎样开始记录？会一直录音吗？</summary><p>双击戒指，轻震反馈、白色指示灯亮起，开始录音。再双击结束录音，内容自动整理成待办与日程，无需手动分类。记录由你主动触发，你决定开始与结束。本页手机界面为截图占位示意。</p></details>
-        <details><summary>R01 防水吗？</summary><p>R01 已通过 IPX8 测试，支持洗手佩戴。具体测试条件、其他涉水场景和保养要求，以产品说明为准。</p></details>
-        <details><summary>有几种颜色？佩戴重吗？</summary><p>R01 提供雾银、影黑、杏金三种颜色。最小 6 号圈号重量为 4.6 克，比一张 80 g/m² 的 A4 纸还轻。</p></details>
-        <details><summary>在哪里查看价格、尺码和兼容性？</summary><p>本页为产品官网原型。R01 续航约 6～7 天。价格、尺码、兼容性及获取渠道将在产品信息确认后补充。</p></details>
+        <div class="faq-group" aria-labelledby="faq-group-0"><h3 id="faq-group-0">认识 R01</h3>
+          <details><summary>R01 和普通健康戒指、录音戒指有什么不同？</summary><p>R01 将健康监测与语音记录放在同一枚戒指里。它既能记录心率、血氧、睡眠和运动，也能把说出的内容整理成笔记、待办和日程，帮助你掌控身体，也掌控想法。</p></details>
+        </div>
+        <div class="faq-group" aria-labelledby="faq-group-1"><h3 id="faq-group-1">录音与 AI</h3>
+          <details><summary>怎样开始和结束录音？</summary><p>双击戒指按键开始录音，戒指轻震、白色指示灯亮起；再次双击即可结束。录音不支持暂停或取消，传到手机后可以直接删除。</p></details>
+          <details><summary>不带手机、没有网络，还能录音吗？</summary><p>可以。R01 支持独立录音，戒指内可暂存最长 2 小时的录音，之后再传到手机。AI 转写和摘要需要联网处理。</p></details>
+          <details><summary>能录多远？户外可以使用吗？</summary><p>支持 1～5 米距离的录音，户外场景也可使用。超过 5 米不在支持范围内。</p></details>
+          <details><summary>支持哪些语言？</summary><p>支持中文普通话、方言、英语以及中英混说。</p></details>
+          <details><summary>录音后能整理什么？待办和日程可以修改吗？</summary><p>支持录音转写、自动摘要、区分说话人，并提取行动项和日历／日程信息。生成的待办和日程可以修改，也支持提醒和同步。</p></details>
+          <details><summary>每月有多少转写时长？超出后还能录音吗？</summary><p>基础订阅每月包含 300 分钟录音转写。额度用完后，录音仍可正常传到手机并保存，目前暂不支持转写超出额度的部分。</p></details>
+        </div>
+        <div class="faq-group" aria-labelledby="faq-group-2"><h3 id="faq-group-2">隐私与兼容</h3>
+          <details><summary>录音和健康数据会保存在云端吗？</summary><p>录音与健康数据保存在你的手机本地，可以自行删除。AI 转写和摘要需要云端临时读取音频进行处理，但云端不会存储用户的音频数据，也不保留处理结果。数据在传输和存储时均采用加密保护。</p></details>
+          <details><summary>支持哪些手机？</summary><p>初期支持 iOS，安卓版本计划于 2027 年 1 月支持。</p></details>
+        </div>
+        <div class="faq-group" aria-labelledby="faq-group-3"><h3 id="faq-group-3">佩戴与使用</h3>
+          <details><summary>怎样选择合适的尺码？</summary><p>我们会先寄出一套纸模。你可以根据纸模选择合适的尺寸，再将具体圈号告知我们。</p></details>
+          <details><summary>可以监测什么？健康数据能用于诊断吗？</summary><p>R01 支持心率、血氧、睡眠和运动监测，帮助你了解日常身体状态。健康数据用于日常状态参考，不可用于医学诊断。</p></details>
+          <details><summary>洗手、洗澡和游泳时能戴吗？</summary><p>日常洗手和冷水游泳可以佩戴；不建议在洗澡或热水游泳时佩戴。R01 经过华测专业检验，达到 IPX8 防水水平。</p></details>
+          <details><summary>怎样充电？充满后能用多久？</summary><p>通过充电盒充电，约 90 分钟可充满。充满后可使用约 7 天，实际续航会随使用情况变化。</p></details>
+          <details><summary>有哪些颜色、材质？佩戴重吗？</summary><p>提供雾银、影黑、杏金三种颜色，材质为 306 不锈钢。最小 6 号圈号重量约 4.6 克。</p></details>
+        </div>
       </div>
     </section>
   </main>

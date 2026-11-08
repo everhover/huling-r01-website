@@ -236,3 +236,21 @@ html[data-motion-study=b] .question .noise span:nth-child(16) { right:2%; top:24
  .comparison-table td small { font-size:9px; }
  .comparison-notes { font-size:10px; line-height:1.8; margin-top:22px; }
 }
+
+/* Native FAQ accordions keep answers reachable by keyboard and without scripts. */
+html[data-design=b] .faq { align-items:start; }
+html[data-design=b] .faq-group { margin-bottom:38px; }
+html[data-design=b] .faq-group:last-child { margin-bottom:0; }
+html[data-design=b] .faq-group h3 { font-size:12px; font-weight:400; letter-spacing:.12em; color:#8e8c83; margin:0 0 10px; }
+html[data-design=b] .faq summary { padding:17px 28px 17px 0; line-height:1.6; position:relative; list-style:none; cursor:pointer; }
+html[data-design=b] .faq summary::-webkit-details-marker { display:none; }
+html[data-design=b] .faq summary::after { content:'+'; position:absolute; right:0; top:17px; font-size:19px; color:#a5a397; }
+html[data-design=b] .faq details[open] summary::after { content:'−'; }
+html[data-design=b] .faq summary:hover { color:#d7eee8; }
+html[data-design=b] .faq summary:focus-visible { outline:2px solid #d7eee8; outline-offset:4px; }
+html[data-design=b] .faq details p { margin:0; padding:0 26px 20px 0; font-size:15px; line-height:1.85; color:#b9b7af; }
+@media(max-width:767px){
+ html[data-design=b] .faq summary { font-size:15px; padding-block:15px; }
+ html[data-design=b] .faq details p { font-size:14px; padding-right:12px; }
+ html[data-design=b] .faq-group { margin-bottom:30px; }
+}
