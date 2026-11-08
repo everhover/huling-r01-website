@@ -5,7 +5,7 @@
 function createRingRenderer(canvas, options = {}) {
   const refined = options.refined === true;
   const renderLocale=document.documentElement.dataset.locale||'zh';
-  const finishNames=renderLocale==='en'?{silver:'Mist Silver',black:'Shadow Black',gold:'Gold'}:renderLocale==='ja'?{silver:'ミストシルバー',black:'シャドーブラック',gold:'ゴールド'}:{silver:'雾银',black:'影黑',gold:'金色'};
+  const finishNames=renderLocale==='en'?{silver:'Mist Silver',black:'Shadow Black',gold:'Gold'}:renderLocale==='ja'?{silver:'ミストシルバー',black:'シャドーブラック',gold:'ゴールド'}:{silver:renderLocale==='zh-Hant'?'霧銀':'雾银',black:'影黑',gold:'金色'};
   const unitMm = 9.9;
   const dimensions = { widthMm: 7.5, thicknessMm: 2.5, innerDiameterMm: 20.3, buttonDiameterMm: 4.6 };
   canvas.dataset.dimensions = JSON.stringify(dimensions);

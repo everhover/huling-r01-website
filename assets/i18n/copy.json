@@ -1,602 +1,857 @@
 {
   "乎零 R01 · 不止健康，下一代智能戒指": {
     "en": "HULING R01 · Beyond health. A new generation of smart rings",
-    "ja": "HULING R01 · 健康管理の、その先へ。次世代スマートリング"
+    "ja": "HULING R01 · 健康管理の、その先へ。次世代スマートリング",
+    "zh-Hant": "乎零 R01 · 不止健康，下一代智能戒指"
   },
   "跳到产品内容": {
     "en": "Skip to product",
-    "ja": "製品紹介へスキップ"
+    "ja": "製品紹介へスキップ",
+    "zh-Hant": "跳到產品內容"
   },
   "掌控想法": {
     "en": "Own your thoughts",
-    "ja": "思考を、自分の手に"
+    "ja": "思考を、自分の手に",
+    "zh-Hant": "掌控想法"
   },
   "掌控身体": {
     "en": "Understand your body",
-    "ja": "からだを、自分の手に"
+    "ja": "からだを、自分の手に",
+    "zh-Hant": "掌控身體"
   },
   "认识 R01": {
     "en": "Meet R01",
-    "ja": "R01を知る"
+    "ja": "R01を知る",
+    "zh-Hant": "認識 R01"
   },
   "下载乎零 App": {
     "en": "Download HULING App",
-    "ja": "HULING Appをダウンロード"
+    "ja": "HULING Appをダウンロード",
+    "zh-Hant": "下載乎零 App"
   },
   "即将开放": {
     "en": "Coming soon",
-    "ja": "近日公開"
+    "ja": "近日公開",
+    "zh-Hant": "即將開放"
   },
   "双击戒指，开始记录": {
     "en": "Double-press to record",
-    "ja": "ダブルプレスで録音開始"
+    "ja": "ダブルプレスで録音開始",
+    "zh-Hant": "雙擊戒指，開始記錄"
   },
   "不止健康，": {
     "en": "Beyond health.",
-    "ja": "健康管理の、その先へ。"
+    "ja": "健康管理の、その先へ。",
+    "zh-Hant": "不止健康，"
   },
   "下一代智能戒指": {
     "en": "Next-generation smart ring",
-    "ja": "次世代スマートリング"
+    "ja": "次世代スマートリング",
+    "zh-Hant": "下一代智能戒指"
   },
   "乎零 AI 语音健康戒指": {
     "en": "HULING AI Voice & Health Ring",
-    "ja": "HULING AI音声・ヘルスケアリング"
+    "ja": "HULING AI音声・ヘルスケアリング",
+    "zh-Hant": "乎零 AI 語音健康戒指"
   },
   "心里纷扰少，身体才更好": {
     "en": "A clearer mind. A healthier you.",
-    "ja": "心が整うと、からだも整う。"
+    "ja": "心が整うと、からだも整う。",
+    "zh-Hant": "心裡紛擾少，身體才更好"
   },
   "向下探索": {
     "en": "Explore",
-    "ja": "詳しく見る"
+    "ja": "詳しく見る",
+    "zh-Hant": "向下探索"
   },
   "一枚戒指，连接你的想法与身体。": {
     "en": "One ring. Your thoughts and your body.",
-    "ja": "思考とからだをつなぐ、ひとつのリング。"
+    "ja": "思考とからだをつなぐ、ひとつのリング。",
+    "zh-Hant": "一枚戒指，連接你的想法與身體。"
   },
   "心率": {
     "en": "Heart rate",
-    "ja": "心拍数"
+    "ja": "心拍数",
+    "zh-Hant": "心率"
   },
   "睡眠时长": {
     "en": "Sleep duration",
-    "ja": "睡眠時間"
+    "ja": "睡眠時間",
+    "zh-Hant": "睡眠時長"
   },
   "步数": {
     "en": "Steps",
-    "ja": "歩数"
+    "ja": "歩数",
+    "zh-Hant": "步數"
   },
   "体温": {
     "en": "Temperature",
-    "ja": "体温"
+    "ja": "体温",
+    "zh-Hant": "體溫"
   },
   "恢复": {
     "en": "Recovery",
-    "ja": "回復"
+    "ja": "回復",
+    "zh-Hant": "恢復"
   },
   "血氧": {
     "en": "Blood oxygen",
-    "ja": "血中酸素"
+    "ja": "血中酸素",
+    "zh-Hant": "血氧"
   },
   "深睡": {
     "en": "Deep sleep",
-    "ja": "深い睡眠"
+    "ja": "深い睡眠",
+    "zh-Hant": "深睡"
   },
   "活动量": {
     "en": "Activity",
-    "ja": "活動量"
+    "ja": "活動量",
+    "zh-Hant": "活動量"
   },
   "静息心率": {
     "en": "Resting heart rate",
-    "ja": "安静時心拍数"
+    "ja": "安静時心拍数",
+    "zh-Hant": "靜息心率"
   },
   "睡眠评分": {
     "en": "Sleep score",
-    "ja": "睡眠スコア"
+    "ja": "睡眠スコア",
+    "zh-Hant": "睡眠評分"
   },
   "运动强度": {
     "en": "Workout intensity",
-    "ja": "運動強度"
+    "ja": "運動強度",
+    "zh-Hant": "運動強度"
   },
   "浅睡": {
     "en": "Light sleep",
-    "ja": "浅い睡眠"
+    "ja": "浅い睡眠",
+    "zh-Hant": "淺睡"
   },
   "清醒次数": {
     "en": "Awakenings",
-    "ja": "覚醒回数"
+    "ja": "覚醒回数",
+    "zh-Hant": "清醒次數"
   },
   "呼吸频率": {
     "en": "Breathing rate",
-    "ja": "呼吸数"
+    "ja": "呼吸数",
+    "zh-Hant": "呼吸頻率"
   },
   "卡路里": {
     "en": "Calories",
-    "ja": "カロリー"
+    "ja": "カロリー",
+    "zh-Hant": "卡路里"
   },
   "从监测，到掌控": {
     "en": "From tracking to control",
-    "ja": "記録から、自分を知ることへ"
+    "ja": "記録から、自分を知ることへ",
+    "zh-Hant": "從監測，到掌控"
   },
   "指标越来越多，": {
     "en": "More metrics.",
-    "ja": "増えていく指標。"
+    "ja": "増えていく指標。",
+    "zh-Hant": "指標越來越多，"
   },
   "焦虑越来越多": {
     "en": "More worries",
-    "ja": "増えていく不安"
+    "ja": "増えていく不安",
+    "zh-Hant": "焦慮越來越多"
   },
   "我们想让智能戒指往前走一步。": {
     "en": "A smart ring should do more.",
-    "ja": "スマートリングを、もう一歩先へ。"
+    "ja": "スマートリングを、もう一歩先へ。",
+    "zh-Hant": "我們想讓智能戒指往前走一步。"
   },
   "让身体状态有意义，让脑海里的事有着落。": {
     "en": "Understand your body. Put your thoughts into action.",
-    "ja": "からだの状態を理解し、頭の中のことを形に。"
+    "ja": "からだの状態を理解し、頭の中のことを形に。",
+    "zh-Hant": "讓身體狀態有意義，讓腦海裡的事有著落。"
   },
   "01 / 掌控想法": {
     "en": "01 / Own your thoughts",
-    "ja": "01 / 思考を、自分の手に"
+    "ja": "01 / 思考を、自分の手に",
+    "zh-Hant": "01 / 掌控想法"
   },
   "闪念不忘，": {
     "en": "Capture ideas.",
-    "ja": "ひらめきを、忘れない。"
+    "ja": "ひらめきを、忘れない。",
+    "zh-Hant": "閃念不忘，"
   },
   "让大脑用来思考": {
     "en": "Make room to think",
-    "ja": "考えるために、頭を空ける"
+    "ja": "考えるために、頭を空ける",
+    "zh-Hant": "讓大腦用來思考"
   },
   "双击，轻震，白灯亮起。": {
     "en": "Double-press. Feel the vibration. See the white light.",
-    "ja": "ダブルプレス。軽い振動。白い光。"
+    "ja": "ダブルプレス。軽い振動。白い光。",
+    "zh-Hant": "雙擊，輕震，白燈亮起。"
   },
   "开口，把事情交给乎零。": {
     "en": "Just speak. HULING takes it from here.",
-    "ja": "話したら、あとはHULINGに。"
+    "ja": "話したら、あとはHULINGに。",
+    "zh-Hant": "開口，把事情交給乎零。"
   },
   "录音内容自动整理成笔记、待办和日程，": {
     "en": "Recordings become notes, to-dos and calendar entries.",
-    "ja": "録音をノート、タスク、予定に自動整理。"
+    "ja": "録音をノート、タスク、予定に自動整理。",
+    "zh-Hant": "錄音內容自動整理成筆記、待辦和日程，"
   },
   "未来还有无限可能": {
     "en": "And this is just the beginning.",
-    "ja": "その先の可能性も、これから。"
+    "ja": "その先の可能性も、これから。",
+    "zh-Hant": "未來還有無限可能"
   },
   "02 / 掌控身体": {
     "en": "02 / Understand your body",
-    "ja": "02 / からだを、自分の手に"
+    "ja": "02 / からだを、自分の手に",
+    "zh-Hant": "02 / 掌控身體"
   },
   "身体和心理，": {
     "en": "Body and mind.",
-    "ja": "からだも、こころも。"
+    "ja": "からだも、こころも。",
+    "zh-Hant": "身體和心理，"
   },
   "都值得被读懂": {
     "en": "Both worth understanding",
-    "ja": "どちらも、もっと理解したい"
+    "ja": "どちらも、もっと理解したい",
+    "zh-Hant": "都值得被讀懂"
   },
   "不仅了解身体指标，更了解你的所思所想，帮你更好地优化身心状态。": {
     "en": "Understand your body and thoughts. Find a better balance.",
-    "ja": "からだの指標だけでなく、あなたの思いや考えも。心身の状態をよりよく整えるために。"
+    "ja": "からだの指標だけでなく、あなたの思いや考えも。心身の状態をよりよく整えるために。",
+    "zh-Hant": "不僅了解身體指標，更了解你的所思所想，幫你更好地優化身心狀態。"
   },
   "从睡眠、活动与身体状态出发，": {
     "en": "Sleep, activity and daily wellbeing.",
-    "ja": "睡眠、活動、からだの状態から、"
+    "ja": "睡眠、活動、からだの状態から、",
+    "zh-Hant": "從睡眠、活動與身體狀態出發，"
   },
   "把分散的数据，变成了解自己的线索。": {
     "en": "Turn data into insight.",
-    "ja": "点在するデータを、自分を知る手がかりに。"
+    "ja": "点在するデータを、自分を知る手がかりに。",
+    "zh-Hant": "把分散的資料，變成了解自己的線索。"
   },
   "先看到理解，需要时再展开数据。": {
     "en": "Insights first. Details when you need them.",
-    "ja": "まずは理解を。詳しい数値は、必要なときに。"
+    "ja": "まずは理解を。詳しい数値は、必要なときに。",
+    "zh-Hant": "先看到理解，需要時再展開資料。"
   },
   "搭载 Apollo 3 主控芯片": {
     "en": "Powered by Apollo 3",
-    "ja": "Apollo 3チップを搭載"
+    "ja": "Apollo 3チップを搭載",
+    "zh-Hant": "搭載 Apollo 3 主控芯片"
   },
   "搭配高精度 PPG 传感器、体温传感器和加速度传感器，实现心率、血氧、睡眠和运动的全面监测。": {
     "en": "High-precision PPG, a temperature sensor and an accelerometer track heart rate, blood oxygen, sleep and activity.",
-    "ja": "高精度PPGセンサー、温度センサー、加速度センサーを組み合わせ、心拍数、血中酸素、睡眠、運動を幅広く記録します。"
+    "ja": "高精度PPGセンサー、温度センサー、加速度センサーを組み合わせ、心拍数、血中酸素、睡眠、運動を幅広く記録します。",
+    "zh-Hant": "搭配高精度 PPG 傳感器、體溫傳感器和加速度傳感器，實現心率、血氧、睡眠和運動的全面監測。"
   },
   "03 / 小小一枚，始终在手边": {
     "en": "03 / Always within reach",
-    "ja": "03 / 小さなリングを、いつもそばに"
+    "ja": "03 / 小さなリングを、いつもそばに",
+    "zh-Hant": "03 / 小小一枚，始終在手邊"
   },
   "洗手不用摘": {
     "en": "Wash your hands. Keep it on.",
-    "ja": "手洗いのたびに、外さなくていい"
+    "ja": "手洗いのたびに、外さなくていい",
+    "zh-Hant": "洗手不用摘"
   },
   "IPX8 防水": {
     "en": "IPX8 water resistance",
-    "ja": "IPX8の防水性能"
+    "ja": "IPX8の防水性能",
+    "zh-Hant": "IPX8 防水"
   },
   "支持 IPX8 防水，日常使用完全不用担心": {
     "en": "IPX8 water resistance. Everyday confidence.",
-    "ja": "IPX8の防水性能で、日常をもっと気軽に"
+    "ja": "IPX8の防水性能で、日常をもっと気軽に",
+    "zh-Hant": "支援 IPX8 防水，日常使用完全不用擔心"
   },
   "经过华测专业检验，达到 IPX8 水平。": {
     "en": "Tested by CTI to meet IPX8 requirements.",
-    "ja": "CTIによる専門試験で、IPX8水準を確認しています。"
+    "ja": "CTIによる専門試験で、IPX8水準を確認しています。",
+    "zh-Hant": "經過華測專業檢驗，達到 IPX8 水平。"
   },
   "04 / 小小一枚，始终在手边": {
     "en": "04 / Always within reach",
-    "ja": "04 / 小さなリングを、いつもそばに"
+    "ja": "04 / 小さなリングを、いつもそばに",
+    "zh-Hant": "04 / 小小一枚，始終在手邊"
   },
   "超轻无感佩戴": {
     "en": "Light enough to forget",
-    "ja": "軽さを、自然なつけ心地に"
+    "ja": "軽さを、自然なつけ心地に",
+    "zh-Hant": "超輕無感佩戴"
   },
   "最小圈号重量仅 4.6 克，比一张 A4 纸还轻": {
     "en": "4.6 g in the smallest size. Lighter than an A4 sheet",
-    "ja": "最小サイズでわずか4.6g。A4用紙1枚より軽く"
+    "ja": "最小サイズでわずか4.6g。A4用紙1枚より軽く",
+    "zh-Hant": "最小圈號重量僅 4.6 克，比一張 A4 紙還輕"
   },
   "306 不锈钢材质，不怕刮，不怕划": {
     "en": "306 stainless steel. Resists scratches.",
-    "ja": "306ステンレススチールで、毎日をともに"
+    "ja": "306ステンレススチールで、毎日をともに",
+    "zh-Hant": "306 不鏽鋼材質，不怕刮，不怕划"
   },
   "最小 6 号圈号重量 4.6 克，80 g/m² A4 纸重量约 5 克。": {
     "en": "Size 6: 4.6 g. One sheet of 80 g/m² A4 paper: about 5 g.",
-    "ja": "最小の6号サイズは4.6g。80g/m²のA4用紙1枚は約5gです。"
+    "ja": "最小の6号サイズは4.6g。80g/m²のA4用紙1枚は約5gです。",
+    "zh-Hant": "最小 6 號圈號重量 4.6 克，80 g/m² A4 紙重量約 5 克。"
   },
   "R01 / 能力一览": {
     "en": "R01 / At a glance",
-    "ja": "R01 / 機能一覧"
+    "ja": "R01 / 機能一覧",
+    "zh-Hant": "R01 / 能力一覽"
   },
   "健康与记录，": {
     "en": "Health and voice.",
-    "ja": "健康管理も、音声記録も。"
+    "ja": "健康管理も、音声記録も。",
+    "zh-Hant": "健康與記錄，"
   },
   "都在乎零。": {
     "en": "One HULING ring.",
-    "ja": "ひとつのHULINGに。"
+    "ja": "ひとつのHULINGに。",
+    "zh-Hant": "都在乎零。"
   },
   "乎零 R01 与健康戒指、录音戒指的功能及规格对比": {
     "en": "HULING R01 compared with a health ring and a recording ring",
-    "ja": "HULING R01、健康管理リング、録音リングの機能・仕様比較"
+    "ja": "HULING R01、健康管理リング、録音リングの機能・仕様比較",
+    "zh-Hant": "乎零 R01 與健康戒指、錄音戒指的功能及規格對比"
   },
   "对比项目": {
     "en": "Feature",
-    "ja": "比較項目"
+    "ja": "比較項目",
+    "zh-Hant": "對比項目"
   },
   "乎零 R01": {
     "en": "HULING R01",
-    "ja": "HULING R01"
+    "ja": "HULING R01",
+    "zh-Hant": "乎零 R01"
   },
   "健康 + 记录": {
     "en": "Health + Voice",
-    "ja": "健康管理 + 音声記録"
+    "ja": "健康管理 + 音声記録",
+    "zh-Hant": "健康 + 記錄"
   },
   "健康戒指": {
     "en": "Health ring",
-    "ja": "健康管理リング"
+    "ja": "健康管理リング",
+    "zh-Hant": "健康戒指"
   },
   "录音戒指": {
     "en": "Recording ring",
-    "ja": "録音リング"
+    "ja": "録音リング",
+    "zh-Hant": "錄音戒指"
   },
   "录音能力": {
     "en": "Recording",
-    "ja": "録音機能"
+    "ja": "録音機能",
+    "zh-Hant": "錄音能力"
   },
   "语音录音": {
     "en": "Voice recording",
-    "ja": "音声録音"
+    "ja": "音声録音",
+    "zh-Hant": "語音錄音"
   },
   "健康监测": {
     "en": "Health tracking",
-    "ja": "健康モニタリング"
+    "ja": "健康モニタリング",
+    "zh-Hant": "健康監測"
   },
   "心率监测": {
     "en": "Heart rate",
-    "ja": "心拍数"
+    "ja": "心拍数",
+    "zh-Hant": "心率監測"
   },
   "血氧监测": {
     "en": "Blood oxygen",
-    "ja": "血中酸素"
+    "ja": "血中酸素",
+    "zh-Hant": "血氧監測"
   },
   "睡眠监测": {
     "en": "Sleep",
-    "ja": "睡眠"
+    "ja": "睡眠",
+    "zh-Hant": "睡眠監測"
   },
   "运动监测": {
     "en": "Activity",
-    "ja": "運動"
+    "ja": "運動",
+    "zh-Hant": "運動監測"
   },
   "软件能力": {
     "en": "Software",
-    "ja": "ソフトウェア機能"
+    "ja": "ソフトウェア機能",
+    "zh-Hant": "軟體能力"
   },
   "录音转写": {
     "en": "Transcription",
-    "ja": "文字起こし"
+    "ja": "文字起こし",
+    "zh-Hant": "錄音轉寫"
   },
   "自动摘要": {
     "en": "AI summaries",
-    "ja": "自動要約"
+    "ja": "自動要約",
+    "zh-Hant": "自動摘要"
   },
   "区分说话人": {
     "en": "Speaker labels",
-    "ja": "話者の識別"
+    "ja": "話者の識別",
+    "zh-Hant": "區分說話者"
   },
   "提取行动项": {
     "en": "Action items",
-    "ja": "タスクの抽出"
+    "ja": "タスクの抽出",
+    "zh-Hant": "提取行動項"
   },
   "提取日历／日程": {
     "en": "Calendar entries",
-    "ja": "予定の抽出"
+    "ja": "予定の抽出",
+    "zh-Hant": "提取行事曆／日程"
   },
   "佩戴与硬件": {
     "en": "Everyday wear",
-    "ja": "装着・ハードウェア"
+    "ja": "装着・ハードウェア",
+    "zh-Hant": "佩戴與硬件"
   },
   "续航": {
     "en": "Battery life",
-    "ja": "バッテリー"
+    "ja": "バッテリー",
+    "zh-Hant": "續航"
   },
   "6～7 天": {
     "en": "6–7 days",
-    "ja": "6～7日"
+    "ja": "6～7日",
+    "zh-Hant": "6～7 天"
   },
   "6～9 天": {
     "en": "6–9 days",
-    "ja": "6～9日"
+    "ja": "6～9日",
+    "zh-Hant": "6～9 天"
   },
   "约 2 天": {
     "en": "About 2 days",
-    "ja": "約2日"
+    "ja": "約2日",
+    "zh-Hant": "約 2 天"
   },
   "常规使用": {
     "en": "Regular use",
-    "ja": "通常使用時"
+    "ja": "通常使用時",
+    "zh-Hant": "常規使用"
   },
   "材质": {
     "en": "Material",
-    "ja": "素材"
+    "ja": "素材",
+    "zh-Hant": "材質"
   },
   "306 不锈钢": {
     "en": "306 stainless steel",
-    "ja": "306ステンレス"
+    "ja": "306ステンレス",
+    "zh-Hant": "306 不鏽鋼"
   },
   "钛金属": {
     "en": "Titanium",
-    "ja": "チタン"
+    "ja": "チタン",
+    "zh-Hant": "鈦金屬"
   },
   "内外圈": {
     "en": "Inner & outer",
-    "ja": "内側・外側"
+    "ja": "内側・外側",
+    "zh-Hant": "內外圈"
   },
   "防水": {
     "en": "Water resistance",
-    "ja": "防水性能"
+    "ja": "防水性能",
+    "zh-Hant": "防水"
   },
   "✓ 支持　✕ 不支持。对比以所选参考产品为准，不代表同类产品的全部能力。": {
     "en": "✓ Supported　✕ Not supported. Based on selected products, not entire categories.",
-    "ja": "✓ 対応　✕ 非対応。特定の参考製品との比較であり、各カテゴリーのすべての製品を示すものではありません。"
+    "ja": "✓ 対応　✕ 非対応。特定の参考製品との比較であり、各カテゴリーのすべての製品を示すものではありません。",
+    "zh-Hant": "✓ 支援　✕ 不支援。對比以所選參考產品為準，不代表同類產品的全部能力。"
   },
   "续航受使用方式与功能设置影响；录音戒指为常规使用约 2 天，连续录音最长 8 小时。不同防水标识的测试条件不同。": {
     "en": "Battery life varies with use and settings. Recording ring: about 2 days of regular use or up to 8 hours of continuous recording. Water-resistance test conditions differ.",
-    "ja": "バッテリー持続時間は使用方法や設定によって異なります。録音リングは通常使用で約2日、連続録音は最大8時間です。防水等級によって試験条件は異なります。"
+    "ja": "バッテリー持続時間は使用方法や設定によって異なります。録音リングは通常使用で約2日、連続録音は最大8時間です。防水等級によって試験条件は異なります。",
+    "zh-Hant": "續航受使用方式與功能設置影響；錄音戒指為常規使用約 2 天，連續錄音最長 8 小時。不同防水標識的測試條件不同。"
   },
   "参考资料：": {
     "en": "Sources:",
-    "ja": "参考資料："
+    "ja": "参考資料：",
+    "zh-Hant": "參考資料："
   },
   "健康戒指官方规格 ↗": {
     "en": "Health ring specs ↗",
-    "ja": "健康管理リングの公式仕様 ↗"
+    "ja": "健康管理リングの公式仕様 ↗",
+    "zh-Hant": "健康戒指官方規格 ↗"
   },
   "录音戒指官方规格 ↗": {
     "en": "Recording ring specs ↗",
-    "ja": "録音リングの公式仕様 ↗"
+    "ja": "録音リングの公式仕様 ↗",
+    "zh-Hant": "錄音戒指官方規格 ↗"
   },
   "05 / 两色可选": {
     "en": "05 / Two finishes",
-    "ja": "05 / 2つのカラー"
+    "ja": "05 / 2つのカラー",
+    "zh-Hant": "05 / 兩色可選"
   },
   "选一种，": {
     "en": "Find your finish.",
-    "ja": "あなたらしい色を、"
+    "ja": "あなたらしい色を、",
+    "zh-Hant": "選一種，"
   },
   "属于你的颜色。": {
     "en": "Make it yours.",
-    "ja": "選んでください。"
+    "ja": "選んでください。",
+    "zh-Hant": "屬於你的顏色。"
   },
   "雾银": {
     "en": "Mist Silver",
-    "ja": "ミストシルバー"
+    "ja": "ミストシルバー",
+    "zh-Hant": "霧銀"
   },
   "影黑": {
     "en": "Shadow Black",
-    "ja": "シャドーブラック"
+    "ja": "シャドーブラック",
+    "zh-Hant": "影黑"
   },
   "按键与麦克风": {
     "en": "Button & microphone",
-    "ja": "ボタン・マイク"
+    "ja": "ボタン・マイク",
+    "zh-Hant": "按鍵與麥克風"
   },
   "内圈传感器": {
     "en": "Inner sensors",
-    "ja": "内側のセンサー"
+    "ja": "内側のセンサー",
+    "zh-Hant": "內圈傳感器"
   },
   "侧面": {
     "en": "Side view",
-    "ja": "側面"
+    "ja": "側面",
+    "zh-Hant": "側面"
   },
   "复位": {
     "en": "Reset",
-    "ja": "リセット"
+    "ja": "リセット",
+    "zh-Hant": "復位"
   },
   "缩放": {
     "en": "Zoom",
-    "ja": "ズーム"
+    "ja": "ズーム",
+    "zh-Hant": "縮放"
   },
   "拖动旋转 · 滚轮或双指缩放": {
     "en": "Drag to rotate · Scroll or pinch to zoom",
-    "ja": "ドラッグで回転・スクロールやピンチで拡大縮小"
+    "ja": "ドラッグで回転・スクロールやピンチで拡大縮小",
+    "zh-Hant": "拖動旋轉 · 滾輪或雙指縮放"
   },
   "当前展示 · 雾银": {
     "en": "Now showing · Mist Silver",
-    "ja": "表示中 · ミストシルバー"
+    "ja": "表示中 · ミストシルバー",
+    "zh-Hant": "當前展示 · 霧銀"
   },
   "掌控想法。": {
     "en": "Own your thoughts.",
-    "ja": "思考を、自分の手に。"
+    "ja": "思考を、自分の手に。",
+    "zh-Hant": "掌控想法。"
   },
   "掌控身体。": {
     "en": "Understand your body.",
-    "ja": "からだを、自分の手に。"
+    "ja": "からだを、自分の手に。",
+    "zh-Hant": "掌控身體。"
   },
   "把注意力，留给真正重要的事。": {
     "en": "Focus on what matters.",
-    "ja": "大切なことに、意識を向けよう。"
+    "ja": "大切なことに、意識を向けよう。",
+    "zh-Hant": "把注意力，留給真正重要的事。"
   },
   "重新探索 R01": {
     "en": "Rediscover R01",
-    "ja": "R01をもう一度見る"
+    "ja": "R01をもう一度見る",
+    "zh-Hant": "重新探索 R01"
   },
   "关于 R01": {
     "en": "About R01",
-    "ja": "R01について"
+    "ja": "R01について",
+    "zh-Hant": "關於 R01"
   },
   "再了解一点。": {
     "en": "Good to know.",
-    "ja": "もう少し、詳しく。"
+    "ja": "もう少し、詳しく。",
+    "zh-Hant": "再了解一點。"
   },
   "R01 和普通健康戒指、录音戒指有什么不同？": {
     "en": "What makes R01 different?",
-    "ja": "健康管理リングや録音リングと、R01はどう違いますか？"
+    "ja": "健康管理リングや録音リングと、R01はどう違いますか？",
+    "zh-Hant": "R01 和普通健康戒指、錄音戒指有什麼不同？"
   },
   "R01 将健康监测与语音记录放在同一枚戒指里。它既能记录心率、血氧、睡眠和运动，也能把说出的内容整理成笔记、待办和日程，帮助你掌控身体，也掌控想法。": {
     "en": "Health tracking and voice recording, together. Track heart rate, blood oxygen, sleep and activity. Turn recordings into notes, to-dos and calendar entries. One ring for your body and your thoughts.",
-    "ja": "R01は健康モニタリングと音声記録をひとつのリングにまとめています。心拍数、血中酸素、睡眠、運動を記録し、話した内容をノート、タスク、予定に整理。からだも思考も、自分で把握するために。"
+    "ja": "R01は健康モニタリングと音声記録をひとつのリングにまとめています。心拍数、血中酸素、睡眠、運動を記録し、話した内容をノート、タスク、予定に整理。からだも思考も、自分で把握するために。",
+    "zh-Hant": "R01 將健康監測與語音記錄放在同一枚戒指裡。它既能記錄心率、血氧、睡眠和運動，也能把說出的內容整理成筆記、待辦和日程，幫助你掌控身體，也掌控想法。"
   },
   "录音与 AI": {
     "en": "Recording & AI",
-    "ja": "録音とAI"
+    "ja": "録音とAI",
+    "zh-Hant": "錄音與 AI"
   },
   "怎样开始和结束录音？": {
     "en": "How do I start and stop recording?",
-    "ja": "録音の開始・終了方法を教えてください。"
+    "ja": "録音の開始・終了方法を教えてください。",
+    "zh-Hant": "怎樣開始和結束錄音？"
   },
   "双击戒指按键开始录音，戒指轻震、白色指示灯亮起；再次双击即可结束。录音不支持暂停或取消，传到手机后可以直接删除。": {
     "en": "Double-press the button to record. A gentle vibration and white light confirm the start. Double-press again to stop. Pause and cancel aren't supported. Delete recordings after transferring them to your phone.",
-    "ja": "ボタンをダブルプレスすると録音が始まり、軽い振動と白い光でお知らせします。もう一度ダブルプレスすると終了します。一時停止やキャンセルには対応していません。スマートフォンに転送した録音は削除できます。"
+    "ja": "ボタンをダブルプレスすると録音が始まり、軽い振動と白い光でお知らせします。もう一度ダブルプレスすると終了します。一時停止やキャンセルには対応していません。スマートフォンに転送した録音は削除できます。",
+    "zh-Hant": "雙擊戒指按鍵開始錄音，戒指輕震、白色指示燈亮起；再次雙擊即可結束。錄音不支援暫停或取消，傳到手機後可以直接刪除。"
   },
   "不带手机、没有网络，还能录音吗？": {
     "en": "Can I record without a phone or internet?",
-    "ja": "スマートフォンやネット接続がなくても録音できますか？"
+    "ja": "スマートフォンやネット接続がなくても録音できますか？",
+    "zh-Hant": "不帶手機、沒有網路，還能錄音嗎？"
   },
   "可以。R01 支持独立录音，戒指内可暂存最长 2 小时的录音，之后再传到手机。AI 转写和摘要需要联网处理。": {
     "en": "Yes. The ring stores up to 2 hours of audio for later transfer to your phone. AI transcription and summaries need internet access.",
-    "ja": "はい。R01単体で録音でき、リングに最大2時間分の音声を一時保存して、後からスマートフォンに転送できます。AI文字起こしと要約にはインターネット接続が必要です。"
+    "ja": "はい。R01単体で録音でき、リングに最大2時間分の音声を一時保存して、後からスマートフォンに転送できます。AI文字起こしと要約にはインターネット接続が必要です。",
+    "zh-Hant": "可以。R01 支援獨立錄音，戒指內可暫存最長 2 小時的錄音，之後再傳到手機。AI 轉寫和摘要需要聯網處理。"
   },
   "能录多远？户外可以使用吗？": {
     "en": "Can I record outdoors? From how far?",
-    "ja": "どのくらい離れて録音できますか？屋外でも使えますか？"
+    "ja": "どのくらい離れて録音できますか？屋外でも使えますか？",
+    "zh-Hant": "能錄多遠？戶外可以使用嗎？"
   },
   "支持 1～5 米距离的录音，户外场景也可使用。超过 5 米不在支持范围内。": {
     "en": "Works at 1–5 meters, outdoors too. Beyond 5 meters isn't supported.",
-    "ja": "屋外を含め、1～5mの距離での録音に対応しています。5mを超える距離はサポート対象外です。"
+    "ja": "屋外を含め、1～5mの距離での録音に対応しています。5mを超える距離はサポート対象外です。",
+    "zh-Hant": "支援 1～5 米距離的錄音，戶外場景也可使用。超過 5 米不在支援範圍內。"
   },
   "支持哪些语言？": {
     "en": "Which languages are supported?",
-    "ja": "文字起こしはどの言語に対応していますか？"
+    "ja": "文字起こしはどの言語に対応していますか？",
+    "zh-Hant": "支援哪些語言？"
   },
   "支持中文普通话、方言、英语以及中英混说。": {
     "en": "Mandarin, Chinese dialects, English and mixed Chinese–English speech.",
-    "ja": "中国語の標準語・方言、英語、中国語と英語が混在した会話に対応しています。"
+    "ja": "中国語の標準語・方言、英語、中国語と英語が混在した会話に対応しています。",
+    "zh-Hant": "支援中文普通話、方言、英語以及中英混說。"
   },
   "录音后能整理什么？待办和日程可以修改吗？": {
     "en": "What does AI create? Can I edit it?",
-    "ja": "録音から何を整理できますか？タスクや予定は編集できますか？"
+    "ja": "録音から何を整理できますか？タスクや予定は編集できますか？",
+    "zh-Hant": "錄音後能整理什麼？待辦和日程可以修改嗎？"
   },
   "支持录音转写、自动摘要、区分说话人，并提取行动项和日历／日程信息。生成的待办和日程可以修改，也支持提醒和同步。": {
     "en": "Transcripts, summaries, speaker labels, action items and calendar entries. To-dos and calendar entries support editing, reminders and sync.",
-    "ja": "文字起こし、自動要約、話者の識別、タスクや予定の抽出に対応しています。作成されたタスクや予定は編集でき、リマインダーや同期も利用できます。"
+    "ja": "文字起こし、自動要約、話者の識別、タスクや予定の抽出に対応しています。作成されたタスクや予定は編集でき、リマインダーや同期も利用できます。",
+    "zh-Hant": "支援錄音轉寫、自動摘要、區分說話者，並提取行動項和行事曆／日程資訊。生成的待辦和日程可以修改，也支援提醒和同步。"
   },
   "每月有多少转写时长？超出后还能录音吗？": {
     "en": "How much transcription is included?",
-    "ja": "毎月何分まで文字起こしできますか？上限を超えた場合は？"
+    "ja": "毎月何分まで文字起こしできますか？上限を超えた場合は？",
+    "zh-Hant": "每月有多少轉寫時長？超出後還能錄音嗎？"
   },
   "基础订阅每月包含 300 分钟录音转写。额度用完后，录音仍可正常传到手机并保存，目前暂不支持转写超出额度的部分。": {
     "en": "The basic subscription includes 300 transcription minutes a month. After that, you can still save recordings to your phone, but extra minutes cannot currently be transcribed.",
-    "ja": "基本サブスクリプションには毎月300分の文字起こしが含まれます。上限に達した後も録音をスマートフォンに転送・保存できますが、現在、上限を超えた分の文字起こしには対応していません。"
+    "ja": "基本サブスクリプションには毎月300分の文字起こしが含まれます。上限に達した後も録音をスマートフォンに転送・保存できますが、現在、上限を超えた分の文字起こしには対応していません。",
+    "zh-Hant": "基礎訂閱每月包含 300 分鐘錄音轉寫。額度用完後，錄音仍可正常傳到手機並保存，目前暫不支援轉寫超出額度的部分。"
   },
   "隐私与兼容": {
     "en": "Privacy & compatibility",
-    "ja": "プライバシーと対応環境"
+    "ja": "プライバシーと対応環境",
+    "zh-Hant": "隱私與相容"
   },
   "录音和健康数据会保存在云端吗？": {
     "en": "Does my data stay in the cloud?",
-    "ja": "録音や健康データはクラウドに保存されますか？"
+    "ja": "録音や健康データはクラウドに保存されますか？",
+    "zh-Hant": "錄音和健康資料會保存在雲端嗎？"
   },
   "录音与健康数据保存在你的手机本地，可以自行删除。AI 转写和摘要需要云端临时读取音频进行处理，但云端不会存储用户的音频数据，也不保留处理结果。数据在传输和存储时均采用加密保护。": {
     "en": "Recordings and health data stay on your phone and can be deleted. The cloud temporarily reads audio for transcription and summaries, but stores neither audio nor results. Data is encrypted in transit and at rest.",
-    "ja": "録音と健康データはスマートフォン内に保存され、ご自身で削除できます。AI文字起こしと要約ではクラウドが音声を一時的に処理しますが、音声データや処理結果をクラウドに保存することはありません。データは転送時・保存時に暗号化されます。"
+    "ja": "録音と健康データはスマートフォン内に保存され、ご自身で削除できます。AI文字起こしと要約ではクラウドが音声を一時的に処理しますが、音声データや処理結果をクラウドに保存することはありません。データは転送時・保存時に暗号化されます。",
+    "zh-Hant": "錄音與健康資料保存在你的手機本地，可以自行刪除。AI 轉寫和摘要需要雲端臨時讀取音訊進行處理，但雲端不會儲存使用者的音訊資料，也不保留處理結果。資料在傳輸和儲存時均採用加密保護。"
   },
   "支持哪些手机？": {
     "en": "Which phones work with R01?",
-    "ja": "どのスマートフォンに対応していますか？"
+    "ja": "どのスマートフォンに対応していますか？",
+    "zh-Hant": "支援哪些手機？"
   },
   "初期支持 iOS，安卓版本计划于 2027 年 1 月支持。": {
     "en": "iOS at launch. Android planned for January 2027.",
-    "ja": "初期はiOSに対応します。Android版は2027年1月に対応予定です。"
+    "ja": "初期はiOSに対応します。Android版は2027年1月に対応予定です。",
+    "zh-Hant": "初期支援 iOS，Android 版本計劃於 2027 年 1 月支援。"
   },
   "佩戴与使用": {
     "en": "Fit & daily use",
-    "ja": "装着と日常の使い方"
+    "ja": "装着と日常の使い方",
+    "zh-Hant": "佩戴與使用"
   },
   "怎样选择合适的尺码？": {
     "en": "How do I find my size?",
-    "ja": "サイズはどのように選びますか？"
+    "ja": "サイズはどのように選びますか？",
+    "zh-Hant": "怎樣選擇合適的尺碼？"
   },
   "我们会先寄出一套纸模。你可以根据纸模选择合适的尺寸，再将具体圈号告知我们。": {
     "en": "We'll send a paper sizing kit first. Find your fit, then tell us your ring size.",
-    "ja": "まず紙製のサイズ確認キットをお送りします。キットで合うサイズを確認し、リングの号数をお知らせください。"
+    "ja": "まず紙製のサイズ確認キットをお送りします。キットで合うサイズを確認し、リングの号数をお知らせください。",
+    "zh-Hant": "我們會先寄出一套紙模。你可以根據紙模選擇合適的尺寸，再將具體圈號告知我們。"
   },
   "可以监测什么？健康数据能用于诊断吗？": {
     "en": "What does it track? Is it for diagnosis?",
-    "ja": "何を測定できますか？データを診断に使えますか？"
+    "ja": "何を測定できますか？データを診断に使えますか？",
+    "zh-Hant": "可以監測什麼？健康資料能用於診斷嗎？"
   },
   "R01 支持心率、血氧、睡眠和运动监测，帮助你了解日常身体状态。健康数据用于日常状态参考，不可用于医学诊断。": {
     "en": "Heart rate, blood oxygen, sleep and activity—for everyday insight, not medical diagnosis.",
-    "ja": "R01は心拍数、血中酸素、睡眠、運動を記録し、日々のからだの状態を知るお手伝いをします。健康データは日常の参考情報であり、医学的な診断には使用できません。"
+    "ja": "R01は心拍数、血中酸素、睡眠、運動を記録し、日々のからだの状態を知るお手伝いをします。健康データは日常の参考情報であり、医学的な診断には使用できません。",
+    "zh-Hant": "R01 支援心率、血氧、睡眠和運動監測，幫助你了解日常身體狀態。健康資料用於日常狀態參考，不可用於醫學診斷。"
   },
   "洗手、洗澡和游泳时能戴吗？": {
     "en": "Can I wash my hands or swim with it?",
-    "ja": "手洗い、シャワー、水泳のときも着けられますか？"
+    "ja": "手洗い、シャワー、水泳のときも着けられますか？",
+    "zh-Hant": "洗手、洗澡和游泳時能戴嗎？"
   },
   "日常洗手和冷水游泳可以佩戴；不建议在洗澡或热水游泳时佩戴。R01 经过华测专业检验，达到 IPX8 防水水平。": {
     "en": "Handwashing and cold-water swimming are fine. Showers and hot-water swimming are not recommended. Tested by CTI to meet IPX8 requirements.",
-    "ja": "手洗いと冷水での水泳時は装着できます。シャワーや温水での水泳時の装着はおすすめしません。R01はCTIによる専門試験でIPX8水準を確認しています。"
+    "ja": "手洗いと冷水での水泳時は装着できます。シャワーや温水での水泳時の装着はおすすめしません。R01はCTIによる専門試験でIPX8水準を確認しています。",
+    "zh-Hant": "日常洗手和冷水游泳可以佩戴；不建議在洗澡或熱水游泳時佩戴。R01 經過華測專業檢驗，達到 IPX8 防水水平。"
   },
   "怎样充电？充满后能用多久？": {
     "en": "How do I charge it? How long does it last?",
-    "ja": "充電方法とバッテリー持続時間を教えてください。"
+    "ja": "充電方法とバッテリー持続時間を教えてください。",
+    "zh-Hant": "怎樣充電？充滿後能用多久？"
   },
   "通过充电盒充电，约 90 分钟可充满。充满后可使用约 7 天，实际续航会随使用情况变化。": {
     "en": "Use the charging case. A full charge takes about 90 minutes and lasts around 7 days, depending on use.",
-    "ja": "充電ケースで充電します。約90分で満充電になり、約7日間使用できます。実際の持続時間は使用状況によって異なります。"
+    "ja": "充電ケースで充電します。約90分で満充電になり、約7日間使用できます。実際の持続時間は使用状況によって異なります。",
+    "zh-Hant": "通過充電盒充電，約 90 分鐘可充滿。充滿後可使用約 7 天，實際續航會隨使用情況變化。"
   },
   "有哪些颜色、材质？佩戴重吗？": {
     "en": "What are the finishes, material and weight?",
-    "ja": "カラー、素材、重さを教えてください。"
+    "ja": "カラー、素材、重さを教えてください。",
+    "zh-Hant": "有哪些顏色、材質？佩戴重嗎？"
   },
   "提供雾银、影黑两种颜色，材质为 306 不锈钢。最小 6 号圈号重量约 4.6 克。": {
     "en": "Mist Silver or Shadow Black, in 306 stainless steel. Size 6, the smallest ring, weighs about 4.6 g.",
-    "ja": "カラーはミストシルバーとシャドーブラックの2色、素材は306ステンレススチールです。最小の6号サイズは約4.6gです。"
+    "ja": "カラーはミストシルバーとシャドーブラックの2色、素材は306ステンレススチールです。最小の6号サイズは約4.6gです。",
+    "zh-Hant": "提供霧銀、影黑兩種顏色，材質為 306 不鏽鋼。最小 6 號圈號重量約 4.6 克。"
   },
   "回到顶部 ↑": {
     "en": "Back to top ↑",
-    "ja": "ページ上部へ ↑"
+    "ja": "ページ上部へ ↑",
+    "zh-Hant": "回到頂部 ↑"
   },
   "了解乎零 R01": {
     "en": "Meet HULING R01",
-    "ja": "HULING R01を知る"
+    "ja": "HULING R01を知る",
+    "zh-Hant": "了解乎零 R01"
   },
   "语言版本": {
     "en": "Language",
-    "ja": "言語"
+    "ja": "言語",
+    "zh-Hant": "語言版本"
+  },
+  "01": {
+    "zh-Hant": "01"
+  },
+  "07": {
+    "zh-Hant": "07"
+  },
+  "1": {
+    "zh-Hant": "1"
+  },
+  "2": {
+    "zh-Hant": "2"
+  },
+  "English": {
+    "zh-Hant": "English"
+  },
+  "HRV": {
+    "zh-Hant": "HRV"
+  },
+  "HULING R01": {
+    "zh-Hant": "HULING R01"
+  },
+  "HULING R01 / PERSONAL AI RING": {
+    "zh-Hant": "HULING R01 / PERSONAL AI RING"
+  },
+  "IP67": {
+    "zh-Hant": "IP67"
+  },
+  "IP68": {
+    "zh-Hant": "IP68"
+  },
+  "IPX8": {
+    "zh-Hant": "IPX8"
+  },
+  "R01 两色交互模型，拖动或方向键旋转，Home 复位": {
+    "zh-Hant": "R01 兩色交互模型，拖動或方向鍵旋轉，Home 復位"
+  },
+  "SCROLL TO DISCOVER ↓": {
+    "zh-Hant": "SCROLL TO DISCOVER ↓"
+  },
+  "html": {
+    "zh-Hant": "html"
+  },
+  "product": {
+    "zh-Hant": "product"
+  },
+  "tech": {
+    "zh-Hant": "tech"
+  },
+  "width=device-width,initial-scale=1": {
+    "zh-Hant": "width=device-width,initial-scale=1"
+  },
+  "↑": {
+    "zh-Hant": "↑"
+  },
+  "↓": {
+    "zh-Hant": "↓"
+  },
+  "✓": {
+    "zh-Hant": "✓"
+  },
+  "✕": {
+    "zh-Hant": "✕"
+  },
+  "。": {
+    "zh-Hant": "。"
+  },
+  "下载入口即将开放": {
+    "zh-Hant": "下載入口即將開放"
+  },
+  "不支持": {
+    "zh-Hant": "不支援"
+  },
+  "主导航": {
+    "zh-Hant": "主導航"
+  },
+  "乎零 App 产品周会录音界面": {
+    "zh-Hant": "乎零 App 產品周會錄音界面"
+  },
+  "乎零 HULING": {
+    "zh-Hant": "乎零 HULING"
+  },
+  "乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身体。双击记录灵感与待办，理解身体状态。": {
+    "zh-Hant": "乎零 HULING R01。不止健康，下一代智能戒指。掌控想法，掌控身體。雙擊記錄靈感與待辦，理解身體狀態。"
+  },
+  "乎零首页": {
+    "zh-Hant": "乎零首頁"
+  },
+  "支持": {
+    "zh-Hant": "支援"
+  },
+  "日本語": {
+    "zh-Hant": "日本語"
+  },
+  "模型观察视角": {
+    "zh-Hant": "模型觀察視角"
+  },
+  "简体中文": {
+    "zh-Hant": "簡體中文"
+  },
+  "繁體中文": {
+    "zh-Hant": "繁體中文"
+  },
+  "选择戒指颜色": {
+    "zh-Hant": "選擇戒指顏色"
   }
 }

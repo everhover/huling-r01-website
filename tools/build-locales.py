@@ -1,4 +1,4 @@
-"""Build the English/Japanese pages from the canonical Chinese page and reviewed copy."""
+"""Build the English/Japanese/Traditional Chinese pages from the canonical Chinese page and reviewed copy."""
 from pathlib import Path
 import json,re
 from bs4 import BeautifulSoup
@@ -20,7 +20,7 @@ for lang,index in [('en',0),('ja',1)]:
  for node in list(soup.find_all(string=True)):
   if node.parent.name in ['script','style']:continue
   text=str(node);key=text.strip()
-  if key in copy:node.replace_with(text.replace(key,copy[key][lang]))
+  if key in copy and lang in copy[key]:node.replace_with(text.replace(key,copy[key][lang]))
  for el in soup.find_all(True):
   for attr in ['aria-label','alt','title','content']:
    value=el.get(attr)
@@ -35,3 +35,20 @@ for lang,index in [('en',0),('ja',1)]:
   option.attrs.pop('selected',None)
   if option['value']==lang:option['selected']=''
  (root/f'motion-b-{lang}.html').write_text(str(soup))
+
+# Traditional Chinese shares the canonical layout and reviewed product facts.
+soup=BeautifulSoup(source,'html.parser')
+soup.html['lang']='zh-Hant';soup.html['data-locale']='zh-Hant'
+for node in list(soup.find_all(string=True)):
+ if node.parent.name in ['script','style']:continue
+ text=str(node);key=text.strip()
+ if key in copy:node.replace_with(text.replace(key,copy[key]['zh-Hant']))
+for el in soup.find_all(True):
+ for attr in ['aria-label','alt','title','content']:
+  value=el.get(attr)
+  if value in copy:el[attr]=copy[value]['zh-Hant']
+menu=soup.select_one('#language-select')
+for option in menu.select('option'):
+ option.attrs.pop('selected',None)
+ if option['value']=='zh-Hant':option['selected']=''
+(root/'motion-b-zh-hant.html').write_text(str(soup))

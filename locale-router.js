@@ -1,8 +1,8 @@
 /* Country-only lookup for the requested language default. No IP is stored by this site. */
 (() => {
  'use strict';
- const valid=['zh','en','ja'];
- const pages={zh:'motion-b.html',en:'motion-b-en.html',ja:'motion-b-ja.html'};
+ const valid=['zh','zh-Hant','en','ja'];
+ const pages={zh:'motion-b.html','zh-Hant':'motion-b-zh-hant.html',en:'motion-b-en.html',ja:'motion-b-ja.html'};
  const current=document.documentElement.dataset.locale||'zh';
  const get=(store,key)=>{try{return store.getItem(key)}catch{return null}};
  const set=(store,key,value)=>{try{store.setItem(key,value)}catch{}};
@@ -20,7 +20,7 @@
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),1800);
  fetch('https://api.country.is/',{signal:controller.signal,credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store'})
   .then(response=>{if(!response.ok)throw new Error('Country lookup unavailable');return response.json()})
-  .then(({country})=>country==='CN'?'zh':country==='JP'?'ja':'en')
+  .then(({country})=>country==='CN'?'zh':['HK','MO','TW'].includes(country)?'zh-Hant':country==='JP'?'ja':'en')
   .catch(()=>'en')
   .then(lang=>{clearTimeout(timer);set(sessionStorage,'huling-region-language',lang);if(!selected)navigate(lang);});
 })();

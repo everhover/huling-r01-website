@@ -12,6 +12,7 @@
  const dark=variant==='b';
  const locale=document.documentElement.dataset.locale||'zh';
  const localeCopy={zh:{silver:'雾银',black:'影黑',show:'当前展示',chosen:'已选择',five:'≈ 5 克',light:'≈ 4.6 克'},en:{silver:'Mist Silver',black:'Shadow Black',show:'Now showing',chosen:'Selected',five:'≈ 5 g',light:'≈ 4.6 g'},ja:{silver:'ミストシルバー',black:'シャドーブラック',show:'表示中',chosen:'選択中',five:'約 5 g',light:'約 4.6 g'}};
+ localeCopy['zh-Hant']={silver:'霧銀',black:'影黑',show:'目前展示',chosen:'已選擇',five:'≈ 5 克',light:'≈ 4.6 克'};
  const ui=localeCopy[locale]||localeCopy.zh;
  const ink=dark?'#D8D5CF':'#595959';
  const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
@@ -249,7 +250,8 @@
   }
   const paperW=paperH*210/297,labelX=cx+(small?80:145);
   alpha*=visibility;
-  bg.save();bg.globalAlpha=alpha;
+  const paperAlpha=alpha*(reduced.matches?1:smooth((last.progress||0)/.20));
+  bg.save();bg.globalAlpha=paperAlpha;
   bg.shadowColor='#0005';bg.shadowBlur=18;bg.shadowOffsetY=8;
   const paper=bg.createLinearGradient(cx-paperW/2,top-paperH/2,cx+paperW/2,top+paperH/2);
   paper.addColorStop(0,'#FFFFFF');paper.addColorStop(.7,'#F5F4F0');paper.addColorStop(1,'#D8D5CF');
@@ -257,9 +259,9 @@
   bg.shadowColor='transparent';bg.strokeStyle='#D8D5CF';bg.lineWidth=.7;bg.strokeRect(cx-paperW/2,top-paperH/2,paperW,paperH);
   bg.fillStyle='#595959';bg.font=`${small?10:12}px -apple-system,"PingFang SC",sans-serif`;bg.textAlign='center';bg.fillText('A4',cx,top+4);
   bg.textAlign='left';bg.fillStyle='#D8D5CF';bg.font=`${small?20:28}px -apple-system,"PingFang SC",sans-serif`;
-  bg.fillText(ui.five,labelX,top+8);bg.fillText(ui.light,labelX,bottom+8);
+  bg.fillText(ui.five,labelX,top+8);bg.globalAlpha=alpha;bg.fillText(ui.light,labelX,bottom+8);
   bg.restore();
-  last.weightComparison={layout:'vertical',paperGrams:5,ringGrams:4.6,paperTop:top-paperH/2,paperBottom:top+paperH/2,alpha};
+  last.weightComparison={layout:'vertical',paperGrams:5,ringGrams:4.6,paperTop:top-paperH/2,paperBottom:top+paperH/2,paperAlpha,alpha};
   return newView(cx/W,bottom/H,ringD/((25.3/9.9)*Math.min(W,H)),3.55,-.95,3.05,alpha);
  }
  function balanceView(p,alpha=1) {
